@@ -61,6 +61,8 @@ dependencies {
 
     // Network
     implementation(libs.retrofit)
+    implementation(libs.retrofit.gson)
+    implementation(libs.okhttp.logging)
 
     // DI
     implementation(libs.hilt.android)
