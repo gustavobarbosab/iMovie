@@ -67,4 +67,8 @@ dependencies {
     // DI
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
+
+    // Images
+    implementation(libs.coil)
+    implementation(libs.coil.network)
 }

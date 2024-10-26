@@ -15,7 +15,7 @@ class ApiKeyInterceptor @Inject constructor() : Interceptor {
         val url = originalHttpUrl.newBuilder()
             .addQueryParameter(
                 PARAM_API_KEY,
-                "eGX7mlWDp2s8CoLfrkorCYqyOSTIQVLaM9dSYlUl"
+                "2072592a7c0e098f0ae84a1e87f6b4f0"
             ) // TODO add the key from the local properties
             .build()
 
@@ -27,6 +27,6 @@ class ApiKeyInterceptor @Inject constructor() : Interceptor {
     }
 
     companion object {
-        const val PARAM_API_KEY = "apiKey"
+        const val PARAM_API_KEY = "api_key"
     }
 }

@@ -2,7 +2,6 @@ package com.github.gustavobarbosab.imovies.core.data.di
 
 import com.github.gustavobarbosab.imovies.core.data.network.adapter.ServiceResponseCallAdapterFactory
 import com.github.gustavobarbosab.imovies.core.data.network.interceptor.ApiKeyInterceptor
-import com.github.gustavobarbosab.imovies.data.movies.releases.remote.ReleaseMovieApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -53,9 +52,4 @@ class NetworkModule {
 //        }
         level = HttpLoggingInterceptor.Level.BODY
     }
-
-    @Provides
-    fun provideReleaseApi(
-        retrofit: Retrofit
-    ): ReleaseMovieApi = retrofit.create(ReleaseMovieApi::class.java)
 }
