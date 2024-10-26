@@ -3,18 +3,16 @@ package com.github.gustavobarbosab.imovies.presentation.screen.home.components
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.sizeIn
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import coil3.compose.rememberAsyncImagePainter
+import com.github.gustavobarbosab.imovies.R
 import com.github.gustavobarbosab.imovies.presentation.theme.IMoviesTheme
-import com.github.gustavobarbosab.imovies.presentation.theme.spacing
 
 @Composable
 fun MovieCard(
@@ -24,18 +22,19 @@ fun MovieCard(
 ) {
     Box(
         modifier
-            .sizeIn(maxHeight = 200.dp)
             .clickable(
                 interactionSource = null,
                 indication = rememberRipple(color = MaterialTheme.colorScheme.primary),
                 onClick = { onClick() }
             )
-            .clip(RoundedCornerShape(MaterialTheme.spacing.small))
     ) {
         Image(
             modifier = Modifier,
-            painter = rememberAsyncImagePainter(bannerUrl),
-            contentDescription = "movie image",
+            painter = rememberAsyncImagePainter(
+                bannerUrl,
+                placeholder = painterResource(id = R.drawable.ic_launcher_foreground),
+            ),
+            contentDescription = stringResource(R.string.home_movie_image_content_description),
         )
     }
 }
