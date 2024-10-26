@@ -1,6 +1,7 @@
 package com.github.gustavobarbosab.imovies.presentation.screen.home
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -24,8 +25,16 @@ fun HomeScreenContent(
 ) {
     Surface {
         LazyColumn {
+            // These items could be created dynamically based on the screenState
+            // but for simplicity, we are creating them statically
+            // It's a good idea to create an approach similar to a server driven UI
             stickyHeader(key = "toolbar") {
-                Column { }
+                Column(
+                    Modifier
+                        .sizeIn(minHeight = 56.dp)
+                        .background(MaterialTheme.colorScheme.primary)
+                        .fillMaxWidth()
+                ) { }
             }
 
             item(key = "header") {

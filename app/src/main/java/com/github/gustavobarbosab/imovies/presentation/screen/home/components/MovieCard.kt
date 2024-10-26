@@ -1,16 +1,14 @@
 package com.github.gustavobarbosab.imovies.presentation.screen.home.components
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import coil3.compose.rememberAsyncImagePainter
+import coil3.compose.AsyncImage
 import com.github.gustavobarbosab.imovies.R
 import com.github.gustavobarbosab.imovies.presentation.theme.IMoviesTheme
 
@@ -28,12 +26,8 @@ fun MovieCard(
                 onClick = { onClick() }
             )
     ) {
-        Image(
-            modifier = Modifier,
-            painter = rememberAsyncImagePainter(
-                bannerUrl,
-                placeholder = painterResource(id = R.drawable.ic_launcher_foreground),
-            ),
+        AsyncImage(
+            model = bannerUrl,
             contentDescription = stringResource(R.string.home_movie_image_content_description),
         )
     }
