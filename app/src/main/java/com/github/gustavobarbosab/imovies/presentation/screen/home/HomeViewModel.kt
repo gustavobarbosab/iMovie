@@ -35,6 +35,7 @@ class HomeViewModel @Inject constructor(
                 )
             )
         }
+        emit(HomeResult.ShowTopBannerMovies(mockedMovies.map { it.copy(posterUrl = "https://image.tmdb.org/t/p/w1280/7h6TqPB3ESmjuVbxCxAeB1c9OB1.jpg") }))
         emit(HomeResult.ShowPopularMovies(mockedMovies))
         emit(HomeResult.ShowUpcomingMovies(mockedMovies))
         emit(HomeResult.ShowTopRatedMovies(mockedMovies))

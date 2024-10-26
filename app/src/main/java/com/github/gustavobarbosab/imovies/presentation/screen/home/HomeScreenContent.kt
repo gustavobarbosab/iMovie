@@ -13,7 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.github.gustavobarbosab.imovies.presentation.screen.home.components.MovieSection
-import com.github.gustavobarbosab.imovies.presentation.screen.home.components.HeaderSection
+import com.github.gustavobarbosab.imovies.presentation.screen.home.components.TopBannerSection
 import com.github.gustavobarbosab.imovies.presentation.screen.home.model.HomeMovieModel
 import com.github.gustavobarbosab.imovies.presentation.theme.spacing
 
@@ -38,10 +38,12 @@ fun HomeScreenContent(
             }
 
             item(key = "header") {
-                HeaderSection(
+                TopBannerSection(
                     Modifier
                         .sizeIn(minHeight = 200.dp)
-                        .fillMaxWidth()
+                        .fillMaxWidth(),
+                    screenState.topBannerMovies,
+                    onMovieClicked = onMovieClicked
                 )
             }
 
