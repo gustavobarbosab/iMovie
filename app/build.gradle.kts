@@ -71,4 +71,5 @@ dependencies {
     // Images
     implementation(libs.coil)
     implementation(libs.coil.network)
+    implementation(libs.coil.svg)
 }
