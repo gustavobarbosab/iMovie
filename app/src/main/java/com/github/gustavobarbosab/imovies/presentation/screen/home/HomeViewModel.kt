@@ -1,7 +1,7 @@
 package com.github.gustavobarbosab.imovies.presentation.screen.home
 
 import com.github.gustavobarbosab.imovies.core.presentation.arch.CoreViewModel
-import com.github.gustavobarbosab.imovies.domain.movies.GetMoviesUseCaseContract
+import com.github.gustavobarbosab.imovies.domain.movies.GetMoviesUseCase
 import com.github.gustavobarbosab.imovies.presentation.screen.home.HomeActionResult.SectionUpdate
 import com.github.gustavobarbosab.imovies.presentation.screen.home.model.HomeModelMapper
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,10 +16,10 @@ class HomeViewModel @Inject constructor(
     reducer: HomeReducer,
     sideEffectProcessor: HomeSideEffectProcessor,
     private val mapper: HomeModelMapper,
-    private val upcomingMoviesUseCase: GetMoviesUseCaseContract.UpcomingMoviesUseCase,
-    private val topRatedMoviesUseCase: GetMoviesUseCaseContract.TopRatedMoviesUseCase,
-    private val popularMoviesUseCase: GetMoviesUseCaseContract.PopularMoviesUseCase,
-    private val nowPlayingMoviesUseCase: GetMoviesUseCaseContract.NowPlayingMoviesUseCase
+    private val upcomingMoviesUseCase: GetMoviesUseCase.UpcomingMovies,
+    private val topRatedMoviesUseCase: GetMoviesUseCase.TopRatedMovies,
+    private val popularMoviesUseCase: GetMoviesUseCase.PopularMovies,
+    private val nowPlayingMoviesUseCase: GetMoviesUseCase.NowPlayingMovies
 ) : CoreViewModel<HomeScreenState, HomeIntent, HomeActionResult, HomeSideEffect>(
     reducer,
     sideEffectProcessor
@@ -34,7 +34,11 @@ class HomeViewModel @Inject constructor(
 
     private fun initScreen(): Flow<HomeActionResult> = flow {
         emitAll(
-            getMovies(HomeActionResult.Section.TopBanner) { nowPlayingMoviesUseCase.getNowPlayingMovies(1) }
+            getMovies(HomeActionResult.Section.TopBanner) {
+                nowPlayingMoviesUseCase.getNowPlayingMovies(
+                    1
+                )
+            }
         )
 
         emitAll(
@@ -52,21 +56,21 @@ class HomeViewModel @Inject constructor(
 
     private fun getMovies(
         section: HomeActionResult.Section,
-        request: suspend () -> GetMoviesUseCaseContract.Result
+        request: suspend () -> GetMoviesUseCase.Result
     ): Flow<HomeActionResult> = flow {
         emit(HomeActionResult.UpdateSection(section, SectionUpdate.Loading))
 
         val result = when (val result = request()) {
-            is GetMoviesUseCaseContract.Result.Success ->
+            is GetMoviesUseCase.Result.Success ->
                 HomeActionResult.UpdateSection(
                     section,
                     SectionUpdate.Success(mapper.map(result.moviePage))
                 )
 
-            is GetMoviesUseCaseContract.Result.ThereIsNoMovies ->
+            is GetMoviesUseCase.Result.ThereIsNoMovies ->
                 HomeActionResult.UpdateSection(section, SectionUpdate.Success(emptyList()))
 
-            is GetMoviesUseCaseContract.Result.Error ->
+            is GetMoviesUseCase.Result.Error ->
                 HomeActionResult.UpdateSection(section, SectionUpdate.Failure)
         }
         emit(result)

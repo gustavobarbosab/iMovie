@@ -2,21 +2,21 @@ package com.github.gustavobarbosab.imovies.domain.movies
 
 import com.github.gustavobarbosab.imovies.domain.movies.entity.MoviePage
 
-interface GetMoviesUseCaseContract {
+interface GetMoviesUseCase {
 
-    interface UpcomingMoviesUseCase {
+    interface UpcomingMovies {
         suspend fun getUpcomingMovies(page: Int): Result
     }
 
-    interface TopRatedMoviesUseCase {
+    interface TopRatedMovies {
         suspend fun getTopRatedMovies(page: Int): Result
     }
 
-    interface NowPlayingMoviesUseCase {
+    interface NowPlayingMovies {
         suspend fun getNowPlayingMovies(page: Int): Result
     }
 
-    interface PopularMoviesUseCase {
+    interface PopularMovies {
         suspend fun getPopularMovies(page: Int): Result
     }
 

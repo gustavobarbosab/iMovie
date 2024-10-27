@@ -2,14 +2,14 @@ package com.github.gustavobarbosab.imovies.domain.movies
 
 import com.github.gustavobarbosab.imovies.core.domain.network.NetworkResponse
 import com.github.gustavobarbosab.imovies.domain.movies.entity.MoviePage
-import com.github.gustavobarbosab.imovies.domain.movies.GetMoviesUseCaseContract.Result
+import com.github.gustavobarbosab.imovies.domain.movies.GetMoviesUseCase.Result
 
 class GetMoviesUseCaseImpl(
     private val moviesRepository: MoviesRepository,
-) : GetMoviesUseCaseContract.UpcomingMoviesUseCase,
-    GetMoviesUseCaseContract.PopularMoviesUseCase,
-    GetMoviesUseCaseContract.NowPlayingMoviesUseCase,
-    GetMoviesUseCaseContract.TopRatedMoviesUseCase {
+) : GetMoviesUseCase.UpcomingMovies,
+    GetMoviesUseCase.PopularMovies,
+    GetMoviesUseCase.NowPlayingMovies,
+    GetMoviesUseCase.TopRatedMovies {
 
     override suspend fun getUpcomingMovies(page: Int): Result = getMovies {
         moviesRepository.getUpcomingMovies(page)

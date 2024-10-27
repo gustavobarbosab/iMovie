@@ -1,7 +1,7 @@
 package com.github.gustavobarbosab.imovies.data.movies.di
 
 import com.github.gustavobarbosab.imovies.domain.movies.MoviesRepository
-import com.github.gustavobarbosab.imovies.domain.movies.GetMoviesUseCaseContract
+import com.github.gustavobarbosab.imovies.domain.movies.GetMoviesUseCase
 import com.github.gustavobarbosab.imovies.domain.movies.GetMoviesUseCaseImpl
 import dagger.Binds
 import dagger.Module
@@ -17,22 +17,22 @@ abstract class MovieUseCaseDataModule {
     @Binds
     abstract fun bindUpcomingMovieUseCase(
         useCase: GetMoviesUseCaseImpl
-    ): GetMoviesUseCaseContract.UpcomingMoviesUseCase
+    ): GetMoviesUseCase.UpcomingMovies
 
     @Binds
     abstract fun bindTopRatedMovieUseCase(
         useCase: GetMoviesUseCaseImpl
-    ): GetMoviesUseCaseContract.TopRatedMoviesUseCase
+    ): GetMoviesUseCase.TopRatedMovies
 
     @Binds
     abstract fun bindNowPlayingMovieUseCase(
         useCase: GetMoviesUseCaseImpl
-    ): GetMoviesUseCaseContract.NowPlayingMoviesUseCase
+    ): GetMoviesUseCase.NowPlayingMovies
 
     @Binds
     abstract fun bindPopularMovieUseCase(
         useCase: GetMoviesUseCaseImpl
-    ): GetMoviesUseCaseContract.PopularMoviesUseCase
+    ): GetMoviesUseCase.PopularMovies
 
     companion object {
         @Provides
