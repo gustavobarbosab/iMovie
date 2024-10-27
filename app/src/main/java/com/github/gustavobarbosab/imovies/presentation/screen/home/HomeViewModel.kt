@@ -1,6 +1,7 @@
 package com.github.gustavobarbosab.imovies.presentation.screen.home
 
 import com.github.gustavobarbosab.imovies.core.presentation.arch.CoreViewModel
+import com.github.gustavobarbosab.imovies.domain.movies.upcoming.UpcomingMoviesUseCase
 import com.github.gustavobarbosab.imovies.presentation.screen.home.model.HomeMovieModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
@@ -11,7 +12,8 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     reducer: HomeReducer,
-    sideEffectProcessor: HomeSideEffectProcessor
+    sideEffectProcessor: HomeSideEffectProcessor,
+    private val upcomingMoviesUseCase: UpcomingMoviesUseCase
 ) : CoreViewModel<HomeScreenState, HomeIntent, HomeResult, HomeSideEffect>(
     reducer,
     sideEffectProcessor
@@ -35,7 +37,13 @@ class HomeViewModel @Inject constructor(
                 )
             )
         }
-        emit(HomeResult.ShowTopBannerMovies(mockedMovies.map { it.copy(posterUrl = "https://image.tmdb.org/t/p/w1280/7h6TqPB3ESmjuVbxCxAeB1c9OB1.jpg") }))
+        emit(
+            HomeResult.ShowTopBannerMovies(
+                mockedMovies.map {
+                    it.copy(posterUrl = "https://image.tmdb.org/t/p/w1280/7h6TqPB3ESmjuVbxCxAeB1c9OB1.jpg")
+                }
+            )
+        )
         emit(HomeResult.ShowPopularMovies(mockedMovies))
         emit(HomeResult.ShowUpcomingMovies(mockedMovies))
         emit(HomeResult.ShowTopRatedMovies(mockedMovies))
