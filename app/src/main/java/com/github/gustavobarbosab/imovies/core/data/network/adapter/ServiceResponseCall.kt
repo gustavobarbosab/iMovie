@@ -1,6 +1,6 @@
 package com.github.gustavobarbosab.imovies.core.data.network.adapter
 
-import com.github.gustavobarbosab.imovies.core.data.network.NetworkResponse
+import com.github.gustavobarbosab.imovies.core.domain.network.NetworkResponse
 import com.github.gustavobarbosab.imovies.core.data.network.adapter.mapper.mapToServiceResponse
 import okhttp3.Request
 import okio.Timeout

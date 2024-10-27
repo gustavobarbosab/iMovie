@@ -15,7 +15,9 @@ class MovieUseCaseDataModule {
 
     @Provides
     @ViewModelScoped
-    fun bindUpcomingMovieUseCase(repository: MoviesRepository): UpcomingMoviesUseCase {
+    fun bindUpcomingMovieUseCase(
+        repository: MoviesRepository,
+    ): UpcomingMoviesUseCase {
         return UpcomingMoviesUseCaseImpl(repository)
     }
 }

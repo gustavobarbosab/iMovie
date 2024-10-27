@@ -1,6 +1,6 @@
 package com.github.gustavobarbosab.imovies.core.data.network.adapter.mapper
 
-import com.github.gustavobarbosab.imovies.core.data.network.NetworkResponse
+import com.github.gustavobarbosab.imovies.core.domain.network.NetworkResponse
 import retrofit2.Response
 
 fun <T : Any> Response<T>.mapToServiceResponse(): NetworkResponse<T> {

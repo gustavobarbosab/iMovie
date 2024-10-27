@@ -15,7 +15,7 @@ data class MoviePageResponse(
 
 data class MovieResponse(
     @SerializedName("id")
-    val id: Int = 0,
+    val id: Long = 0,
     @SerializedName("adult")
     val adult: Boolean = false,
     @SerializedName("backdrop_path")

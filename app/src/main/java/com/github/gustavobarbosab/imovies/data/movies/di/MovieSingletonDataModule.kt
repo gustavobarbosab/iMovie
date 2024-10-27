@@ -1,6 +1,8 @@
 package com.github.gustavobarbosab.imovies.data.movies.di
 
 import com.github.gustavobarbosab.imovies.data.movies.remote.MovieApi
+import com.github.gustavobarbosab.imovies.data.movies.remote.MovieRemoteDataSource
+import com.github.gustavobarbosab.imovies.data.movies.remote.MovieRemoteDataSourceImpl
 import com.github.gustavobarbosab.imovies.data.movies.repository.MovieRepositoryImpl
 import com.github.gustavobarbosab.imovies.domain.movies.MoviesRepository
 import dagger.Binds
@@ -18,6 +20,10 @@ abstract class MovieSingletonDataModule {
     @Binds
     @Singleton
     abstract fun bindMovieRepository(repository: MovieRepositoryImpl): MoviesRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindMovieRemoteDataSource(dataSource: MovieRemoteDataSourceImpl): MovieRemoteDataSource
 
     companion object {
         @Provides

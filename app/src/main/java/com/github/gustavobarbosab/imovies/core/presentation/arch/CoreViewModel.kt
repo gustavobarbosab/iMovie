@@ -17,7 +17,7 @@ abstract class CoreViewModel<STATE, INTENT, RESULT, SIDE_EFFECT>(
 
     val sideEffect: Flow<SIDE_EFFECT>
         get() = processor?.sideEffect
-            ?: throw IllegalStateException("Pre processor not implemented")
+            ?: throw IllegalStateException("Side effect processor not implemented")
 
     operator fun invoke(intent: INTENT) {
         val currentState = reducer.screenState.value
