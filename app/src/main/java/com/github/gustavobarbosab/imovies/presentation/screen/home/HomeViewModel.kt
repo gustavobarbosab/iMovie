@@ -10,11 +10,11 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    homeReducer: HomeReducer,
-    homeSideEffectProcessor: HomeSideEffectProcessor
+    reducer: HomeReducer,
+    sideEffectProcessor: HomeSideEffectProcessor
 ) : CoreViewModel<HomeScreenState, HomeIntent, HomeResult, HomeSideEffect>(
-    homeReducer,
-    homeSideEffectProcessor
+    reducer,
+    sideEffectProcessor
 ) {
     override fun handleIntent(intent: HomeIntent): Flow<HomeResult> =
         when (intent) {
