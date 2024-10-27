@@ -28,6 +28,7 @@ fun HomeScreenContent(
             // These items could be created dynamically based on the screenState
             // but for simplicity, we are creating them statically
             // It's a good idea to create an approach similar to a server driven UI
+            // TODO remove this toolbar from here
             stickyHeader(key = "toolbar") {
                 Column(
                     Modifier

@@ -1,6 +1,6 @@
 package com.github.gustavobarbosab.imovies.presentation.screen.home
 
-import com.github.gustavobarbosab.imovies.core.presentation.arch.BaseViewModel
+import com.github.gustavobarbosab.imovies.core.presentation.arch.CoreViewModel
 import com.github.gustavobarbosab.imovies.presentation.screen.home.model.HomeMovieModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
@@ -12,7 +12,7 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     homeReducer: HomeReducer,
     homeSideEffectProcessor: HomeSideEffectProcessor
-) : BaseViewModel<HomeScreenState, HomeIntent, HomeResult, HomeSideEffect>(
+) : CoreViewModel<HomeScreenState, HomeIntent, HomeResult, HomeSideEffect>(
     homeReducer,
     homeSideEffectProcessor
 ) {

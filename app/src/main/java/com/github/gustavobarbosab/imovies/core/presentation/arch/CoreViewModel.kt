@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
-abstract class BaseViewModel<STATE, INTENT, RESULT, SIDE_EFFECT>(
+abstract class CoreViewModel<STATE, INTENT, RESULT, SIDE_EFFECT>(
     private val reducer: Reducer<STATE, RESULT>,
     private val processor: SideEffectProcessor<STATE, INTENT, RESULT, SIDE_EFFECT>? = null
 ) : ViewModel() {
