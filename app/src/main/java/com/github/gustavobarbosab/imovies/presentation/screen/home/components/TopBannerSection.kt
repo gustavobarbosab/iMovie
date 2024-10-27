@@ -6,28 +6,28 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.github.gustavobarbosab.imovies.common.ui.RecurrentTaskLaunchEffect
-import com.github.gustavobarbosab.imovies.presentation.screen.home.HomeScreenState
+import com.github.gustavobarbosab.imovies.common.presentation.UiState
+import com.github.gustavobarbosab.imovies.common.presentation.compose.RecurrentTaskLaunchEffect
 import com.github.gustavobarbosab.imovies.presentation.screen.home.model.HomeMovieModel
 
 @Composable
 fun TopBannerSection(
     modifier: Modifier = Modifier,
-    sectionState: HomeScreenState.MovieSectionState,
+    sectionState: UiState<List<HomeMovieModel>>,
     onMovieClicked: (HomeMovieModel) -> Unit
 ) {
     when (sectionState) {
-        HomeScreenState.MovieSectionState.Loading -> Column(modifier) {
+        UiState.Loading -> Column(modifier) {
             CircularProgressIndicator()
         }
 
-        is HomeScreenState.MovieSectionState.ShowMovies -> AutoScrollableMoviesPager(
+        is UiState.Success -> AutoScrollableMoviesPager(
             modifier,
-            sectionState.movies,
+            sectionState.data,
             onMovieClicked = onMovieClicked
         )
 
-        HomeScreenState.MovieSectionState.LoadFailure -> Column {
+        is UiState.Failure -> Column {
             // TODO show a retry button
         }
     }
@@ -54,7 +54,7 @@ fun AutoScrollableMoviesPager(
         val movie = movies[page]
         MovieCard(
             Modifier,
-            bannerUrl = movie.posterUrl,
+            bannerUrl = movie.backdropPath,
             onClick = { onMovieClicked(movie) }
         )
     }

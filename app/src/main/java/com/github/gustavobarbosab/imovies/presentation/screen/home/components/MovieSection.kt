@@ -17,7 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.github.gustavobarbosab.imovies.presentation.screen.home.HomeScreenState
+import com.github.gustavobarbosab.imovies.common.presentation.UiState
 import com.github.gustavobarbosab.imovies.presentation.screen.home.model.HomeMovieModel
 import com.github.gustavobarbosab.imovies.presentation.theme.spacing
 
@@ -25,7 +25,7 @@ import com.github.gustavobarbosab.imovies.presentation.theme.spacing
 fun MovieSection(
     modifier: Modifier = Modifier,
     title: String,
-    sectionState: HomeScreenState.MovieSectionState,
+    sectionState: UiState<List<HomeMovieModel>>,
     onMovieClicked: (HomeMovieModel) -> Unit
 ) {
     Column(
@@ -41,18 +41,18 @@ fun MovieSection(
         )
 
         when (sectionState) {
-            HomeScreenState.MovieSectionState.Loading -> Column {
+            is UiState.Failure -> Column {
+                // TODO show a retry button
+            }
+
+            UiState.Loading -> Column {
                 // TODO show a loading skeleton
             }
 
-            is HomeScreenState.MovieSectionState.ShowMovies -> MovieList(
-                movies = sectionState.movies,
+            is UiState.Success -> MovieList(
+                movies = sectionState.data,
                 onMovieClicked = onMovieClicked
             )
-
-            HomeScreenState.MovieSectionState.LoadFailure -> Column {
-                // TODO show a retry button
-            }
         }
     }
 }
@@ -71,7 +71,7 @@ fun MovieList(
                 modifier = Modifier
                     .sizeIn(maxHeight = 200.dp)
                     .clip(RoundedCornerShape(MaterialTheme.spacing.small)),
-                bannerUrl = movie.posterUrl,
+                bannerUrl = movie.posterPath,
                 onClick = { onMovieClicked(movie) }
             )
         }
@@ -83,16 +83,18 @@ fun MovieList(
 private fun previewMovieSection() {
     MovieSection(
         title = "Popular Movies",
-        sectionState = HomeScreenState.MovieSectionState.ShowMovies(
+        sectionState = UiState.Success(
             listOf(
                 HomeMovieModel(
                     1,
                     "Movie 1",
-                    "https://cdn.watchmode.com/posters/03165490_poster_w185.jpg"
+                    "https://cdn.watchmode.com/posters/03165490_poster_w185.jpg",
+                    "https://cdn.watchmode.com/posters/03165490_poster_w185.jpg",
                 ),
                 HomeMovieModel(
                     2,
                     "Movie 2",
+                    "https://cdn.watchmode.com/posters/03175997_poster_w185.jpg",
                     "https://cdn.watchmode.com/posters/03175997_poster_w185.jpg"
                 )
             )

@@ -4,7 +4,7 @@ import com.github.gustavobarbosab.imovies.core.presentation.arch.SideEffectProce
 import javax.inject.Inject
 
 class HomeSideEffectProcessor @Inject constructor() :
-    SideEffectProcessor<HomeScreenState, HomeIntent, HomeResult, HomeSideEffect>() {
+    SideEffectProcessor<HomeScreenState, HomeIntent, HomeActionResult, HomeSideEffect>() {
 
     override fun preSideEffect(
         state: HomeScreenState,
@@ -16,12 +16,15 @@ class HomeSideEffectProcessor @Inject constructor() :
 
     override fun postSideEffect(
         state: HomeScreenState,
-        result: HomeResult
+        result: HomeActionResult
     ): HomeSideEffect? = when (result) {
-        is HomeResult.TopBannerLoadFailure -> HomeSideEffect.LoadTopBannerFailure
-        is HomeResult.PopularMoviesLoadFailure -> HomeSideEffect.LoadPopularFailure
-        is HomeResult.TopRatedMoviesLoadFailure -> HomeSideEffect.LoadTopRatedFailure
-        is HomeResult.UpcomingMoviesLoadFailure -> HomeSideEffect.LoadUpcomingFailure
+        is HomeActionResult.UpdateSection -> when (result.section) {
+            HomeActionResult.Section.Popular -> HomeSideEffect.LoadPopularFailure
+            HomeActionResult.Section.TopBanner -> HomeSideEffect.LoadTopBannerFailure
+            HomeActionResult.Section.TopRated -> HomeSideEffect.LoadTopRatedFailure
+            HomeActionResult.Section.Upcoming -> HomeSideEffect.LoadUpcomingFailure
+        }
+
         else -> null
     }
 }

@@ -1,70 +1,56 @@
 package com.github.gustavobarbosab.imovies.presentation.screen.home
 
+import com.github.gustavobarbosab.imovies.common.presentation.UiState
 import com.github.gustavobarbosab.imovies.core.presentation.arch.Reducer
-import com.github.gustavobarbosab.imovies.presentation.screen.home.HomeScreenState.MovieSectionState
 import javax.inject.Inject
 
-class HomeReducer @Inject constructor() : Reducer<HomeScreenState, HomeResult>(
+class HomeReducer @Inject constructor() : Reducer<HomeScreenState, HomeActionResult>(
     HomeScreenState.initialState()
 ) {
-    override fun reduce(result: HomeResult, currentState: HomeScreenState): HomeScreenState =
+    override fun reduce(result: HomeActionResult, currentState: HomeScreenState): HomeScreenState =
         when (result) {
-            is HomeResult.DoNothing -> currentState
+            is HomeActionResult.DoNothing -> currentState
+            is HomeActionResult.UpdateSection -> reduceUpdateSection(result, currentState)
+        }
 
-            // region Top Banner
-            HomeResult.LoadingTopBanner -> currentState.copy(
-                topBannerMovies = MovieSectionState.Loading
+    private fun reduceUpdateSection(
+        result: HomeActionResult.UpdateSection,
+        currentState: HomeScreenState
+    ): HomeScreenState {
+        return when (result.update) {
+            is HomeActionResult.SectionUpdate.Loading -> result.section.reduce(
+                onTopBanner = { currentState.copy(topBannerMovies = UiState.Loading) },
+                onPopular = { currentState.copy(popularMovies = UiState.Loading) },
+                onTopRated = { currentState.copy(topRatedMovies = UiState.Loading) },
+                onUpcoming = { currentState.copy(upcomingMovies = UiState.Loading) }
             )
 
-            is HomeResult.ShowTopBannerMovies -> currentState.copy(
-                topBannerMovies = MovieSectionState.ShowMovies(result.movies)
+            is HomeActionResult.SectionUpdate.Failure -> result.section.reduce(
+                onTopBanner = { currentState.copy(topBannerMovies = UiState.Failure()) },
+                onPopular = { currentState.copy(popularMovies = UiState.Failure()) },
+                onTopRated = { currentState.copy(topRatedMovies = UiState.Failure()) },
+                onUpcoming = { currentState.copy(upcomingMovies = UiState.Failure()) }
             )
 
-            HomeResult.TopBannerLoadFailure -> currentState.copy(
-                topBannerMovies = MovieSectionState.LoadFailure
+            is HomeActionResult.SectionUpdate.Success -> result.section.reduce(
+                onTopBanner = { currentState.copy(topBannerMovies = UiState.Success(result.update.movies)) },
+                onPopular = { currentState.copy(popularMovies = UiState.Success(result.update.movies)) },
+                onTopRated = { currentState.copy(topRatedMovies = UiState.Success(result.update.movies)) },
+                onUpcoming = { currentState.copy(upcomingMovies = UiState.Success(result.update.movies)) }
             )
-            // endregion
+        }
+    }
 
-            // region Top Rated
-            HomeResult.LoadingTopRatedMovies -> currentState.copy(
-                topRatedMovies = MovieSectionState.Loading
-            )
-
-            is HomeResult.ShowTopRatedMovies -> currentState.copy(
-                topRatedMovies = MovieSectionState.ShowMovies(result.movies)
-            )
-
-            HomeResult.TopRatedMoviesLoadFailure -> currentState.copy(
-                topRatedMovies = MovieSectionState.LoadFailure
-            )
-            // endregion
-
-            // region Popular
-            HomeResult.LoadingPopularMovies -> currentState.copy(
-                popularMovies = MovieSectionState.Loading
-            )
-
-            is HomeResult.ShowPopularMovies -> currentState.copy(
-                popularMovies = MovieSectionState.ShowMovies(result.movies)
-            )
-
-            HomeResult.PopularMoviesLoadFailure -> currentState.copy(
-                popularMovies = MovieSectionState.LoadFailure
-            )
-            // endregion
-
-            // region Upcoming
-            HomeResult.LoadingUpcomingMovies -> currentState.copy(
-                upcomingMovies = MovieSectionState.Loading
-            )
-
-            is HomeResult.ShowUpcomingMovies -> currentState.copy(
-                upcomingMovies = MovieSectionState.ShowMovies(result.movies)
-            )
-
-            HomeResult.UpcomingMoviesLoadFailure -> currentState.copy(
-                upcomingMovies = MovieSectionState.LoadFailure
-            )
-            // endregion
+    private fun HomeActionResult.Section.reduce(
+        onTopBanner: () -> HomeScreenState,
+        onPopular: () -> HomeScreenState,
+        onTopRated: () -> HomeScreenState,
+        onUpcoming: () -> HomeScreenState
+    ) =
+        when (this) {
+            HomeActionResult.Section.TopBanner -> onTopBanner()
+            HomeActionResult.Section.Popular -> onPopular()
+            HomeActionResult.Section.TopRated -> onTopRated()
+            HomeActionResult.Section.Upcoming -> onUpcoming()
         }
 }

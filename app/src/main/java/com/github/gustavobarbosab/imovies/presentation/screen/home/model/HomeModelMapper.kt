@@ -9,7 +9,8 @@ class HomeModelMapper @Inject constructor() {
         HomeMovieModel(
             id = movie.id,
             title = movie.title,
-            posterUrl = movie.posterPath
+            posterPath = movie.posterPath,
+            backdropPath = movie.backdropPath
         )
     }
 }
