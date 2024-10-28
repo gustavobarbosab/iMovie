@@ -31,6 +31,7 @@ data class HomeScreenState(
 sealed class HomeIntent {
     data object Init : HomeIntent()
     data class MovieClicked(val movie: HomeMovieModel) : HomeIntent()
+    // TODO implement the load more
 }
 
 sealed class HomeActionResult {
