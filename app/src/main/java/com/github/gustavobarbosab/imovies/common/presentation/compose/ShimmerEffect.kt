@@ -13,13 +13,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.unit.IntSize
-import com.github.gustavobarbosab.imovies.presentation.theme.Grey10
 import com.github.gustavobarbosab.imovies.presentation.theme.Grey20
 import com.github.gustavobarbosab.imovies.presentation.theme.Grey50
-import com.github.gustavobarbosab.imovies.presentation.theme.Grey95
 
 fun Modifier.shimmerEffect(): Modifier = composed {
     var size by remember {
