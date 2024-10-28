@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -18,6 +20,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.gustavobarbosab.imovies.common.presentation.UiState
+import com.github.gustavobarbosab.imovies.common.presentation.compose.shimmerEffect
 import com.github.gustavobarbosab.imovies.presentation.screen.home.model.HomeMovieModel
 import com.github.gustavobarbosab.imovies.presentation.theme.spacing
 
@@ -45,9 +48,7 @@ fun MovieSection(
                 // TODO show a retry button
             }
 
-            UiState.Loading -> Column {
-                // TODO show a loading skeleton
-            }
+            UiState.Loading -> MovieSectionSkeleton(title)
 
             is UiState.Success -> MovieList(
                 movies = sectionState.data,
@@ -71,10 +72,32 @@ fun MovieList(
                 modifier = Modifier
                     .sizeIn(maxHeight = 200.dp)
                     .clip(RoundedCornerShape(MaterialTheme.spacing.small)),
-                bannerUrl = movie.posterPath,
+                imagePath = movie.posterPath,
                 onClick = { onMovieClicked(movie) }
             )
         }
+    }
+}
+
+
+@Composable
+fun MovieSectionSkeleton(title: String) {
+    Column {
+        Text(
+            text = title,
+            style = MaterialTheme.typography.titleLarge
+        )
+        LazyRow(horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)) {
+            items(count = 7, key = { index -> index }) {
+                Spacer(
+                    modifier = Modifier
+                        .size(height = 180.dp, width = 120.dp)
+                        .shimmerEffect()
+                        .padding(MaterialTheme.spacing.small)
+                )
+            }
+        }
+
     }
 }
 

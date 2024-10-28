@@ -1,13 +1,16 @@
 package com.github.gustavobarbosab.imovies.presentation.screen.home.components
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.github.gustavobarbosab.imovies.common.presentation.UiState
 import com.github.gustavobarbosab.imovies.common.presentation.compose.RecurrentTaskLaunchEffect
+import com.github.gustavobarbosab.imovies.common.presentation.compose.shimmerEffect
 import com.github.gustavobarbosab.imovies.presentation.screen.home.model.HomeMovieModel
 
 @Composable
@@ -17,9 +20,7 @@ fun TopBannerSection(
     onMovieClicked: (HomeMovieModel) -> Unit
 ) {
     when (sectionState) {
-        UiState.Loading -> Column(modifier) {
-            CircularProgressIndicator()
-        }
+        UiState.Loading -> TopBannerLoading(modifier)
 
         is UiState.Success -> AutoScrollableMoviesPager(
             modifier,
@@ -42,7 +43,7 @@ fun AutoScrollableMoviesPager(
 ) {
     val pagerState = rememberPagerState(pageCount = { pageCount })
 
-    RecurrentTaskLaunchEffect(pagerState, 2000) {
+    RecurrentTaskLaunchEffect(pagerState, delayInMillis = 2000) {
         val nextPage = (pagerState.currentPage + 1) % pageCount
         pagerState.animateScrollToPage(nextPage)
     }
@@ -53,9 +54,16 @@ fun AutoScrollableMoviesPager(
     ) { page ->
         val movie = movies[page]
         MovieCard(
-            Modifier,
-            bannerUrl = movie.backdropPath,
+            imagePath = movie.backdropPath,
             onClick = { onMovieClicked(movie) }
         )
     }
+}
+
+
+@Composable
+fun TopBannerLoading(modifier: Modifier = Modifier) {
+    Box(
+        modifier = modifier.shimmerEffect(),
+    )
 }

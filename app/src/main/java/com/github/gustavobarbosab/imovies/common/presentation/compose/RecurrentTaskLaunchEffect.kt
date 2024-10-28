@@ -8,13 +8,13 @@ import kotlinx.coroutines.yield
 @Composable
 fun RecurrentTaskLaunchEffect(
     key: Any?,
-    delay: Long,
+    delayInMillis: Long,
     task: suspend () -> Unit
 ) {
     LaunchedEffect(key) {
         while (true) {
             yield()  // Allow other tasks to run
-            delay(delay)  // Adjust delay for the desired speed (3 seconds here)
+            delay(delayInMillis)  // Adjust delay for the desired speed (3 seconds here)
             task()
         }
     }
