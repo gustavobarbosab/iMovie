@@ -1,36 +1,37 @@
 package com.github.gustavobarbosab.imovies.presentation.screen.home.components
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.github.gustavobarbosab.imovies.common.presentation.UiState
+import androidx.compose.ui.draw.clip
+import com.github.gustavobarbosab.imovies.common.presentation.UiStateList
 import com.github.gustavobarbosab.imovies.common.presentation.compose.RecurrentTaskLaunchEffect
 import com.github.gustavobarbosab.imovies.common.presentation.compose.extension.shimmerEffect
 import com.github.gustavobarbosab.imovies.presentation.screen.home.model.HomeMovieModel
+import com.github.gustavobarbosab.imovies.presentation.theme.spacing
 
 @Composable
 fun TopBannerSection(
     modifier: Modifier = Modifier,
-    sectionState: UiState<List<HomeMovieModel>>,
+    sectionState: UiStateList<HomeMovieModel>,
     pagerSize: Int = 5,
     onMovieClicked: (HomeMovieModel) -> Unit
 ) {
     when (sectionState) {
-        UiState.Loading -> TopBannerLoading(modifier)
+        UiStateList.Loading -> TopBannerLoading(modifier)
 
-        is UiState.Success -> AutoScrollableMoviesPager(
+        is UiStateList.Success -> AutoScrollableMoviesPager(
             modifier,
             sectionState.data,
             pagerSize = pagerSize,
             onMovieClicked = onMovieClicked
         )
 
-        is UiState.Failure -> Column {
-            // TODO show a retry button
-        }
+        else -> Unit
     }
 }
 
@@ -54,6 +55,9 @@ fun AutoScrollableMoviesPager(
     ) { page ->
         val movie = movies[page]
         MovieCard(
+            modifier = Modifier
+                .padding(MaterialTheme.spacing.extraSmall)
+                .clip(MaterialTheme.shapes.medium),
             imagePath = movie.backdropPath,
             onClick = { onMovieClicked(movie) }
         )
@@ -64,6 +68,9 @@ fun AutoScrollableMoviesPager(
 @Composable
 fun TopBannerLoading(modifier: Modifier = Modifier) {
     Box(
-        modifier = modifier.shimmerEffect(),
+        modifier = modifier
+            .padding(MaterialTheme.spacing.extraSmall)
+            .clip(MaterialTheme.shapes.medium)
+            .shimmerEffect(),
     )
 }

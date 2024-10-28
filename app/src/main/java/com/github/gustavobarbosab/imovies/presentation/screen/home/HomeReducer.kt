@@ -1,56 +1,76 @@
 package com.github.gustavobarbosab.imovies.presentation.screen.home
 
-import com.github.gustavobarbosab.imovies.common.presentation.UiState
+import com.github.gustavobarbosab.imovies.common.presentation.UiStateList
 import com.github.gustavobarbosab.imovies.core.presentation.arch.Reducer
+import com.github.gustavobarbosab.imovies.presentation.screen.home.HomeActionResult.SectionUpdate
+import com.github.gustavobarbosab.imovies.presentation.screen.home.model.HomeMovieSectionType
 import javax.inject.Inject
 
-class HomeReducer @Inject constructor() : Reducer<HomeScreenState, HomeActionResult>(
-    HomeScreenState.initialState()
-) {
-    override fun reduce(result: HomeActionResult, currentState: HomeScreenState): HomeScreenState =
-        when (result) {
-            is HomeActionResult.DoNothing -> currentState
-            is HomeActionResult.UpdateSection -> reduceUpdateSection(result, currentState)
-        }
+class HomeReducer @Inject constructor(
+
+) : Reducer<HomeScreenState, HomeActionResult>(HomeScreenState.initialState()) {
+
+    override fun reduce(
+        result: HomeActionResult,
+        currentState: HomeScreenState
+    ): HomeScreenState = when (result) {
+        is HomeActionResult.TopBannerUpdate -> currentState.copy(
+            topBannerMovies = when (result.update) {
+                is SectionUpdate.Loading -> UiStateList.Loading
+                is SectionUpdate.Failure -> UiStateList.Failure()
+                is SectionUpdate.Success -> UiStateList.Success(result.update.movies)
+                SectionUpdate.EmptyList -> UiStateList.EmptyList
+            }
+        )
+
+        is HomeActionResult.UpdatePopularSection -> reduceUpdateSection(
+            HomeMovieSectionType.POPULAR,
+            result.update,
+            currentState
+        )
+
+        is HomeActionResult.UpdateTopRatedSection -> reduceUpdateSection(
+            HomeMovieSectionType.TOP_RATED,
+            result.update,
+            currentState
+        )
+
+        is HomeActionResult.UpdateUpcomingSection -> reduceUpdateSection(
+            HomeMovieSectionType.UPCOMING,
+            result.update,
+            currentState
+        )
+    }
 
     private fun reduceUpdateSection(
-        result: HomeActionResult.UpdateSection,
+        sectionType: HomeMovieSectionType,
+        sectionUpdate: SectionUpdate,
         currentState: HomeScreenState
     ): HomeScreenState {
-        return when (result.update) {
-            is HomeActionResult.SectionUpdate.Loading -> result.section.reduce(
-                onTopBanner = { currentState.copy(topBannerMovies = UiState.Loading) },
-                onPopular = { currentState.copy(popularMovies = UiState.Loading) },
-                onTopRated = { currentState.copy(topRatedMovies = UiState.Loading) },
-                onUpcoming = { currentState.copy(upcomingMovies = UiState.Loading) }
+        return when (sectionUpdate) {
+            is SectionUpdate.Loading -> currentState.copyAndUpdateMovieSection(
+                sectionType = sectionType,
+                sectionState = { oldSectionState -> oldSectionState.copy(uiState = UiStateList.Loading) }
             )
 
-            is HomeActionResult.SectionUpdate.Failure -> result.section.reduce(
-                onTopBanner = { currentState.copy(topBannerMovies = UiState.Failure()) },
-                onPopular = { currentState.copy(popularMovies = UiState.Failure()) },
-                onTopRated = { currentState.copy(topRatedMovies = UiState.Failure()) },
-                onUpcoming = { currentState.copy(upcomingMovies = UiState.Failure()) }
+            is SectionUpdate.Failure -> currentState.copyAndUpdateMovieSection(
+                sectionType = sectionType,
+                sectionState = { oldSectionState -> oldSectionState.copy(uiState = UiStateList.Failure()) }
             )
 
-            is HomeActionResult.SectionUpdate.Success -> result.section.reduce(
-                onTopBanner = { currentState.copy(topBannerMovies = UiState.Success(result.update.movies)) },
-                onPopular = { currentState.copy(popularMovies = UiState.Success(result.update.movies)) },
-                onTopRated = { currentState.copy(topRatedMovies = UiState.Success(result.update.movies)) },
-                onUpcoming = { currentState.copy(upcomingMovies = UiState.Success(result.update.movies)) }
+            is SectionUpdate.Success -> currentState.copyAndUpdateMovieSection(
+                sectionType = sectionType,
+                sectionState = { oldSectionState ->
+                    oldSectionState.copy(uiState = UiStateList.Success(sectionUpdate.movies))
+                }
+            )
+
+            SectionUpdate.EmptyList -> currentState.copyAndUpdateMovieSection(
+                sectionType = sectionType,
+                sectionState = { oldSectionState ->
+                    oldSectionState.copy(uiState = UiStateList.EmptyList)
+                }
             )
         }
     }
-
-    private fun HomeActionResult.Section.reduce(
-        onTopBanner: () -> HomeScreenState,
-        onPopular: () -> HomeScreenState,
-        onTopRated: () -> HomeScreenState,
-        onUpcoming: () -> HomeScreenState
-    ) =
-        when (this) {
-            HomeActionResult.Section.TopBanner -> onTopBanner()
-            HomeActionResult.Section.Popular -> onPopular()
-            HomeActionResult.Section.TopRated -> onTopRated()
-            HomeActionResult.Section.Upcoming -> onUpcoming()
-        }
 }

@@ -1,6 +1,7 @@
 package com.github.gustavobarbosab.imovies.presentation.screen.home
 
 import com.github.gustavobarbosab.imovies.core.presentation.arch.SideEffectProcessor
+import com.github.gustavobarbosab.imovies.presentation.screen.home.model.HomeMovieSectionType
 import javax.inject.Inject
 
 class HomeSideEffectProcessor @Inject constructor() :
@@ -18,15 +19,29 @@ class HomeSideEffectProcessor @Inject constructor() :
         state: HomeScreenState,
         result: HomeActionResult
     ): HomeSideEffect? = when (result) {
-        is HomeActionResult.UpdateSection -> onFailureToGetMovies(result.update)
+        is HomeActionResult.UpdatePopularSection -> onFailureToGetMovies(
+            result.update,
+            HomeMovieSectionType.POPULAR
+        )
+
+        is HomeActionResult.UpdateTopRatedSection -> onFailureToGetMovies(
+            result.update,
+            HomeMovieSectionType.TOP_RATED
+        )
+
+        is HomeActionResult.UpdateUpcomingSection -> onFailureToGetMovies(
+            result.update,
+            HomeMovieSectionType.UPCOMING
+        )
+
         else -> null
     }
 
     private fun onFailureToGetMovies(
-        update: HomeActionResult.SectionUpdate
+        update: HomeActionResult.SectionUpdate,
+        sectionType: HomeMovieSectionType
     ) = if (update is HomeActionResult.SectionUpdate.Failure) {
-        // here we could handle the error by section...
-        HomeSideEffect.LoadMovieFailure
+        HomeSideEffect.LoadMovieFailure(sectionType)
     } else {
         null
     }
