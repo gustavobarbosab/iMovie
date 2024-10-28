@@ -58,8 +58,5 @@ sealed class HomeActionResult {
 
 sealed class HomeSideEffect {
     data class NavigateToMovieDetail(val movie: HomeMovieModel) : HomeSideEffect()
-    data object LoadPopularFailure : HomeSideEffect()
-    data object LoadTopBannerFailure : HomeSideEffect()
-    data object LoadTopRatedFailure : HomeSideEffect()
-    data object LoadUpcomingFailure : HomeSideEffect()
+    data object LoadMovieFailure : HomeSideEffect()
 }

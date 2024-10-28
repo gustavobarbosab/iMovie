@@ -1,9 +1,12 @@
 package com.github.gustavobarbosab.imovies.core.presentation.arch
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 
 typealias HandledByProcessor = Unit
 
@@ -28,16 +31,15 @@ abstract class CoreViewModel<STATE, INTENT, RESULT, SIDE_EFFECT>(
     }
 
     protected fun reduce(result: RESULT) {
-        if (concurrencyMutex.tryLock().not()) {
-            // TODO here we can include a log
-            return
-        }
-
-        try {
-            reducer(result)
-            processor?.postProcessing(state = screenState.value, result = result)
-        } finally {
-            concurrencyMutex.unlock()
+        viewModelScope.launch {
+            concurrencyMutex.withLock {
+                try {
+                    reducer(result)
+                    processor?.postProcessing(state = screenState.value, result = result)
+                } catch (e: Exception) {
+                    // TODO here we can include a log
+                }
+            }
         }
     }
 

@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.github.gustavobarbosab.imovies.core.presentation.arch.OnSideEffect
 
 @Composable
 fun HomeScreen(
@@ -15,8 +16,15 @@ fun HomeScreen(
         viewModel(HomeIntent.Init)
     }
 
+    OnSideEffect(viewModel.sideEffect) { homeSideEffect ->
+        when (homeSideEffect) {
+            HomeSideEffect.LoadMovieFailure -> Unit // TODO show snack bar
+            is HomeSideEffect.NavigateToMovieDetail -> Unit // Call details screen
+        }
+    }
+
     HomeScreenContent(
         screenState = screenState,
-        onMovieClicked = { viewModel(HomeIntent.Init) }
+        onMovieClicked = { viewModel(HomeIntent.MovieClicked(it)) }
     )
 }

@@ -18,13 +18,16 @@ class HomeSideEffectProcessor @Inject constructor() :
         state: HomeScreenState,
         result: HomeActionResult
     ): HomeSideEffect? = when (result) {
-        is HomeActionResult.UpdateSection -> when (result.section) {
-            HomeActionResult.Section.Popular -> HomeSideEffect.LoadPopularFailure
-            HomeActionResult.Section.TopBanner -> HomeSideEffect.LoadTopBannerFailure
-            HomeActionResult.Section.TopRated -> HomeSideEffect.LoadTopRatedFailure
-            HomeActionResult.Section.Upcoming -> HomeSideEffect.LoadUpcomingFailure
-        }
-
+        is HomeActionResult.UpdateSection -> onFailureToGetMovies(result.update)
         else -> null
+    }
+
+    private fun onFailureToGetMovies(
+        update: HomeActionResult.SectionUpdate
+    ) = if (update is HomeActionResult.SectionUpdate.Failure) {
+        // here we could handle the error by section...
+        HomeSideEffect.LoadMovieFailure
+    } else {
+        null
     }
 }
