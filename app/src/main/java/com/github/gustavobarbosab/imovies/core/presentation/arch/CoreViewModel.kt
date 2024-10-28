@@ -2,8 +2,11 @@ package com.github.gustavobarbosab.imovies.core.presentation.arch
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.consumeAsFlow
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
@@ -22,7 +25,17 @@ abstract class CoreViewModel<STATE, INTENT, RESULT, SIDE_EFFECT>(
         get() = processor?.sideEffect
             ?: throw IllegalStateException("Side effect processor not implemented")
 
-    private val concurrencyMutex = Mutex()
+    private val resultChannel = Channel<RESULT>()
+
+    init {
+        // This approach was created to control the concurrency of the results
+        viewModelScope.launch {
+            resultChannel.receiveAsFlow().collect { result ->
+                reducer(result)
+                processor?.postProcessing(state = screenState.value, result = result)
+            }
+        }
+    }
 
     operator fun invoke(intent: INTENT) {
         val currentState = reducer.screenState.value
@@ -32,14 +45,7 @@ abstract class CoreViewModel<STATE, INTENT, RESULT, SIDE_EFFECT>(
 
     protected fun reduce(result: RESULT) {
         viewModelScope.launch {
-            concurrencyMutex.withLock {
-                try {
-                    reducer(result)
-                    processor?.postProcessing(state = screenState.value, result = result)
-                } catch (e: Exception) {
-                    // TODO here we can include a log
-                }
-            }
+            resultChannel.send(result)
         }
     }
 
