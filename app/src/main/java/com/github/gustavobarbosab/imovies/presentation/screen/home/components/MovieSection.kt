@@ -13,16 +13,20 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.gustavobarbosab.imovies.common.presentation.UiState
-import com.github.gustavobarbosab.imovies.common.presentation.compose.shimmerEffect
+import com.github.gustavobarbosab.imovies.common.presentation.compose.extension.shimmerEffect
 import com.github.gustavobarbosab.imovies.presentation.screen.home.model.HomeMovieModel
 import com.github.gustavobarbosab.imovies.presentation.theme.spacing
+
+private val MOVIE_CARD_HEIGHT = 200.dp
 
 @Composable
 fun MovieSection(
@@ -31,29 +35,33 @@ fun MovieSection(
     sectionState: UiState<List<HomeMovieModel>>,
     onMovieClicked: (HomeMovieModel) -> Unit
 ) {
-    Column(
-        modifier = modifier.background(MaterialTheme.colorScheme.surface)
+    Surface(
+        modifier = modifier,
+        shape = RoundedCornerShape(MaterialTheme.spacing.small),
     ) {
-        Text(
-            text = title,
-            style = MaterialTheme.typography.titleLarge
-        )
-        Spacer(
-            modifier = Modifier
-                .height(MaterialTheme.spacing.medium)
-        )
-
-        when (sectionState) {
-            is UiState.Failure -> Column {
-                // TODO show a retry button
-            }
-
-            UiState.Loading -> MovieSectionSkeleton(title)
-
-            is UiState.Success -> MovieList(
-                movies = sectionState.data,
-                onMovieClicked = onMovieClicked
+        Column(Modifier.padding(MaterialTheme.spacing.medium)) {
+            Text(
+                text = title,
+                style = MaterialTheme.typography.titleLarge,
+                fontWeight = FontWeight.Bold,
             )
+            Spacer(
+                modifier = Modifier
+                    .height(MaterialTheme.spacing.medium)
+            )
+
+            when (sectionState) {
+                is UiState.Failure -> Column {
+                    // TODO show a retry button
+                }
+
+                UiState.Loading -> MovieSectionSkeleton()
+
+                is UiState.Success -> MovieList(
+                    movies = sectionState.data,
+                    onMovieClicked = onMovieClicked
+                )
+            }
         }
     }
 }
@@ -70,7 +78,7 @@ fun MovieList(
         items(items = movies, key = { movie -> movie.id }) { movie ->
             MovieCard(
                 modifier = Modifier
-                    .sizeIn(maxHeight = 200.dp)
+                    .sizeIn(maxHeight = MOVIE_CARD_HEIGHT)
                     .clip(RoundedCornerShape(MaterialTheme.spacing.small)),
                 imagePath = movie.posterPath,
                 onClick = { onMovieClicked(movie) }
@@ -81,23 +89,19 @@ fun MovieList(
 
 
 @Composable
-fun MovieSectionSkeleton(title: String) {
-    Column {
-        Text(
-            text = title,
-            style = MaterialTheme.typography.titleLarge
-        )
-        LazyRow(horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)) {
-            items(count = 7, key = { index -> index }) {
-                Spacer(
-                    modifier = Modifier
-                        .size(height = 180.dp, width = 120.dp)
-                        .shimmerEffect()
-                        .padding(MaterialTheme.spacing.small)
-                )
-            }
+fun MovieSectionSkeleton() {
+    LazyRow(
+        contentPadding = PaddingValues(start = MaterialTheme.spacing.small),
+        horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)
+    ) {
+        items(count = 7, key = { index -> index }) {
+            Spacer(
+                modifier = Modifier
+                    .size(height = MOVIE_CARD_HEIGHT, width = 140.dp)
+                    .shimmerEffect()
+                    .padding(MaterialTheme.spacing.small)
+            )
         }
-
     }
 }
 

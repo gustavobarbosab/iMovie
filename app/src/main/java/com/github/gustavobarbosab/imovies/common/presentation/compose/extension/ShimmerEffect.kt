@@ -1,4 +1,4 @@
-package com.github.gustavobarbosab.imovies.common.presentation.compose
+package com.github.gustavobarbosab.imovies.common.presentation.compose.extension
 
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable

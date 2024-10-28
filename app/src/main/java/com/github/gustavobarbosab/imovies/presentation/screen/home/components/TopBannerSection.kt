@@ -4,19 +4,18 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.github.gustavobarbosab.imovies.common.presentation.UiState
 import com.github.gustavobarbosab.imovies.common.presentation.compose.RecurrentTaskLaunchEffect
-import com.github.gustavobarbosab.imovies.common.presentation.compose.shimmerEffect
+import com.github.gustavobarbosab.imovies.common.presentation.compose.extension.shimmerEffect
 import com.github.gustavobarbosab.imovies.presentation.screen.home.model.HomeMovieModel
 
 @Composable
 fun TopBannerSection(
     modifier: Modifier = Modifier,
     sectionState: UiState<List<HomeMovieModel>>,
+    pagerSize: Int = 5,
     onMovieClicked: (HomeMovieModel) -> Unit
 ) {
     when (sectionState) {
@@ -25,6 +24,7 @@ fun TopBannerSection(
         is UiState.Success -> AutoScrollableMoviesPager(
             modifier,
             sectionState.data,
+            pagerSize = pagerSize,
             onMovieClicked = onMovieClicked
         )
 
@@ -38,13 +38,13 @@ fun TopBannerSection(
 fun AutoScrollableMoviesPager(
     modifier: Modifier,
     movies: List<HomeMovieModel>,
-    pageCount: Int = 4,
+    pagerSize: Int = 4,
     onMovieClicked: (HomeMovieModel) -> Unit
 ) {
-    val pagerState = rememberPagerState(pageCount = { pageCount })
+    val pagerState = rememberPagerState(pageCount = { pagerSize })
 
     RecurrentTaskLaunchEffect(pagerState, delayInMillis = 2000) {
-        val nextPage = (pagerState.currentPage + 1) % pageCount
+        val nextPage = (pagerState.currentPage + 1) % pagerSize
         pagerState.animateScrollToPage(nextPage)
     }
 
