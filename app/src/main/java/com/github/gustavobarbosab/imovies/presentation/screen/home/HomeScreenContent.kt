@@ -24,6 +24,7 @@ import com.github.gustavobarbosab.imovies.presentation.theme.spacing
 @Composable
 fun HomeScreenContent(
     screenState: HomeScreenState,
+    onRetryLoadSection: () -> Unit = {},
     onMovieClicked: (HomeMovieModel) -> Unit
 ) {
     Scaffold(
@@ -62,7 +63,8 @@ fun HomeScreenContent(
                                 start = MaterialTheme.spacing.medium,
                             ),
                         sectionState = sectionState,
-                        onMovieClicked = onMovieClicked
+                        onMovieClicked = onMovieClicked,
+                        onRetry = onRetryLoadSection
                     )
                 }
             }

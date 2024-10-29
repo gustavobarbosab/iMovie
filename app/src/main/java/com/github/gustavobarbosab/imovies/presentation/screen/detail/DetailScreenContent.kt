@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import com.github.gustavobarbosab.imovies.R
 import com.github.gustavobarbosab.imovies.common.presentation.UiState
 import com.github.gustavobarbosab.imovies.common.presentation.compose.component.AppToolbar
+import com.github.gustavobarbosab.imovies.common.presentation.compose.component.FeedbackContainer
 import com.github.gustavobarbosab.imovies.common.presentation.compose.component.MovieCard
 import com.github.gustavobarbosab.imovies.common.presentation.compose.component.MovieCardDefaults
 import com.github.gustavobarbosab.imovies.common.presentation.compose.component.SkeletonItem
@@ -69,7 +70,6 @@ fun DetailScreenContent(
 
                 is UiState.Failure -> DetailScreenFailure(
                     onTryAgain = onRetryClicked,
-                    message = stringResource(R.string.detail_load_data_failure)
                 )
             }
         }
@@ -143,41 +143,13 @@ private fun DetailScreenSuccess(
 
 @Composable
 private fun BoxScope.DetailScreenFailure(
-    message: String,
     onTryAgain: () -> Unit,
 ) {
-    Surface(
-        Modifier
-            .padding(MaterialTheme.spacing.medium)
-            .clip(MaterialTheme.shapes.medium)
-            .fillMaxWidth()
-            .align(Alignment.Center),
-    ) {
-        Column(
-            Modifier.padding(MaterialTheme.spacing.medium),
-            verticalArrangement = Arrangement.spacedBy(
-                MaterialTheme.spacing.medium,
-                Alignment.CenterVertically
-            ),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Icon(
-                imageVector = Icons.Error,
-                contentDescription = "Back",
-                modifier = Modifier.size(48.dp),
-                tint = MaterialTheme.colorScheme.onSurface
-            )
-
-            Text(
-                text = message,
-                textAlign = TextAlign.Center,
-            )
-
-            OutlinedButton(onTryAgain) {
-                Text("Try again")
-            }
-        }
-    }
+    FeedbackContainer(
+        modifier = Modifier.align(Alignment.Center),
+        message = stringResource(R.string.detail_load_data_failure),
+        onTryAgain = onTryAgain,
+    )
 }
 
 @Preview(showSystemUi = true)
@@ -198,7 +170,6 @@ fun DetailScreenContentFailurePreview() {
     IMoviesTheme {
         Box(Modifier.fillMaxSize()) {
             DetailScreenFailure(
-                message = "Error",
                 onTryAgain = {}
             )
         }

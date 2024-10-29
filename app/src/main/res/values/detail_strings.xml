@@ -2,4 +2,5 @@
 <resources>
     <string name="detail_toolbar_title">Movie Detail</string>
     <string name="detail_load_data_failure">There was an error loading the movie detail, please try again.</string>
+    <string name="detail_try_again_button">Try again</string>
 </resources>

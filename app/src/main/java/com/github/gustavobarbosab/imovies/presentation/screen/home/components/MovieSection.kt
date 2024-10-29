@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -24,8 +25,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.gustavobarbosab.imovies.R
 import com.github.gustavobarbosab.imovies.common.presentation.UiStateList
+import com.github.gustavobarbosab.imovies.common.presentation.compose.component.FeedbackContainer
 import com.github.gustavobarbosab.imovies.common.presentation.compose.component.MovieCard
-import com.github.gustavobarbosab.imovies.common.presentation.compose.extension.shimmerEffect
+import com.github.gustavobarbosab.imovies.common.presentation.compose.component.SkeletonItem
 import com.github.gustavobarbosab.imovies.presentation.screen.home.HomeScreenState
 import com.github.gustavobarbosab.imovies.presentation.screen.home.model.HomeMovieModel
 import com.github.gustavobarbosab.imovies.presentation.theme.IMoviesTheme
@@ -39,12 +41,12 @@ private const val SKELETON_COUNT = 7
 fun MovieSection(
     modifier: Modifier = Modifier,
     sectionState: HomeScreenState.MovieSectionState,
+    onRetry: () -> Unit,
     onMovieClicked: (HomeMovieModel) -> Unit
 ) {
     when (sectionState.uiState) {
         // To simplify the implementation we are not handling these states
-        is UiStateList.EmptyList,
-        is UiStateList.Failure -> return
+        is UiStateList.EmptyList -> return
 
         else -> Unit
     }
@@ -72,14 +74,15 @@ fun MovieSection(
                 horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)
             ) {
                 when (val uiState = sectionState.uiState) {
-                    UiStateList.Loading -> skeleton()
+                    UiStateList.Loading -> SkeletonItems()
 
-                    is UiStateList.Success -> movieList(
+                    is UiStateList.Success -> MovieListItems(
                         movies = uiState.data,
                         onMovieClicked = onMovieClicked
                     )
 
-                    // TODO implement the error...
+                    is UiStateList.Failure -> ErrorItem(onRetry)
+
                     else -> Unit
                 }
             }
@@ -87,7 +90,7 @@ fun MovieSection(
     }
 }
 
-private fun LazyListScope.movieList(
+private fun LazyListScope.MovieListItems(
     movies: List<HomeMovieModel>,
     onMovieClicked: (HomeMovieModel) -> Unit
 ) {
@@ -103,13 +106,24 @@ private fun LazyListScope.movieList(
 }
 
 
-private fun LazyListScope.skeleton() {
+private fun LazyListScope.SkeletonItems() {
     items(count = SKELETON_COUNT, key = { index -> index }) {
-        Spacer(
+        SkeletonItem(
             modifier = Modifier
-                .clip(MaterialTheme.shapes.medium)
                 .size(height = MOVIE_CARD_HEIGHT, width = MOVIE_CARD_WIDTH)
-                .shimmerEffect()
+                .clip(MaterialTheme.shapes.medium)
+        )
+    }
+}
+
+private fun LazyListScope.ErrorItem(onRetry: () -> Unit) {
+    item("error") {
+        FeedbackContainer(
+            modifier = Modifier
+                .padding(MaterialTheme.spacing.medium)
+                .fillMaxWidth(),
+            onTryAgain = onRetry,
+            message = stringResource(R.string.home_section_failure)
         )
     }
 }
@@ -131,11 +145,21 @@ private fun previewMovieSection() {
 
     IMoviesTheme {
         MovieSection(
+//            sectionState = HomeScreenState.MovieSectionState(
+//                title = R.string.home_popular_section_title,
+//                uiState = UiStateList.Success(data = list)
+//            ),
+//            sectionState = HomeScreenState.MovieSectionState(
+//                title = R.string.home_popular_section_title,
+//                uiState = UiStateList.Loading
+//            ),
             sectionState = HomeScreenState.MovieSectionState(
                 title = R.string.home_popular_section_title,
-                uiState = UiStateList.Success(data = list)
+                uiState = UiStateList.Failure("Error")
             ),
-            onMovieClicked = {}
+
+            onMovieClicked = {},
+            onRetry = {}
         )
     }
 }
