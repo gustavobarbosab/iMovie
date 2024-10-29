@@ -14,6 +14,7 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.github.gustavobarbosab.imovies.R
 import com.github.gustavobarbosab.imovies.presentation.theme.IMoviesTheme
 import com.github.gustavobarbosab.imovies.presentation.theme.spacing
@@ -28,7 +29,7 @@ fun AppLogo(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Icon(
-            modifier = Modifier.rotate(350f),
+            modifier = Modifier.size(24.dp),
             painter = painterResource(R.drawable.app_logo),
             contentDescription = "App icon",
             tint = MaterialTheme.colorScheme.primary
