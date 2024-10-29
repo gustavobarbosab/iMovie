@@ -1,8 +1,11 @@
 package com.github.gustavobarbosab.imovies.data.movies.di
 
-import com.github.gustavobarbosab.imovies.domain.movies.MoviesRepository
-import com.github.gustavobarbosab.imovies.domain.movies.GetMoviesUseCase
-import com.github.gustavobarbosab.imovies.domain.movies.GetMoviesUseCaseImpl
+import com.github.gustavobarbosab.imovies.domain.movies.detail.GetMovieDetailRepository
+import com.github.gustavobarbosab.imovies.domain.movies.detail.GetMovieDetailUseCase
+import com.github.gustavobarbosab.imovies.domain.movies.detail.GetMovieDetailUseCaseImpl
+import com.github.gustavobarbosab.imovies.domain.movies.list.GetMoviesListUseCase
+import com.github.gustavobarbosab.imovies.domain.movies.list.GetMoviesListUseCaseImpl
+import com.github.gustavobarbosab.imovies.domain.movies.list.MoviesListRepository
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -16,31 +19,39 @@ abstract class MovieUseCaseDataModule {
 
     @Binds
     abstract fun bindUpcomingMovieUseCase(
-        useCase: GetMoviesUseCaseImpl
-    ): GetMoviesUseCase.UpcomingMovies
+        useCase: GetMoviesListUseCaseImpl
+    ): GetMoviesListUseCase.UpcomingMovies
+
+    @Binds
+    abstract fun bindPopularMoviesUseCase(
+        useCase: GetMoviesListUseCaseImpl
+    ): GetMoviesListUseCase.PopularMovies
 
     @Binds
     abstract fun bindTopRatedMovieUseCase(
-        useCase: GetMoviesUseCaseImpl
-    ): GetMoviesUseCase.TopRatedMovies
+        useCase: GetMoviesListUseCaseImpl
+    ): GetMoviesListUseCase.TopRatedMovies
 
     @Binds
     abstract fun bindNowPlayingMovieUseCase(
-        useCase: GetMoviesUseCaseImpl
-    ): GetMoviesUseCase.NowPlayingMovies
-
-    @Binds
-    abstract fun bindPopularMovieUseCase(
-        useCase: GetMoviesUseCaseImpl
-    ): GetMoviesUseCase.PopularMovies
+        useCase: GetMoviesListUseCaseImpl
+    ): GetMoviesListUseCase.NowPlayingMovies
 
     companion object {
         @Provides
         @ViewModelScoped
-        fun bindUpcomingMovieUseCase(
-            repository: MoviesRepository,
-        ): GetMoviesUseCaseImpl {
-            return GetMoviesUseCaseImpl(repository)
+        fun provideGetMoviesUseCase(
+            repository: MoviesListRepository,
+        ): GetMoviesListUseCaseImpl {
+            return GetMoviesListUseCaseImpl(repository)
+        }
+
+        @Provides
+        @ViewModelScoped
+        fun provideGetMovieDetailUseCase(
+            repository: GetMovieDetailRepository,
+        ): GetMovieDetailUseCase {
+            return GetMovieDetailUseCaseImpl(repository)
         }
     }
 }

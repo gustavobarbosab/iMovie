@@ -1,7 +1,7 @@
 package com.github.gustavobarbosab.imovies.presentation.screen.home
 
 import com.github.gustavobarbosab.imovies.MainCoroutineRule
-import com.github.gustavobarbosab.imovies.domain.movies.GetMoviesUseCase
+import com.github.gustavobarbosab.imovies.domain.movies.list.GetMoviesListUseCase
 import com.github.gustavobarbosab.imovies.domain.movies.entity.MoviePage
 import com.github.gustavobarbosab.imovies.presentation.screen.home.HomeActionResult.SectionUpdate
 import com.github.gustavobarbosab.imovies.presentation.screen.home.model.HomeModelMapper
@@ -29,10 +29,10 @@ class HomeViewModelTest {
     }
     private val sideEffectProcessor = mockk<HomeScreenSideEffectProcessor>(relaxed = true)
     private val mapper = mockk<HomeModelMapper>(relaxed = true)
-    private val upcomingMoviesUseCase = mockk<GetMoviesUseCase.UpcomingMovies>(relaxed = true)
-    private val topRatedMoviesUseCase = mockk<GetMoviesUseCase.TopRatedMovies>(relaxed = true)
-    private val popularMoviesUseCase = mockk<GetMoviesUseCase.PopularMovies>(relaxed = true)
-    private val nowPlayingMoviesUseCase = mockk<GetMoviesUseCase.NowPlayingMovies>(relaxed = true)
+    private val upcomingMoviesUseCase = mockk<GetMoviesListUseCase.UpcomingMovies>(relaxed = true)
+    private val topRatedMoviesUseCase = mockk<GetMoviesListUseCase.TopRatedMovies>(relaxed = true)
+    private val popularMoviesUseCase = mockk<GetMoviesListUseCase.PopularMovies>(relaxed = true)
+    private val nowPlayingMoviesUseCase = mockk<GetMoviesListUseCase.NowPlayingMovies>(relaxed = true)
 
     private val viewModel: HomeScreenViewModel = HomeScreenViewModel(
         reducer,
@@ -58,19 +58,19 @@ class HomeViewModelTest {
 
         coEvery {
             upcomingMoviesUseCase.getUpcomingMovies()
-        } returns GetMoviesUseCase.Result.Success(mockedPage)
+        } returns GetMoviesListUseCase.Result.Success(mockedPage)
 
         coEvery {
             topRatedMoviesUseCase.getTopRatedMovies()
-        } returns GetMoviesUseCase.Result.Success(mockedPage)
+        } returns GetMoviesListUseCase.Result.Success(mockedPage)
 
         coEvery {
             popularMoviesUseCase.getPopularMovies()
-        } returns GetMoviesUseCase.Result.Success(mockedPage)
+        } returns GetMoviesListUseCase.Result.Success(mockedPage)
 
         coEvery {
             nowPlayingMoviesUseCase.getNowPlayingMovies()
-        } returns GetMoviesUseCase.Result.Success(mockedPage)
+        } returns GetMoviesListUseCase.Result.Success(mockedPage)
 
         // When
         viewModel(HomeIntent.Init)
@@ -97,19 +97,19 @@ class HomeViewModelTest {
         every { reducer(any()) } returns Unit
         coEvery {
             upcomingMoviesUseCase.getUpcomingMovies()
-        } returns GetMoviesUseCase.Result.Error(null)
+        } returns GetMoviesListUseCase.Result.Error(null)
 
         coEvery {
             topRatedMoviesUseCase.getTopRatedMovies()
-        } returns GetMoviesUseCase.Result.Error(null)
+        } returns GetMoviesListUseCase.Result.Error(null)
 
         coEvery {
             popularMoviesUseCase.getPopularMovies()
-        } returns GetMoviesUseCase.Result.Error(null)
+        } returns GetMoviesListUseCase.Result.Error(null)
 
         coEvery {
             nowPlayingMoviesUseCase.getNowPlayingMovies()
-        } returns GetMoviesUseCase.Result.Error(null)
+        } returns GetMoviesListUseCase.Result.Error(null)
 
         // When
         viewModel(HomeIntent.Init)
@@ -136,19 +136,19 @@ class HomeViewModelTest {
         every { reducer(any()) } returns Unit
         coEvery {
             upcomingMoviesUseCase.getUpcomingMovies()
-        } returns GetMoviesUseCase.Result.ThereIsNoMovies
+        } returns GetMoviesListUseCase.Result.ThereIsNoMovies
 
         coEvery {
             topRatedMoviesUseCase.getTopRatedMovies()
-        } returns GetMoviesUseCase.Result.ThereIsNoMovies
+        } returns GetMoviesListUseCase.Result.ThereIsNoMovies
 
         coEvery {
             popularMoviesUseCase.getPopularMovies()
-        } returns GetMoviesUseCase.Result.ThereIsNoMovies
+        } returns GetMoviesListUseCase.Result.ThereIsNoMovies
 
         coEvery {
             nowPlayingMoviesUseCase.getNowPlayingMovies()
-        } returns GetMoviesUseCase.Result.ThereIsNoMovies
+        } returns GetMoviesListUseCase.Result.ThereIsNoMovies
 
         // When
         viewModel(HomeIntent.Init)

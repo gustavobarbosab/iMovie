@@ -19,11 +19,13 @@ import androidx.compose.ui.tooling.preview.Preview
 fun AppToolbar(
     modifier: Modifier = Modifier,
     title: String,
-    leftIcon: ImageVector? = Icons.AutoMirrored.Filled.ArrowBack,
+    leftIcon: ImageVector? = null,
     rightIcon: ImageVector? = null,
     onBackClick: () -> Unit = {},
     onMenuClick: () -> Unit = {}
 ) {
+
+    Icons.AutoMirrored.Filled.ArrowBack
     AppToolbar(
         modifier = modifier,
         leftIcon = leftIcon,

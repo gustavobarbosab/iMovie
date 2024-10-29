@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CornerBasedShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.ripple.rememberRipple
@@ -21,6 +22,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
@@ -29,15 +31,17 @@ import androidx.compose.ui.unit.dp
 import coil3.compose.rememberAsyncImagePainter
 import com.github.gustavobarbosab.imovies.common.presentation.AsyncImageState
 import com.github.gustavobarbosab.imovies.common.presentation.toAsyncState
+import com.github.gustavobarbosab.imovies.presentation.theme.Error
 import com.github.gustavobarbosab.imovies.presentation.theme.IMoviesTheme
 import com.github.gustavobarbosab.imovies.presentation.theme.spacing
 
 @Composable
 fun MovieCard(
     imagePath: String,
-    onClick: () -> Unit,
+    onClick: () -> Unit = {},
     modifier: Modifier = Modifier,
-    error: ImageVector = Icons.Filled.Info
+    shape: CornerBasedShape? = MaterialTheme.shapes.medium,
+    error: ImageVector = Icons.Error
 ) {
     val imagePainter = rememberAsyncImagePainter(
         model = imagePath
@@ -49,7 +53,8 @@ fun MovieCard(
         painter = imagePainter,
         imageState = imageState.toAsyncState(),
         onClick = onClick,
-        error = error
+        error = error,
+        shape = shape
     )
 }
 
@@ -59,6 +64,7 @@ private fun MovieCardContent(
     painter: Painter,
     imageState: AsyncImageState,
     onClick: () -> Unit,
+    shape: Shape?,
     modifier: Modifier = Modifier,
     error: ImageVector = Icons.Filled.Info
 ) {
@@ -72,7 +78,7 @@ private fun MovieCardContent(
     ) {
         val childModifier = Modifier
             .matchParentSize()
-            .clip(MaterialTheme.shapes.medium)
+            .apply { if (shape != null) clip(shape) }
             .background(MaterialTheme.colorScheme.background)
 
         when (imageState) {
@@ -133,6 +139,7 @@ private fun preview() {
             painter = rememberVectorPainter(Icons.Filled.Info),
             imageState = AsyncImageState.Error,
             onClick = {},
+            shape = MaterialTheme.shapes.medium,
             modifier = Modifier.size(135.dp, 240.dp),
         )
     }

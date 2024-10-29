@@ -7,9 +7,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.github.gustavobarbosab.imovies.core.presentation.arch.OnSideEffect
 
 @Composable
-fun HomeScreen(
-    viewModel: HomeScreenViewModel
-) {
+fun HomeScreen(viewModel: HomeScreenViewModel) {
+
     val screenState by viewModel.screenState.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {

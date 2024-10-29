@@ -3,7 +3,7 @@ package com.github.gustavobarbosab.imovies.presentation.screen.home
 import androidx.lifecycle.viewModelScope
 import com.github.gustavobarbosab.imovies.core.presentation.arch.CoreViewModel
 import com.github.gustavobarbosab.imovies.core.presentation.arch.HandledByProcessor
-import com.github.gustavobarbosab.imovies.domain.movies.GetMoviesUseCase
+import com.github.gustavobarbosab.imovies.domain.movies.list.GetMoviesListUseCase
 import com.github.gustavobarbosab.imovies.presentation.screen.home.HomeActionResult.SectionUpdate
 import com.github.gustavobarbosab.imovies.presentation.screen.home.model.HomeModelMapper
 import com.github.gustavobarbosab.imovies.presentation.screen.home.model.HomeMovieModel
@@ -18,17 +18,17 @@ class HomeScreenViewModel @Inject constructor(
     reducer: HomeScreenReducer,
     sideEffectProcessor: HomeScreenSideEffectProcessor,
     private val mapper: HomeModelMapper,
-    private val upcomingMoviesUseCase: GetMoviesUseCase.UpcomingMovies,
-    private val topRatedMoviesUseCase: GetMoviesUseCase.TopRatedMovies,
-    private val popularMoviesUseCase: GetMoviesUseCase.PopularMovies,
-    private val nowPlayingMoviesUseCase: GetMoviesUseCase.NowPlayingMovies
+    private val upcomingMoviesUseCase: GetMoviesListUseCase.UpcomingMovies,
+    private val topRatedMoviesUseCase: GetMoviesListUseCase.TopRatedMovies,
+    private val popularMoviesUseCase: GetMoviesListUseCase.PopularMovies,
+    private val nowPlayingMoviesUseCase: GetMoviesListUseCase.NowPlayingMovies
 ) : CoreViewModel<HomeScreenState, HomeIntent, HomeActionResult, HomeSideEffect>(
     reducer,
     sideEffectProcessor
 ) {
     private var screenInitializationJob: Job? = null
 
-    override fun handleIntent(intent: HomeIntent) {
+    override fun handleIntent(intent: HomeIntent, currentState: HomeScreenState) {
         when (intent) {
             HomeIntent.Init -> initScreen()
             is HomeIntent.MovieClicked -> HandledByProcessor
@@ -84,7 +84,7 @@ class HomeScreenViewModel @Inject constructor(
 
     // I've created this method because the logic was repeated in the initScreen method
     private suspend fun getMovies(
-        request: suspend () -> GetMoviesUseCase.Result,
+        request: suspend () -> GetMoviesListUseCase.Result,
         onLoading: () -> HomeActionResult,
         onSuccess: (List<HomeMovieModel>) -> HomeActionResult,
         onEmpty: () -> HomeActionResult,
@@ -93,9 +93,9 @@ class HomeScreenViewModel @Inject constructor(
         reduce(onLoading())
 
         val result = when (val result = request()) {
-            is GetMoviesUseCase.Result.Success -> onSuccess(mapper.map(result.moviePage))
-            is GetMoviesUseCase.Result.ThereIsNoMovies -> onEmpty()
-            is GetMoviesUseCase.Result.Error -> onFailure()
+            is GetMoviesListUseCase.Result.Success -> onSuccess(mapper.map(result.moviePage))
+            is GetMoviesListUseCase.Result.ThereIsNoMovies -> onEmpty()
+            is GetMoviesListUseCase.Result.Error -> onFailure()
         }
         reduce(result)
     }

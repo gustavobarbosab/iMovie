@@ -1,6 +1,5 @@
 package com.github.gustavobarbosab.imovies.core.data.network.adapter
 
-import com.github.gustavobarbosab.imovies.core.domain.network.NetworkResponse
 import com.github.gustavobarbosab.imovies.core.data.network.adapter.mapper.mapToServiceResponse
 import okhttp3.Request
 import okio.Timeout
@@ -20,7 +19,7 @@ class ServiceResponseCall<T : Any>(
             }
 
             override fun onFailure(call: Call<T>, t: Throwable) {
-                val networkResult = NetworkResponse.InternalException<T>(t)
+                val networkResult = NetworkResponse.InternalError<T>(t)
                 callback.onResponse(this@ServiceResponseCall, Response.success(networkResult))
             }
         })

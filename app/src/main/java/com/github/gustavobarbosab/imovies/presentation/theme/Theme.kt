@@ -5,6 +5,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.runtime.Composable
 
+// TODO finish the setup of the schemes
 private val DarkColorScheme = darkColorScheme(
     primary = Orange80,
     onPrimary = Orange20,

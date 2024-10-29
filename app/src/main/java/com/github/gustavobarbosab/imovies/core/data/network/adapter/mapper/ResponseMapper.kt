@@ -1,6 +1,6 @@
 package com.github.gustavobarbosab.imovies.core.data.network.adapter.mapper
 
-import com.github.gustavobarbosab.imovies.core.domain.network.NetworkResponse
+import com.github.gustavobarbosab.imovies.core.data.network.adapter.NetworkResponse
 import retrofit2.Response
 
 fun <T : Any> Response<T>.mapToServiceResponse(): NetworkResponse<T> {
@@ -14,18 +14,16 @@ fun <T : Any> Response<T>.mapToServiceResponse(): NetworkResponse<T> {
         }
     }
 
-    return NetworkResponse.ServerException(
+    return NetworkResponse.ExternalError(
         code = this.code(),
         message = this.message(),
-        body = errorBody()
     )
 }
 
 
 fun <T : Any> Response<T>.mapErrorToServiceResponse(): NetworkResponse<T> {
-    return NetworkResponse.ServerException(
+    return NetworkResponse.ExternalError(
         code = this.code(),
         message = this.message(),
-        body = this.errorBody()
     )
 }

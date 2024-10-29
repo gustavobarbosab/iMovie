@@ -30,7 +30,7 @@ abstract class CoreViewModel<STATE, INTENT, RESULT, SIDE_EFFECT>(
         listenResults()
         val currentState = reducer.screenState.value
         processor?.preProcessing(state = currentState, intent = intent)
-        handleIntent(intent)
+        handleIntent(intent, currentState)
     }
 
     protected fun reduce(result: RESULT) {
@@ -39,7 +39,7 @@ abstract class CoreViewModel<STATE, INTENT, RESULT, SIDE_EFFECT>(
         }
     }
 
-    abstract fun handleIntent(intent: INTENT)
+    abstract fun handleIntent(intent: INTENT, currentState: STATE)
 
     private fun listenResults() {
         // It was not implemented on the init method

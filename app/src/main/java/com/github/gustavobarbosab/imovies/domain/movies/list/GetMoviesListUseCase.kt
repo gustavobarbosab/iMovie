@@ -1,8 +1,8 @@
-package com.github.gustavobarbosab.imovies.domain.movies
+package com.github.gustavobarbosab.imovies.domain.movies.list
 
 import com.github.gustavobarbosab.imovies.domain.movies.entity.MoviePage
 
-interface GetMoviesUseCase {
+interface GetMoviesListUseCase {
 
     interface UpcomingMovies {
         suspend fun getUpcomingMovies(page: Int = FIRST_PAGE): Result

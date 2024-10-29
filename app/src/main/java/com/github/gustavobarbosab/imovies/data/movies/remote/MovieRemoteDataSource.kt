@@ -1,7 +1,8 @@
 package com.github.gustavobarbosab.imovies.data.movies.remote
 
-import com.github.gustavobarbosab.imovies.core.domain.network.NetworkResponse
+import com.github.gustavobarbosab.imovies.core.data.network.adapter.NetworkResponse
 import com.github.gustavobarbosab.imovies.data.movies.remote.response.MoviePageResponse
+import com.github.gustavobarbosab.imovies.data.movies.remote.response.MovieResponse
 
 interface MovieRemoteDataSource {
 
@@ -12,4 +13,6 @@ interface MovieRemoteDataSource {
     suspend fun getTopRatedMovies(page: Int): NetworkResponse<MoviePageResponse>
 
     suspend fun getNowPlayingMovies(page: Int): NetworkResponse<MoviePageResponse>
+
+    suspend fun getMovieDetail(movieId: Long): NetworkResponse<MovieResponse>
 }
