@@ -40,7 +40,9 @@ fun MovieCard(
     modifier: Modifier = Modifier,
     error: ImageVector = Icons.Filled.Info
 ) {
-    val imagePainter = rememberAsyncImagePainter(model = imagePath)
+    val imagePainter = rememberAsyncImagePainter(
+        model = imagePath
+    )
     val imageState by imagePainter.state.collectAsState()
 
     MovieCardContent(
@@ -132,9 +134,7 @@ private fun preview() {
             painter = rememberVectorPainter(Icons.Filled.Info),
             imageState = AsyncImageState.Error,
             onClick = {},
-            modifier = Modifier
-                .padding(20.dp)
-                .size(135.dp, 240.dp),
+            modifier = Modifier.size(135.dp, 240.dp),
         )
     }
 }

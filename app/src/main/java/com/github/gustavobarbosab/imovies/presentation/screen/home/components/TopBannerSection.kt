@@ -1,14 +1,18 @@
 package com.github.gustavobarbosab.imovies.presentation.screen.home.components
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import com.github.gustavobarbosab.imovies.common.presentation.UiStateList
@@ -59,11 +63,27 @@ fun AutoScrollableMoviesPager(
         state = pagerState
     ) { page ->
         val movie = movies[page]
-        MovieCard(
-            modifier = Modifier.fillMaxSize(),
-            imagePath = movie.backdropPath,
-            onClick = { onMovieClicked(movie) }
-        )
+        Box {
+            MovieCard(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .aspectRatio(16f / 9f),
+                imagePath = movie.backdropPath,
+                onClick = { onMovieClicked(movie) }
+            )
+            Text(
+                modifier = Modifier
+                    .align(Alignment.BottomStart)
+                    .background(MaterialTheme.colorScheme.background.copy(alpha = 0.5f))
+                    .padding(
+                        horizontal = MaterialTheme.spacing.medium,
+                        vertical = MaterialTheme.spacing.small,
+                    )
+                    .fillMaxWidth(),
+                text = movie.title,
+                style = MaterialTheme.typography.titleLarge,
+            )
+        }
     }
 }
 
@@ -72,7 +92,6 @@ fun AutoScrollableMoviesPager(
 fun TopBannerLoading(modifier: Modifier = Modifier) {
     Spacer(
         modifier = modifier
-            .padding(MaterialTheme.spacing.extraSmall)
             .clip(MaterialTheme.shapes.medium)
             .shimmerEffect(),
     )

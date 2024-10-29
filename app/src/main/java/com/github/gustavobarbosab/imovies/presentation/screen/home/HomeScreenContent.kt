@@ -1,6 +1,7 @@
 package com.github.gustavobarbosab.imovies.presentation.screen.home
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.sizeIn
@@ -32,8 +33,8 @@ fun HomeScreenContent(
             item(key = "header") {
                 TopBannerSection(
                     Modifier
-                        .padding(top = MaterialTheme.spacing.medium)
-                        .sizeIn(minHeight = 200.dp)
+                        .padding(MaterialTheme.spacing.extraSmall)
+                        .defaultMinSize(minHeight = 220.dp)
                         .fillMaxWidth(),
                     screenState.topBannerMovies,
                     pagerSize = 6,
