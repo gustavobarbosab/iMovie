@@ -8,7 +8,7 @@ import com.github.gustavobarbosab.imovies.core.presentation.arch.OnSideEffect
 
 @Composable
 fun HomeScreen(
-    viewModel: HomeViewModel
+    viewModel: HomeScreenViewModel
 ) {
     val screenState by viewModel.screenState.collectAsStateWithLifecycle()
 

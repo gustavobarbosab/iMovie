@@ -6,7 +6,7 @@ import com.github.gustavobarbosab.imovies.presentation.screen.home.HomeActionRes
 import com.github.gustavobarbosab.imovies.presentation.screen.home.model.HomeMovieSectionType
 import javax.inject.Inject
 
-class HomeReducer @Inject constructor(
+class HomeScreenReducer @Inject constructor(
 
 ) : Reducer<HomeScreenState, HomeActionResult>(HomeScreenState.initialState()) {
 

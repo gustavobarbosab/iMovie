@@ -10,7 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import com.github.gustavobarbosab.imovies.presentation.screen.home.HomeScreen
-import com.github.gustavobarbosab.imovies.presentation.screen.home.HomeViewModel
+import com.github.gustavobarbosab.imovies.presentation.screen.home.HomeScreenViewModel
 import com.github.gustavobarbosab.imovies.presentation.theme.IMoviesTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -28,7 +28,7 @@ class MainActivity : ComponentActivity() {
                             .fillMaxSize()
                             .padding(innerPadding)
                     ) {
-                        val viewModel: HomeViewModel by viewModels()
+                        val viewModel: HomeScreenViewModel by viewModels()
                         HomeScreen(
                             viewModel = viewModel
                         )

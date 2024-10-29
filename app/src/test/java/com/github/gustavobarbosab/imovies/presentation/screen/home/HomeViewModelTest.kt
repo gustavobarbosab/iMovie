@@ -24,17 +24,17 @@ class HomeViewModelTest {
     @get:Rule
     var mainCoroutineRule = MainCoroutineRule()
 
-    private val reducer = mockk<HomeReducer> {
+    private val reducer = mockk<HomeScreenReducer> {
         every { screenState } returns MutableStateFlow(HomeScreenState.initialState())
     }
-    private val sideEffectProcessor = mockk<HomeSideEffectProcessor>(relaxed = true)
+    private val sideEffectProcessor = mockk<HomeScreenSideEffectProcessor>(relaxed = true)
     private val mapper = mockk<HomeModelMapper>(relaxed = true)
     private val upcomingMoviesUseCase = mockk<GetMoviesUseCase.UpcomingMovies>(relaxed = true)
     private val topRatedMoviesUseCase = mockk<GetMoviesUseCase.TopRatedMovies>(relaxed = true)
     private val popularMoviesUseCase = mockk<GetMoviesUseCase.PopularMovies>(relaxed = true)
     private val nowPlayingMoviesUseCase = mockk<GetMoviesUseCase.NowPlayingMovies>(relaxed = true)
 
-    private val viewModel: HomeViewModel = HomeViewModel(
+    private val viewModel: HomeScreenViewModel = HomeScreenViewModel(
         reducer,
         sideEffectProcessor,
         mapper,

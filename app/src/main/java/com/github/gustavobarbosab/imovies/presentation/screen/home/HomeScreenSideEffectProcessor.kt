@@ -4,7 +4,7 @@ import com.github.gustavobarbosab.imovies.core.presentation.arch.SideEffectProce
 import com.github.gustavobarbosab.imovies.presentation.screen.home.model.HomeMovieSectionType
 import javax.inject.Inject
 
-class HomeSideEffectProcessor @Inject constructor() :
+class HomeScreenSideEffectProcessor @Inject constructor() :
     SideEffectProcessor<HomeScreenState, HomeIntent, HomeActionResult, HomeSideEffect>() {
 
     override fun preSideEffect(

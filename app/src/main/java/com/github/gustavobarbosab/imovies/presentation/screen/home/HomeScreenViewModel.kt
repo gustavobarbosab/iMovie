@@ -14,9 +14,9 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(
-    reducer: HomeReducer,
-    sideEffectProcessor: HomeSideEffectProcessor,
+class HomeScreenViewModel @Inject constructor(
+    reducer: HomeScreenReducer,
+    sideEffectProcessor: HomeScreenSideEffectProcessor,
     private val mapper: HomeModelMapper,
     private val upcomingMoviesUseCase: GetMoviesUseCase.UpcomingMovies,
     private val topRatedMoviesUseCase: GetMoviesUseCase.TopRatedMovies,
