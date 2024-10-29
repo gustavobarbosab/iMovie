@@ -18,13 +18,14 @@ import com.github.gustavobarbosab.imovies.common.presentation.compose.component.
 import com.github.gustavobarbosab.imovies.presentation.screen.home.components.MovieSection
 import com.github.gustavobarbosab.imovies.presentation.screen.home.components.TopBannerSection
 import com.github.gustavobarbosab.imovies.presentation.screen.home.model.HomeMovieModel
+import com.github.gustavobarbosab.imovies.presentation.screen.home.model.HomeMovieSectionType
 import com.github.gustavobarbosab.imovies.presentation.theme.IMoviesTheme
 import com.github.gustavobarbosab.imovies.presentation.theme.spacing
 
 @Composable
 fun HomeScreenContent(
     screenState: HomeScreenState,
-    onRetryLoadSection: () -> Unit = {},
+    onRetryLoadSection: (HomeMovieSectionType) -> Unit = {},
     onMovieClicked: (HomeMovieModel) -> Unit
 ) {
     Scaffold(
@@ -64,7 +65,7 @@ fun HomeScreenContent(
                             ),
                         sectionState = sectionState,
                         onMovieClicked = onMovieClicked,
-                        onRetry = onRetryLoadSection
+                        onRetry = { onRetryLoadSection(sectionState.sectionType) }
                     )
                 }
             }

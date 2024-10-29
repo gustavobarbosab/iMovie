@@ -24,6 +24,7 @@ data class HomeScreenState(
         get() = movieSectionMap.values.toList()
 
     data class MovieSectionState(
+        val sectionType: HomeMovieSectionType,
         @StringRes val title: Int, // If it is created by the BE we could use string instead.
         val uiState: UiStateList<HomeMovieModel> = UiStateList.Loading,
         val hasMoreItems: Boolean = false,
@@ -41,25 +42,34 @@ data class HomeScreenState(
     companion object {
         fun initialState() = HomeScreenState(
             topBannerMovies = UiStateList.Loading,
-            movieSectionMap = mapOf(
-                HomeMovieSectionType.POPULAR to MovieSectionState(title = R.string.home_popular_section_title),
-                HomeMovieSectionType.TOP_RATED to MovieSectionState(title = R.string.home_top_rated_section_title),
-                HomeMovieSectionType.UPCOMING to MovieSectionState(title = R.string.home_upcoming_section_title),
-            )
+            movieSectionMap = listOf(
+                MovieSectionState(
+                    HomeMovieSectionType.POPULAR,
+                    title = R.string.home_popular_section_title
+                ),
+                MovieSectionState(
+                    HomeMovieSectionType.TOP_RATED,
+                    title = R.string.home_top_rated_section_title
+                ),
+                MovieSectionState(
+                    HomeMovieSectionType.UPCOMING,
+                    title = R.string.home_upcoming_section_title
+                ),
+            ).associateBy { it.sectionType }
         )
     }
 }
 
 sealed class HomeIntent {
     data object Init : HomeIntent()
+    data class RetryLoad(val sectionType: HomeMovieSectionType) : HomeIntent()
     data class MovieClicked(val movie: HomeMovieModel) : HomeIntent()
-    // TODO implement the load more
 }
 
 sealed class HomeActionResult {
     data class TopBannerUpdate(val update: SectionUpdate) : HomeActionResult()
 
-    // Here I could use a sealed class to represent the different sections
+    // Here I could use a sealed class to represent these different sections
     // but I decided to implement like that to be more readable
     data class UpdatePopularSection(val update: SectionUpdate) : HomeActionResult()
     data class UpdateTopRatedSection(val update: SectionUpdate) : HomeActionResult()

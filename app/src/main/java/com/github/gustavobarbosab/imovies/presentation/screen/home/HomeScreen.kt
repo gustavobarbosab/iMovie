@@ -35,6 +35,7 @@ fun HomeScreen(
 
     HomeScreenContent(
         screenState = screenState,
-        onMovieClicked = { viewModel(HomeIntent.MovieClicked(it)) }
+        onMovieClicked = { viewModel(HomeIntent.MovieClicked(it)) },
+        onRetryLoadSection = { sectionType -> viewModel(HomeIntent.RetryLoad(sectionType)) }
     )
 }

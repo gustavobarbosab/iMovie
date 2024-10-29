@@ -7,6 +7,7 @@ import com.github.gustavobarbosab.imovies.domain.movies.list.GetMoviesListUseCas
 import com.github.gustavobarbosab.imovies.presentation.screen.home.HomeActionResult.SectionUpdate
 import com.github.gustavobarbosab.imovies.presentation.screen.home.model.HomeModelMapper
 import com.github.gustavobarbosab.imovies.presentation.screen.home.model.HomeMovieModel
+import com.github.gustavobarbosab.imovies.presentation.screen.home.model.HomeMovieSectionType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
@@ -31,55 +32,77 @@ class HomeScreenViewModel @Inject constructor(
     override fun handleIntent(intent: HomeIntent, currentState: HomeScreenState) {
         when (intent) {
             HomeIntent.Init -> initScreen()
+            is HomeIntent.RetryLoad -> retryLoad(intent.sectionType)
             is HomeIntent.MovieClicked -> HandledByProcessor
         }
     }
 
+    // region Actions
     private fun initScreen() {
         screenInitializationJob?.cancel()
         screenInitializationJob = viewModelScope.launch {
-            val topBannerDeferred = async {
-                getMovies(
-                    request = { nowPlayingMoviesUseCase.getNowPlayingMovies() },
-                    onLoading = { HomeActionResult.TopBannerUpdate(SectionUpdate.Loading) },
-                    onSuccess = { HomeActionResult.TopBannerUpdate(SectionUpdate.Success(it)) },
-                    onEmpty = { HomeActionResult.TopBannerUpdate(SectionUpdate.EmptyList) },
-                    onFailure = { HomeActionResult.TopBannerUpdate(SectionUpdate.Failure) },
-                )
-            }
-            val popularDeferred = async {
-                getMovies(
-                    request = { popularMoviesUseCase.getPopularMovies() },
-                    onLoading = { HomeActionResult.UpdatePopularSection(SectionUpdate.Loading) },
-                    onSuccess = { HomeActionResult.UpdatePopularSection(SectionUpdate.Success(it)) },
-                    onEmpty = { HomeActionResult.UpdatePopularSection(SectionUpdate.EmptyList) },
-                    onFailure = { HomeActionResult.UpdatePopularSection(SectionUpdate.Failure) },
-                )
-            }
-            val topRatedDeferred = async {
-                getMovies(
-                    request = { topRatedMoviesUseCase.getTopRatedMovies() },
-                    onLoading = { HomeActionResult.UpdateTopRatedSection(SectionUpdate.Loading) },
-                    onSuccess = { HomeActionResult.UpdateTopRatedSection(SectionUpdate.Success(it)) },
-                    onEmpty = { HomeActionResult.UpdateTopRatedSection(SectionUpdate.EmptyList) },
-                    onFailure = { HomeActionResult.UpdateTopRatedSection(SectionUpdate.Failure) },
-                )
-            }
-            val upcomingDeferred = async {
-                getMovies(
-                    request = { upcomingMoviesUseCase.getUpcomingMovies() },
-                    onLoading = { HomeActionResult.UpdateUpcomingSection(SectionUpdate.Loading) },
-                    onSuccess = { HomeActionResult.UpdateUpcomingSection(SectionUpdate.Success(it)) },
-                    onEmpty = { HomeActionResult.UpdateUpcomingSection(SectionUpdate.EmptyList) },
-                    onFailure = { HomeActionResult.UpdateUpcomingSection(SectionUpdate.Failure) },
-                )
-            }
+            val topBannerDeferred = async { getNowPlaying() }
+            val popularDeferred = async { getPopular() }
+            val topRatedDeferred = async { getTopRated() }
+            val upcomingDeferred = async { getUpcoming() }
 
             topBannerDeferred.await()
             popularDeferred.await()
             topRatedDeferred.await()
             upcomingDeferred.await()
         }
+    }
+
+    private fun retryLoad(sectionType: HomeMovieSectionType) {
+        viewModelScope.launch {
+            when (sectionType) {
+                HomeMovieSectionType.POPULAR -> getPopular()
+                HomeMovieSectionType.TOP_RATED -> getTopRated()
+                HomeMovieSectionType.UPCOMING -> getUpcoming()
+            }
+        }
+    }
+    // endregion
+
+    // region Auxiliary methods
+    private suspend fun getPopular() {
+        getMovies(
+            request = { popularMoviesUseCase.getPopularMovies() },
+            onLoading = { HomeActionResult.UpdatePopularSection(SectionUpdate.Loading) },
+            onSuccess = { HomeActionResult.UpdatePopularSection(SectionUpdate.Success(it)) },
+            onEmpty = { HomeActionResult.UpdatePopularSection(SectionUpdate.EmptyList) },
+            onFailure = { HomeActionResult.UpdatePopularSection(SectionUpdate.Failure) },
+        )
+    }
+
+    private suspend fun getNowPlaying() {
+        getMovies(
+            request = { nowPlayingMoviesUseCase.getNowPlayingMovies() },
+            onLoading = { HomeActionResult.TopBannerUpdate(SectionUpdate.Loading) },
+            onSuccess = { HomeActionResult.TopBannerUpdate(SectionUpdate.Success(it)) },
+            onEmpty = { HomeActionResult.TopBannerUpdate(SectionUpdate.EmptyList) },
+            onFailure = { HomeActionResult.TopBannerUpdate(SectionUpdate.Failure) },
+        )
+    }
+
+    private suspend fun getTopRated() {
+        getMovies(
+            request = { topRatedMoviesUseCase.getTopRatedMovies() },
+            onLoading = { HomeActionResult.UpdateTopRatedSection(SectionUpdate.Loading) },
+            onSuccess = { HomeActionResult.UpdateTopRatedSection(SectionUpdate.Success(it)) },
+            onEmpty = { HomeActionResult.UpdateTopRatedSection(SectionUpdate.EmptyList) },
+            onFailure = { HomeActionResult.UpdateTopRatedSection(SectionUpdate.Failure) },
+        )
+    }
+
+    private suspend fun getUpcoming() {
+        getMovies(
+            request = { upcomingMoviesUseCase.getUpcomingMovies() },
+            onLoading = { HomeActionResult.UpdateUpcomingSection(SectionUpdate.Loading) },
+            onSuccess = { HomeActionResult.UpdateUpcomingSection(SectionUpdate.Success(it)) },
+            onEmpty = { HomeActionResult.UpdateUpcomingSection(SectionUpdate.EmptyList) },
+            onFailure = { HomeActionResult.UpdateUpcomingSection(SectionUpdate.Failure) },
+        )
     }
 
     // I've created this method because the logic was repeated in the initScreen method
@@ -99,4 +122,5 @@ class HomeScreenViewModel @Inject constructor(
         }
         reduce(result)
     }
+    // endregion
 }

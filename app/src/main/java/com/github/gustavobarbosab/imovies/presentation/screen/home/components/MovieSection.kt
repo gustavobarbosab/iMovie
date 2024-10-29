@@ -30,6 +30,7 @@ import com.github.gustavobarbosab.imovies.common.presentation.compose.component.
 import com.github.gustavobarbosab.imovies.common.presentation.compose.component.SkeletonItem
 import com.github.gustavobarbosab.imovies.presentation.screen.home.HomeScreenState
 import com.github.gustavobarbosab.imovies.presentation.screen.home.model.HomeMovieModel
+import com.github.gustavobarbosab.imovies.presentation.screen.home.model.HomeMovieSectionType
 import com.github.gustavobarbosab.imovies.presentation.theme.IMoviesTheme
 import com.github.gustavobarbosab.imovies.presentation.theme.spacing
 
@@ -154,8 +155,9 @@ private fun previewMovieSection() {
 //                uiState = UiStateList.Loading
 //            ),
             sectionState = HomeScreenState.MovieSectionState(
+                sectionType = HomeMovieSectionType.POPULAR,
                 title = R.string.home_popular_section_title,
-                uiState = UiStateList.Failure("Error")
+                uiState = UiStateList.Failure("Error"),
             ),
 
             onMovieClicked = {},
