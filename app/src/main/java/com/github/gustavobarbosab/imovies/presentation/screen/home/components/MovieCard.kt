@@ -5,9 +5,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
@@ -21,32 +21,17 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import coil3.compose.AsyncImagePainter
 import coil3.compose.rememberAsyncImagePainter
+import com.github.gustavobarbosab.imovies.common.presentation.AsyncImageState
+import com.github.gustavobarbosab.imovies.common.presentation.toAsyncState
 import com.github.gustavobarbosab.imovies.presentation.theme.IMoviesTheme
 import com.github.gustavobarbosab.imovies.presentation.theme.spacing
-
-// TODO extract to a common module
-private sealed class MovieCardInternalState {
-    data object Empty : MovieCardInternalState()
-    data object Loading : MovieCardInternalState()
-    data object Success : MovieCardInternalState()
-    data object Error : MovieCardInternalState()
-}
-
-private fun AsyncImagePainter.State.toInternalState(): MovieCardInternalState =
-    when (this) {
-        AsyncImagePainter.State.Empty -> MovieCardInternalState.Empty
-        is AsyncImagePainter.State.Loading -> MovieCardInternalState.Loading
-        is AsyncImagePainter.State.Success -> MovieCardInternalState.Success
-        is AsyncImagePainter.State.Error -> MovieCardInternalState.Error
-    }
-
 
 @Composable
 fun MovieCard(
@@ -61,7 +46,7 @@ fun MovieCard(
     MovieCardContent(
         modifier = modifier,
         painter = imagePainter,
-        imageState = imageState.toInternalState(),
+        imageState = imageState.toAsyncState(),
         onClick = onClick,
         error = error
     )
@@ -71,7 +56,7 @@ fun MovieCard(
 @Composable
 private fun MovieCardContent(
     painter: Painter,
-    imageState: MovieCardInternalState,
+    imageState: AsyncImageState,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     error: ImageVector = Icons.Filled.Info
@@ -84,11 +69,16 @@ private fun MovieCardContent(
         ),
         contentAlignment = Alignment.Center
     ) {
+        val childModifier = Modifier
+            .matchParentSize()
+            .clip(MaterialTheme.shapes.medium)
+            .background(MaterialTheme.colorScheme.background)
+
         when (imageState) {
-            MovieCardInternalState.Error -> ImageErrorFeedback(error)
-            MovieCardInternalState.Loading -> CircularProgressIndicator()
-            MovieCardInternalState.Success -> Image(
-                modifier = Modifier.matchParentSize(),
+            AsyncImageState.Error -> ImageErrorFeedback(childModifier, error)
+            AsyncImageState.Loading -> ImageLoading(childModifier)
+            AsyncImageState.Success -> Image(
+                modifier = childModifier,
                 painter = painter,
                 contentDescription = "movie image",
             )
@@ -99,13 +89,23 @@ private fun MovieCardContent(
 }
 
 @Composable
-private fun BoxScope.ImageErrorFeedback(
+private fun ImageLoading(modifier: Modifier = Modifier) {
+    Column(
+        modifier,
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        CircularProgressIndicator()
+    }
+}
+
+@Composable
+private fun ImageErrorFeedback(
+    modifier: Modifier = Modifier,
     error: ImageVector
 ) {
     Column(
-        modifier = Modifier
-            .matchParentSize()
-            .background(MaterialTheme.colorScheme.background),
+        modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
@@ -130,9 +130,11 @@ private fun preview() {
     IMoviesTheme {
         MovieCardContent(
             painter = rememberVectorPainter(Icons.Filled.Info),
-            imageState = MovieCardInternalState.Loading,
+            imageState = AsyncImageState.Error,
             onClick = {},
-            modifier = Modifier.size(135.dp, 240.dp),
+            modifier = Modifier
+                .padding(20.dp)
+                .size(135.dp, 240.dp),
         )
     }
 }

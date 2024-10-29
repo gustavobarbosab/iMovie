@@ -1,6 +1,9 @@
 package com.github.gustavobarbosab.imovies.presentation.screen.home.components
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
@@ -18,20 +21,22 @@ import com.github.gustavobarbosab.imovies.presentation.theme.spacing
 fun TopBannerSection(
     modifier: Modifier = Modifier,
     sectionState: UiStateList<HomeMovieModel>,
-    pagerSize: Int = 5,
+    pagerSize: Int,
     onMovieClicked: (HomeMovieModel) -> Unit
 ) {
-    when (sectionState) {
-        UiStateList.Loading -> TopBannerLoading(modifier)
+    Box(modifier) {
+        when (sectionState) {
+            UiStateList.Loading -> TopBannerLoading(Modifier.matchParentSize())
 
-        is UiStateList.Success -> AutoScrollableMoviesPager(
-            modifier,
-            sectionState.data,
-            pagerSize = pagerSize,
-            onMovieClicked = onMovieClicked
-        )
+            is UiStateList.Success -> AutoScrollableMoviesPager(
+                Modifier.matchParentSize(),
+                sectionState.data,
+                pagerSize = pagerSize,
+                onMovieClicked = onMovieClicked
+            )
 
-        else -> Unit
+            else -> Unit
+        }
     }
 }
 
@@ -55,9 +60,7 @@ fun AutoScrollableMoviesPager(
     ) { page ->
         val movie = movies[page]
         MovieCard(
-            modifier = Modifier
-                .padding(MaterialTheme.spacing.extraSmall)
-                .clip(MaterialTheme.shapes.medium),
+            modifier = Modifier.fillMaxSize(),
             imagePath = movie.backdropPath,
             onClick = { onMovieClicked(movie) }
         )
@@ -67,7 +70,7 @@ fun AutoScrollableMoviesPager(
 
 @Composable
 fun TopBannerLoading(modifier: Modifier = Modifier) {
-    Box(
+    Spacer(
         modifier = modifier
             .padding(MaterialTheme.spacing.extraSmall)
             .clip(MaterialTheme.shapes.medium)

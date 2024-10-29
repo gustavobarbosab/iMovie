@@ -36,6 +36,7 @@ fun HomeScreenContent(
                         .sizeIn(minHeight = 200.dp)
                         .fillMaxWidth(),
                     screenState.topBannerMovies,
+                    pagerSize = 6,
                     onMovieClicked = onMovieClicked
                 )
             }
