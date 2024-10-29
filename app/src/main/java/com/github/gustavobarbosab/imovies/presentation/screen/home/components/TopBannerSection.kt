@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -83,18 +84,22 @@ fun AutoScrollableMoviesPager(
                 imagePath = movie.backdropPath,
                 onClick = { onMovieClicked(movie) }
             )
-            Text(
-                modifier = Modifier
+            Surface(
+                Modifier
                     .align(Alignment.BottomStart)
-                    .background(MaterialTheme.colorScheme.background.copy(alpha = 0.5f))
-                    .padding(
-                        horizontal = MaterialTheme.spacing.medium,
-                        vertical = MaterialTheme.spacing.small,
-                    )
                     .fillMaxWidth(),
-                text = movie.title,
-                style = MaterialTheme.typography.titleLarge,
-            )
+                color = MaterialTheme.colorScheme.surface.copy(alpha = 0.7f)
+            ) {
+                Text(
+                    modifier = Modifier
+                        .padding(
+                            horizontal = MaterialTheme.spacing.medium,
+                            vertical = MaterialTheme.spacing.small,
+                        ),
+                    text = movie.title,
+                    style = MaterialTheme.typography.titleLarge,
+                )
+            }
         }
     }
 }

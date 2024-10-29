@@ -4,22 +4,23 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 
 // TODO finish the setup of the schemes
 private val DarkColorScheme = darkColorScheme(
-    primary = Orange80,
-    onPrimary = Orange20,
-    primaryContainer = Orange30,
-    onPrimaryContainer = Orange90,
-    inversePrimary = Orange40,
-    secondary = Orange80,
-    onSecondary = Orange20,
-    secondaryContainer = Orange30,
-    onSecondaryContainer = Orange90,
-    tertiary = Yellow80,
-    onTertiary = Yellow20,
-    tertiaryContainer = Yellow30,
-    onTertiaryContainer = Yellow90,
+    primary = Purple20,
+    onPrimary = Purple60,
+    primaryContainer = Purple30,
+    onPrimaryContainer = Purple60,
+    inversePrimary = Purple40,
+    secondary = Purple60,
+    onSecondary = Purple20,
+    secondaryContainer = Purple30,
+    onSecondaryContainer = Purple60,
+    tertiary = Purple20,
+    onTertiary = Purple60,
+    tertiaryContainer = Purple30,
+    onTertiaryContainer = Purple60,
     error = Red80,
     onError = Red20,
     errorContainer = Red30,
@@ -27,12 +28,41 @@ private val DarkColorScheme = darkColorScheme(
     background = Grey10,
     onBackground = Grey90,
     surface = Grey20,
-    onSurface = Grey90,
-    inverseSurface = Grey90,
-    inverseOnSurface = Grey10,
+    onSurface = Grey70,
+    inverseSurface = Grey30,
+    inverseOnSurface = Grey90,
     surfaceVariant = Grey95,
     onSurfaceVariant = Grey10,
-    outline = Yellow40
+    outline = Purple40
+)
+
+private val LightColorScheme = darkColorScheme(
+    primary = Purple20,
+    onPrimary = Purple60,
+    primaryContainer = Purple30,
+    onPrimaryContainer = Purple60,
+    inversePrimary = Purple40,
+    secondary = Purple60,
+    onSecondary = Purple20,
+    secondaryContainer = Purple30,
+    onSecondaryContainer = Purple60,
+    tertiary = Purple20,
+    onTertiary = Purple60,
+    tertiaryContainer = Purple30,
+    onTertiaryContainer = Purple60,
+    error = Red80,
+    onError = Red20,
+    errorContainer = Red30,
+    onErrorContainer = Red90,
+    background = Grey95,
+    onBackground = Grey20,
+    surface = Grey90,
+    onSurface = Grey50,
+    inverseSurface = Grey70,
+    inverseOnSurface = Grey50,
+    surfaceVariant = Grey95,
+    onSurfaceVariant = Color.White,
+    outline = Purple40
 )
 
 
@@ -43,7 +73,7 @@ fun IMoviesTheme(
 ) {
     val colorScheme = when {
         darkTheme -> DarkColorScheme
-        else -> DarkColorScheme // TODO change it
+        else -> LightColorScheme
     }
 
     MaterialTheme(
