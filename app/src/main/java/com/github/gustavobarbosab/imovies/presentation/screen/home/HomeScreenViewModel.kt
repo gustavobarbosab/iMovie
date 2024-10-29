@@ -42,15 +42,10 @@ class HomeScreenViewModel @Inject constructor(
     private fun initScreen() {
         screenInitializationJob?.cancel()
         screenInitializationJob = viewModelScope.launch {
-            val topBannerDeferred = async { getNowPlaying() }
-            val popularDeferred = async { getPopular() }
-            val topRatedDeferred = async { getTopRated() }
-            val upcomingDeferred = async { getUpcoming() }
-
-            topBannerDeferred.await()
-            popularDeferred.await()
-            topRatedDeferred.await()
-            upcomingDeferred.await()
+            launch { getNowPlaying() }
+            launch { getPopular() }
+            launch { getTopRated() }
+            launch { getUpcoming() }
         }
     }
 
