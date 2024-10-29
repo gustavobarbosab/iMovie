@@ -35,6 +35,9 @@ hilt-compiler = { module = "com.google.dagger:hilt-android-compiler", version.re
 coil = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" }
 coil-network = { module = "io.coil-kt.coil3:coil-network-okhttp", version.ref = "coil" }
 coil-svg = { module = "io.coil-kt.coil3:coil-svg", version.ref = "coil" }
+hamcrest = { module = "org.hamcrest:hamcrest", version = "3.0" }
+mockk = { module = "io.mockk:mockk", version = "1.13.13" }
+coroutine-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version = "1.9.0" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
