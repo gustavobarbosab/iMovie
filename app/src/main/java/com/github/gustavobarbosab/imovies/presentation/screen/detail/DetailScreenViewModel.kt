@@ -19,7 +19,7 @@ class DetailScreenViewModel @Inject constructor(
     private val mapper: DetailScreenMapper,
     private val getMovieDetailUseCase: GetMovieDetailUseCase
 ) : CoreViewModel<DetailScreenState, DetailScreenIntent, DetailScreenActionResult, DetailScreenSideEffect>(
-    reducer = reducerFactory.create(savedStateHandle.toRoute<DetailRoute>()),
+    reducer = reducerFactory.create(savedStateHandle),
     processor = processor
 ) {
     override fun handleIntent(

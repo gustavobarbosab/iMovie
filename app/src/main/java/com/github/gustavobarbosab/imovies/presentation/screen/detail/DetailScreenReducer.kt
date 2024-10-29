@@ -1,8 +1,9 @@
 package com.github.gustavobarbosab.imovies.presentation.screen.detail
 
+import androidx.lifecycle.SavedStateHandle
+import androidx.navigation.toRoute
 import com.github.gustavobarbosab.imovies.common.presentation.UiState
 import com.github.gustavobarbosab.imovies.core.presentation.arch.Reducer
-import com.github.gustavobarbosab.imovies.core.presentation.routes.IMovieRoute
 import javax.inject.Inject
 
 class DetailScreenReducer @Inject constructor(
@@ -28,7 +29,8 @@ class DetailScreenReducer @Inject constructor(
 
 
     class Factory @Inject constructor() {
-        fun create(route: DetailRoute?): DetailScreenReducer {
+        fun create(stateHandle: SavedStateHandle): DetailScreenReducer {
+            val route = stateHandle.toRoute<DetailRoute>()
             checkNotNull(route) { "route must not be null" }
             checkNotNull(route.movieId) { "movieId must not be null" }
             val initialState = DetailScreenState.initialState(route.movieId)
