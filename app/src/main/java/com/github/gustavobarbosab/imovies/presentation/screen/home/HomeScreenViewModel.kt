@@ -32,7 +32,8 @@ class HomeScreenViewModel @Inject constructor(
     override fun handleIntent(intent: HomeIntent, currentState: HomeScreenState) {
         when (intent) {
             HomeIntent.Init -> initScreen()
-            is HomeIntent.RetryLoad -> retryLoad(intent.sectionType)
+            is HomeIntent.RetryLoadListSection -> retryLoad(intent.sectionType)
+            HomeIntent.RetryLoadTopBanner -> retryLoadTopBanner()
             is HomeIntent.MovieClicked -> HandledByProcessor
         }
     }
@@ -60,6 +61,12 @@ class HomeScreenViewModel @Inject constructor(
                 HomeMovieSectionType.TOP_RATED -> getTopRated()
                 HomeMovieSectionType.UPCOMING -> getUpcoming()
             }
+        }
+    }
+
+    private fun retryLoadTopBanner() {
+        viewModelScope.launch {
+            getNowPlaying()
         }
     }
     // endregion

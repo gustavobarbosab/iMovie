@@ -62,7 +62,8 @@ data class HomeScreenState(
 
 sealed class HomeIntent {
     data object Init : HomeIntent()
-    data class RetryLoad(val sectionType: HomeMovieSectionType) : HomeIntent()
+    data object RetryLoadTopBanner : HomeIntent()
+    data class RetryLoadListSection(val sectionType: HomeMovieSectionType) : HomeIntent()
     data class MovieClicked(val movie: HomeMovieModel) : HomeIntent()
 }
 

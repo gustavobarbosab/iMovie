@@ -27,7 +27,7 @@ import com.github.gustavobarbosab.imovies.presentation.theme.spacing
 @Composable
 fun FeedbackContainer(
     message: String,
-    onTryAgain: () -> Unit,
+    onRetry: () -> Unit,
     modifier: Modifier = Modifier,
     icon: ImageVector = Icons.Error,
 ) {
@@ -57,7 +57,7 @@ fun FeedbackContainer(
                 textAlign = TextAlign.Center,
             )
 
-            OutlinedButton(onTryAgain) {
+            OutlinedButton(onRetry) {
                 Text(stringResource(R.string.detail_try_again_button))
             }
         }
@@ -70,6 +70,6 @@ fun FeedbackContainer(
 fun FeedbackContainerPreview() {
     FeedbackContainer(
         message = "An error occurred",
-        onTryAgain = {},
+        onRetry = {},
     )
 }

@@ -15,8 +15,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
+import com.github.gustavobarbosab.imovies.R
 import com.github.gustavobarbosab.imovies.common.presentation.UiStateList
 import com.github.gustavobarbosab.imovies.common.presentation.compose.RecurrentTaskLaunchEffect
+import com.github.gustavobarbosab.imovies.common.presentation.compose.component.FeedbackContainer
 import com.github.gustavobarbosab.imovies.common.presentation.compose.component.MovieCard
 import com.github.gustavobarbosab.imovies.common.presentation.compose.component.MovieCardDefaults
 import com.github.gustavobarbosab.imovies.common.presentation.compose.extension.shimmerEffect
@@ -28,6 +31,7 @@ fun TopBannerSection(
     modifier: Modifier = Modifier,
     sectionState: UiStateList<HomeMovieModel>,
     pagerSize: Int,
+    onRetry: () -> Unit,
     onMovieClicked: (HomeMovieModel) -> Unit
 ) {
     Box(modifier) {
@@ -39,6 +43,12 @@ fun TopBannerSection(
                 sectionState.data,
                 pagerSize = pagerSize,
                 onMovieClicked = onMovieClicked
+            )
+
+            is UiStateList.Failure -> FeedbackContainer(
+                modifier = Modifier.matchParentSize(),
+                onRetry = onRetry,
+                message = stringResource(R.string.home_section_top_banner_failure)
             )
 
             else -> Unit

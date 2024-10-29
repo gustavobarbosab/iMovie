@@ -12,6 +12,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.github.gustavobarbosab.imovies.common.presentation.UiStateList
 import com.github.gustavobarbosab.imovies.common.presentation.compose.component.AppLogo
 import com.github.gustavobarbosab.imovies.common.presentation.compose.component.AppToolbar
 import com.github.gustavobarbosab.imovies.common.presentation.compose.component.MovieCardDefaults
@@ -25,7 +26,8 @@ import com.github.gustavobarbosab.imovies.presentation.theme.spacing
 @Composable
 fun HomeScreenContent(
     screenState: HomeScreenState,
-    onRetryLoadSection: (HomeMovieSectionType) -> Unit = {},
+    onRetryLoadSection: (HomeMovieSectionType) -> Unit,
+    onRetryLoadTopBanner: () -> Unit,
     onMovieClicked: (HomeMovieModel) -> Unit
 ) {
     Scaffold(
@@ -50,7 +52,8 @@ fun HomeScreenContent(
                             .fillMaxWidth(),
                         screenState.topBannerMovies,
                         pagerSize = 6,
-                        onMovieClicked = onMovieClicked
+                        onMovieClicked = onMovieClicked,
+                        onRetry = onRetryLoadTopBanner
                     )
                 }
 
@@ -80,8 +83,12 @@ fun HomeScreenContent(
 private fun previewHomeScreenContent() {
     IMoviesTheme {
         HomeScreenContent(
-            screenState = HomeScreenState.initialState(),
-            onMovieClicked = {}
+            screenState = HomeScreenState
+                .initialState()
+                .copy(topBannerMovies = UiStateList.Failure()),
+            onMovieClicked = {},
+            onRetryLoadSection = {},
+            onRetryLoadTopBanner = {}
         )
     }
 }

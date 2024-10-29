@@ -123,7 +123,7 @@ private fun LazyListScope.ErrorItem(onRetry: () -> Unit) {
             modifier = Modifier
                 .padding(MaterialTheme.spacing.medium)
                 .fillMaxWidth(),
-            onTryAgain = onRetry,
+            onRetry = onRetry,
             message = stringResource(R.string.home_section_failure)
         )
     }

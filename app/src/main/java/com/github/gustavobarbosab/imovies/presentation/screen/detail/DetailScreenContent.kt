@@ -10,20 +10,15 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.gustavobarbosab.imovies.R
@@ -33,7 +28,6 @@ import com.github.gustavobarbosab.imovies.common.presentation.compose.component.
 import com.github.gustavobarbosab.imovies.common.presentation.compose.component.MovieCard
 import com.github.gustavobarbosab.imovies.common.presentation.compose.component.MovieCardDefaults
 import com.github.gustavobarbosab.imovies.common.presentation.compose.component.SkeletonItem
-import com.github.gustavobarbosab.imovies.presentation.theme.Error
 import com.github.gustavobarbosab.imovies.presentation.theme.IMoviesTheme
 import com.github.gustavobarbosab.imovies.presentation.theme.LeftToolbarIcon
 import com.github.gustavobarbosab.imovies.presentation.theme.spacing
@@ -148,7 +142,7 @@ private fun BoxScope.DetailScreenFailure(
     FeedbackContainer(
         modifier = Modifier.align(Alignment.Center),
         message = stringResource(R.string.detail_load_data_failure),
-        onTryAgain = onTryAgain,
+        onRetry = onTryAgain,
     )
 }
 
