@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.sizeIn
+import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.ZeroCornerSize
@@ -21,14 +22,17 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.github.gustavobarbosab.imovies.R
 import com.github.gustavobarbosab.imovies.common.presentation.UiStateList
 import com.github.gustavobarbosab.imovies.common.presentation.compose.extension.shimmerEffect
 import com.github.gustavobarbosab.imovies.presentation.screen.home.HomeScreenState
 import com.github.gustavobarbosab.imovies.presentation.screen.home.model.HomeMovieModel
+import com.github.gustavobarbosab.imovies.presentation.theme.IMoviesTheme
 import com.github.gustavobarbosab.imovies.presentation.theme.spacing
 
-private val MOVIE_CARD_HEIGHT = 200.dp
-private const val SKELETON_ITEMS = 7
+private val MOVIE_CARD_HEIGHT = 240.dp
+private val MOVIE_CARD_WIDTH = 165.dp
+private const val SKELETON_COUNT = 7
 
 @Composable
 fun MovieSection(
@@ -36,9 +40,12 @@ fun MovieSection(
     sectionState: HomeScreenState.MovieSectionState,
     onMovieClicked: (HomeMovieModel) -> Unit
 ) {
-    if (sectionState.uiState is UiStateList.EmptyList) {
-        // I chose to not show the section if it is empty
-        return
+    when (sectionState.uiState) {
+        // To simplify the implementation we are not handling these states
+        is UiStateList.EmptyList,
+        is UiStateList.Failure -> return
+
+        else -> Unit
     }
 
     Surface(
@@ -59,64 +66,75 @@ fun MovieSection(
                     .height(MaterialTheme.spacing.medium)
             )
 
-            when (val uiState = sectionState.uiState) {
-                UiStateList.Loading -> MovieSectionSkeleton()
+            LazyRow(
+                contentPadding = PaddingValues(start = MaterialTheme.spacing.small),
+                horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)
+            ) {
+                when (val uiState = sectionState.uiState) {
+                    UiStateList.Loading -> skeleton()
 
-                is UiStateList.Success -> MovieList(
-                    movies = uiState.data,
-                    onMovieClicked = onMovieClicked
-                )
+                    is UiStateList.Success -> movieList(
+                        movies = uiState.data,
+                        onMovieClicked = onMovieClicked
+                    )
 
-                // TODO implement the error...
-                else -> Unit
+                    // TODO implement the error...
+                    else -> Unit
+                }
             }
         }
     }
 }
 
-@Composable
-fun MovieList(
+private fun LazyListScope.movieList(
     movies: List<HomeMovieModel>,
     onMovieClicked: (HomeMovieModel) -> Unit
 ) {
-    LazyRow(
-        contentPadding = PaddingValues(start = MaterialTheme.spacing.small),
-        horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)
-    ) {
-        items(items = movies, key = { movie -> movie.id }) { movie ->
-            MovieCard(
-                modifier = Modifier
-                    .sizeIn(maxHeight = MOVIE_CARD_HEIGHT)
-                    .clip(
-                        MaterialTheme.shapes.medium
-                    ),
-                imagePath = movie.posterPath,
-                onClick = { onMovieClicked(movie) }
-            )
-        }
+    items(items = movies, key = { movie -> movie.id }) { movie ->
+        MovieCard(
+            modifier = Modifier
+                .clip(MaterialTheme.shapes.medium)
+                .sizeIn(minHeight = MOVIE_CARD_HEIGHT, minWidth = MOVIE_CARD_WIDTH),
+            imagePath = movie.posterPath,
+            onClick = { onMovieClicked(movie) }
+        )
     }
 }
 
 
-@Composable
-fun MovieSectionSkeleton() {
-    LazyRow(
-        contentPadding = PaddingValues(start = MaterialTheme.spacing.small),
-        horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)
-    ) {
-        items(count = SKELETON_ITEMS, key = { index -> index }) {
-            Spacer(
-                modifier = Modifier
-                    .size(height = MOVIE_CARD_HEIGHT, width = 140.dp)
-                    .shimmerEffect()
-                    .padding(MaterialTheme.spacing.small)
-            )
-        }
+private fun LazyListScope.skeleton() {
+    items(count = SKELETON_COUNT, key = { index -> index }) {
+        Spacer(
+            modifier = Modifier
+                .clip(MaterialTheme.shapes.medium)
+                .size(height = MOVIE_CARD_HEIGHT, width = MOVIE_CARD_WIDTH)
+                .shimmerEffect()
+        )
     }
 }
 
 @Preview
 @Composable
 private fun previewMovieSection() {
+    val list = mutableListOf<HomeMovieModel>()
+    repeat(10) {
+        list.add(
+            HomeMovieModel(
+                id = it.toLong(),
+                title = "Movie Title",
+                posterPath = "https://image.tmdb.org/t/p/w500/8bRIfStfRw6dVF2E7q5L5qRf4GJ.jpg",
+                backdropPath = "https://image.tmdb.org/t/p/w500/8bRIfStfRw6dVF2E7q5L5qRf4GJ.jpg"
+            )
+        )
+    }
 
+    IMoviesTheme {
+        MovieSection(
+            sectionState = HomeScreenState.MovieSectionState(
+                title = R.string.home_popular_section_title,
+                uiState = UiStateList.Success(data = list)
+            ),
+            onMovieClicked = {}
+        )
+    }
 }

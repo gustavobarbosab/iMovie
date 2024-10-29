@@ -18,7 +18,7 @@ fun HomeScreen(
 
     OnSideEffect(viewModel.sideEffect) { homeSideEffect ->
         when (homeSideEffect) {
-            HomeSideEffect.LoadMovieFailure -> Unit // TODO show snack bar
+            is HomeSideEffect.LoadMovieFailure -> Unit // TODO show snack bar
             is HomeSideEffect.NavigateToMovieDetail -> Unit // Call details screen
         }
     }

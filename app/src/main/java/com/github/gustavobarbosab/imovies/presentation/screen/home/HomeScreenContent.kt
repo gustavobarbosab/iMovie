@@ -32,6 +32,7 @@ fun HomeScreenContent(
             item(key = "header") {
                 TopBannerSection(
                     Modifier
+                        .padding(top = MaterialTheme.spacing.medium)
                         .sizeIn(minHeight = 200.dp)
                         .fillMaxWidth(),
                     screenState.topBannerMovies,
