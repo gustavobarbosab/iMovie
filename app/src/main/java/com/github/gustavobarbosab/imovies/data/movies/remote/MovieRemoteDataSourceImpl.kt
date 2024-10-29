@@ -15,8 +15,6 @@ class MovieRemoteDataSourceImpl @Inject constructor(
     }
 
     override suspend fun getPopularMovies(page: Int): NetworkResponse<MoviePageResponse> {
-        // Simulate a delay to show the loading
-        delay(2000)
         return api.getMovieList(MovieTypePath.Popular.path, page)
     }
 
@@ -24,14 +22,10 @@ class MovieRemoteDataSourceImpl @Inject constructor(
         api.getMovieList(MovieTypePath.TopRated.path, page)
 
     override suspend fun getNowPlayingMovies(page: Int): NetworkResponse<MoviePageResponse> {
-        // Simulate a delay to show the loading
-        delay(4000)
         return api.getMovieList(MovieTypePath.NowPlaying.path, page)
     }
 
     override suspend fun getMovieDetail(movieId: Long): NetworkResponse<MovieResponse> {
-        // Simulate a delay to show the loading
-        delay(2000)
         return api.getMovieDetail(movieId)
     }
 
