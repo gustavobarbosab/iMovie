@@ -27,6 +27,8 @@ class GetMoviesListUseCaseImpl(
         moviesRepository.getPopularMovies(page)
     }
 
+    // As the use cases have the same logic, I split them in different interfaces
+    // it helps us to change the code in the future if we need to change the logic
     private suspend fun getMovies(request: suspend () -> DomainResponse<MoviePage>) =
         when (val response = request()) {
             is DomainResponse.Success -> handleSuccess(response.data)

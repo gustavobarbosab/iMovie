@@ -10,7 +10,6 @@ import com.github.gustavobarbosab.imovies.presentation.screen.home.model.HomeMov
 import com.github.gustavobarbosab.imovies.presentation.screen.home.model.HomeMovieSectionType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
