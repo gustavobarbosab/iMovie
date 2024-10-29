@@ -57,19 +57,19 @@ class HomeViewModelTest {
 
         coEvery {
             upcomingMoviesUseCase.getUpcomingMovies()
-        } returns GetMoviesListUseCase.Result.Success(mockedPage)
+        } returns GetMoviesListUseCase.Response.Success(mockedPage)
 
         coEvery {
             topRatedMoviesUseCase.getTopRatedMovies()
-        } returns GetMoviesListUseCase.Result.Success(mockedPage)
+        } returns GetMoviesListUseCase.Response.Success(mockedPage)
 
         coEvery {
             popularMoviesUseCase.getPopularMovies()
-        } returns GetMoviesListUseCase.Result.Success(mockedPage)
+        } returns GetMoviesListUseCase.Response.Success(mockedPage)
 
         coEvery {
             nowPlayingMoviesUseCase.getNowPlayingMovies()
-        } returns GetMoviesListUseCase.Result.Success(mockedPage)
+        } returns GetMoviesListUseCase.Response.Success(mockedPage)
 
         // When
         viewModel(HomeIntent.Init)
@@ -96,19 +96,19 @@ class HomeViewModelTest {
         every { reducer(any()) } returns Unit
         coEvery {
             upcomingMoviesUseCase.getUpcomingMovies()
-        } returns GetMoviesListUseCase.Result.Error(null)
+        } returns GetMoviesListUseCase.Response.Error(null)
 
         coEvery {
             topRatedMoviesUseCase.getTopRatedMovies()
-        } returns GetMoviesListUseCase.Result.Error(null)
+        } returns GetMoviesListUseCase.Response.Error(null)
 
         coEvery {
             popularMoviesUseCase.getPopularMovies()
-        } returns GetMoviesListUseCase.Result.Error(null)
+        } returns GetMoviesListUseCase.Response.Error(null)
 
         coEvery {
             nowPlayingMoviesUseCase.getNowPlayingMovies()
-        } returns GetMoviesListUseCase.Result.Error(null)
+        } returns GetMoviesListUseCase.Response.Error(null)
 
         // When
         viewModel(HomeIntent.Init)
@@ -135,19 +135,19 @@ class HomeViewModelTest {
         every { reducer(any()) } returns Unit
         coEvery {
             upcomingMoviesUseCase.getUpcomingMovies()
-        } returns GetMoviesListUseCase.Result.ThereIsNoMovies
+        } returns GetMoviesListUseCase.Response.ThereIsNoMovies
 
         coEvery {
             topRatedMoviesUseCase.getTopRatedMovies()
-        } returns GetMoviesListUseCase.Result.ThereIsNoMovies
+        } returns GetMoviesListUseCase.Response.ThereIsNoMovies
 
         coEvery {
             popularMoviesUseCase.getPopularMovies()
-        } returns GetMoviesListUseCase.Result.ThereIsNoMovies
+        } returns GetMoviesListUseCase.Response.ThereIsNoMovies
 
         coEvery {
             nowPlayingMoviesUseCase.getNowPlayingMovies()
-        } returns GetMoviesListUseCase.Result.ThereIsNoMovies
+        } returns GetMoviesListUseCase.Response.ThereIsNoMovies
 
         // When
         viewModel(HomeIntent.Init)

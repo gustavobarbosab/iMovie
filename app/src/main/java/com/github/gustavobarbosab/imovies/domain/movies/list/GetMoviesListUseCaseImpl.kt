@@ -2,7 +2,7 @@ package com.github.gustavobarbosab.imovies.domain.movies.list
 
 import com.github.gustavobarbosab.imovies.core.domain.DomainResponse
 import com.github.gustavobarbosab.imovies.domain.movies.entity.MoviePage
-import com.github.gustavobarbosab.imovies.domain.movies.list.GetMoviesListUseCase.Result
+import com.github.gustavobarbosab.imovies.domain.movies.list.GetMoviesListUseCase.Response
 
 class GetMoviesListUseCaseImpl(
     private val moviesRepository: MoviesListRepository,
@@ -11,19 +11,19 @@ class GetMoviesListUseCaseImpl(
     GetMoviesListUseCase.NowPlayingMovies,
     GetMoviesListUseCase.TopRatedMovies {
 
-    override suspend fun getUpcomingMovies(page: Int): Result = getMovies {
+    override suspend fun getUpcomingMovies(page: Int): Response = getMovies {
         moviesRepository.getUpcomingMovies(page)
     }
 
-    override suspend fun getTopRatedMovies(page: Int): Result = getMovies {
+    override suspend fun getTopRatedMovies(page: Int): Response = getMovies {
         moviesRepository.getTopRatedMovies(page)
     }
 
-    override suspend fun getNowPlayingMovies(page: Int): Result = getMovies {
+    override suspend fun getNowPlayingMovies(page: Int): Response = getMovies {
         moviesRepository.getNowPlayingMovies(page)
     }
 
-    override suspend fun getPopularMovies(page: Int): Result = getMovies {
+    override suspend fun getPopularMovies(page: Int): Response = getMovies {
         moviesRepository.getPopularMovies(page)
     }
 
@@ -32,14 +32,14 @@ class GetMoviesListUseCaseImpl(
     private suspend fun getMovies(request: suspend () -> DomainResponse<MoviePage>) =
         when (val response = request()) {
             is DomainResponse.Success -> handleSuccess(response.data)
-            is DomainResponse.EmptySuccess -> Result.ThereIsNoMovies
-            is DomainResponse.InternalError -> Result.Error(response.throwable.message)
-            is DomainResponse.ExternalError -> Result.Error(response.message)
+            is DomainResponse.EmptySuccess -> Response.ThereIsNoMovies
+            is DomainResponse.InternalError -> Response.Error(response.throwable.message)
+            is DomainResponse.ExternalError -> Response.Error(response.message)
         }
 
     private fun handleSuccess(moviePage: MoviePage) = if (moviePage.movies.isEmpty()) {
-        Result.ThereIsNoMovies
+        Response.ThereIsNoMovies
     } else {
-        Result.Success(moviePage)
+        Response.Success(moviePage)
     }
 }

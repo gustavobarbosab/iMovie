@@ -108,7 +108,7 @@ class HomeScreenViewModel @Inject constructor(
 
     // I've created this method because the logic was repeated in the initScreen method
     private suspend fun getMovies(
-        request: suspend () -> GetMoviesListUseCase.Result,
+        request: suspend () -> GetMoviesListUseCase.Response,
         onLoading: () -> HomeActionResult,
         onSuccess: (List<HomeMovieModel>) -> HomeActionResult,
         onEmpty: () -> HomeActionResult,
@@ -116,10 +116,10 @@ class HomeScreenViewModel @Inject constructor(
     ) {
         reduce(onLoading())
 
-        val result = when (val result = request()) {
-            is GetMoviesListUseCase.Result.Success -> onSuccess(mapper.map(result.moviePage))
-            is GetMoviesListUseCase.Result.ThereIsNoMovies -> onEmpty()
-            is GetMoviesListUseCase.Result.Error -> onFailure()
+        val result = when (val response = request()) {
+            is GetMoviesListUseCase.Response.Success -> onSuccess(mapper.map(response.moviePage))
+            is GetMoviesListUseCase.Response.ThereIsNoMovies -> onEmpty()
+            is GetMoviesListUseCase.Response.Error -> onFailure()
         }
         reduce(result)
     }
