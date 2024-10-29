@@ -1,10 +1,10 @@
 package com.github.gustavobarbosab.imovies.presentation.screen.detail
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -30,6 +30,7 @@ import com.github.gustavobarbosab.imovies.R
 import com.github.gustavobarbosab.imovies.common.presentation.UiState
 import com.github.gustavobarbosab.imovies.common.presentation.compose.component.AppToolbar
 import com.github.gustavobarbosab.imovies.common.presentation.compose.component.MovieCard
+import com.github.gustavobarbosab.imovies.common.presentation.compose.component.MovieCardDefaults
 import com.github.gustavobarbosab.imovies.common.presentation.compose.component.SkeletonItem
 import com.github.gustavobarbosab.imovies.presentation.theme.Error
 import com.github.gustavobarbosab.imovies.presentation.theme.IMoviesTheme
@@ -87,6 +88,7 @@ private fun DetailScreenSkeleton() {
             modifier = Modifier
                 .height(200.dp)
                 .fillMaxWidth()
+                .clip(MaterialTheme.shapes.small)
         )
 
         SkeletonItem(
@@ -94,11 +96,13 @@ private fun DetailScreenSkeleton() {
                 .padding(top = MaterialTheme.spacing.medium)
                 .height(30.dp)
                 .fillMaxWidth()
+                .clip(MaterialTheme.shapes.small)
         )
         SkeletonItem(
             modifier = Modifier
                 .height(70.dp)
                 .fillMaxWidth()
+                .clip(MaterialTheme.shapes.small)
         )
     }
 }
@@ -116,8 +120,9 @@ private fun DetailScreenSuccess(
     ) {
         MovieCard(
             modifier = Modifier
-                .defaultMinSize(minHeight = 200.dp)
-                .fillMaxWidth(),
+                .defaultMinSize(minHeight = MaterialTheme.spacing.MovieCardDefaults.backDropHeight)
+                .fillMaxWidth()
+                .aspectRatio(MaterialTheme.spacing.MovieCardDefaults.backDropRatio),
             shape = null,
             imagePath = posterPath,
         )
@@ -179,19 +184,32 @@ private fun BoxScope.DetailScreenFailure(
 @Composable
 fun DetailScreenContentPreview() {
     IMoviesTheme {
-//        DetailScreenSuccess(
-//            posterPath = "",
-//            title = "Title",
-//            overview = "Overview"
-//        )
+        DetailScreenSuccess(
+            posterPath = "",
+            title = "Title",
+            overview = "Overview"
+        )
+    }
+}
 
-//        Box(Modifier.fillMaxSize()) {
-//            DetailScreenFailure(
-//                message = "Error",
-//                onTryAgain = {}
-//            )
-//        }
+@Preview(showSystemUi = true)
+@Composable
+fun DetailScreenContentFailurePreview() {
+    IMoviesTheme {
+        Box(Modifier.fillMaxSize()) {
+            DetailScreenFailure(
+                message = "Error",
+                onTryAgain = {}
+            )
+        }
+    }
+}
 
+@Preview(showSystemUi = true)
+@Composable
+fun DetailScreenContentSkeletonPreview() {
+    IMoviesTheme {
         DetailScreenSkeleton()
     }
 }
+

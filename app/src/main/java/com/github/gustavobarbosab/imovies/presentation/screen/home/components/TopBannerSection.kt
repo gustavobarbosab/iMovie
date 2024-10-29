@@ -18,6 +18,7 @@ import androidx.compose.ui.draw.clip
 import com.github.gustavobarbosab.imovies.common.presentation.UiStateList
 import com.github.gustavobarbosab.imovies.common.presentation.compose.RecurrentTaskLaunchEffect
 import com.github.gustavobarbosab.imovies.common.presentation.compose.component.MovieCard
+import com.github.gustavobarbosab.imovies.common.presentation.compose.component.MovieCardDefaults
 import com.github.gustavobarbosab.imovies.common.presentation.compose.extension.shimmerEffect
 import com.github.gustavobarbosab.imovies.presentation.screen.home.model.HomeMovieModel
 import com.github.gustavobarbosab.imovies.presentation.theme.spacing
@@ -68,7 +69,7 @@ fun AutoScrollableMoviesPager(
             MovieCard(
                 modifier = Modifier
                     .fillMaxSize()
-                    .aspectRatio(16f / 9f),
+                    .aspectRatio(MaterialTheme.spacing.MovieCardDefaults.backDropRatio),
                 imagePath = movie.backdropPath,
                 onClick = { onMovieClicked(movie) }
             )

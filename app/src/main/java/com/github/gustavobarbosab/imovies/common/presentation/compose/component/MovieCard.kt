@@ -27,13 +27,24 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import coil3.compose.rememberAsyncImagePainter
 import com.github.gustavobarbosab.imovies.common.presentation.AsyncImageState
 import com.github.gustavobarbosab.imovies.common.presentation.toAsyncState
 import com.github.gustavobarbosab.imovies.presentation.theme.Error
 import com.github.gustavobarbosab.imovies.presentation.theme.IMoviesTheme
+import com.github.gustavobarbosab.imovies.presentation.theme.Spacing
 import com.github.gustavobarbosab.imovies.presentation.theme.spacing
+
+val Spacing.MovieCardDefaults
+    get() = MovieCardDefaultParams
+
+object MovieCardDefaultParams {
+    val backDropHeight: Dp = 220.dp
+    val backDropRatio: Float = 16 / 9f
+    val posterHeight: Dp = 220.dp
+}
 
 @Composable
 fun MovieCard(

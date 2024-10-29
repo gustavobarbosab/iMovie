@@ -1,13 +1,10 @@
 package com.github.gustavobarbosab.imovies.presentation.screen.home
 
-import androidx.activity.viewModels
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
@@ -15,9 +12,9 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.github.gustavobarbosab.imovies.common.presentation.compose.component.AppLogo
 import com.github.gustavobarbosab.imovies.common.presentation.compose.component.AppToolbar
+import com.github.gustavobarbosab.imovies.common.presentation.compose.component.MovieCardDefaults
 import com.github.gustavobarbosab.imovies.presentation.screen.home.components.MovieSection
 import com.github.gustavobarbosab.imovies.presentation.screen.home.components.TopBannerSection
 import com.github.gustavobarbosab.imovies.presentation.screen.home.model.HomeMovieModel
@@ -47,7 +44,7 @@ fun HomeScreenContent(
                     TopBannerSection(
                         Modifier
                             .padding(MaterialTheme.spacing.extraSmall)
-                            .defaultMinSize(minHeight = 220.dp)
+                            .defaultMinSize(minHeight = MaterialTheme.spacing.MovieCardDefaults.backDropHeight)
                             .fillMaxWidth(),
                         screenState.topBannerMovies,
                         pagerSize = 6,
