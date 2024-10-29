@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
-typealias HandledByProcessor = Unit
+typealias HandledByProcessor<T> = Unit
 
 abstract class CoreViewModel<STATE, INTENT, RESULT, SIDE_EFFECT>(
     private val reducer: Reducer<STATE, RESULT>,

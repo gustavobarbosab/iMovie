@@ -11,7 +11,7 @@ class HomeScreenSideEffectProcessor @Inject constructor() :
         state: HomeScreenState,
         intent: HomeIntent
     ): HomeSideEffect? = when (intent) {
-        is HomeIntent.MovieClicked -> HomeSideEffect.NavigateToMovieDetail(intent.movie)
+        is HomeIntent.MovieClicked -> HomeSideEffect.NavigateToMovieDetail(intent.movie.id)
         else -> null
     }
 

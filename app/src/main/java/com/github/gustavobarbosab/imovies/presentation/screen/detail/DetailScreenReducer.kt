@@ -2,6 +2,7 @@ package com.github.gustavobarbosab.imovies.presentation.screen.detail
 
 import com.github.gustavobarbosab.imovies.common.presentation.UiState
 import com.github.gustavobarbosab.imovies.core.presentation.arch.Reducer
+import com.github.gustavobarbosab.imovies.core.presentation.routes.IMovieRoute
 import javax.inject.Inject
 
 class DetailScreenReducer @Inject constructor(
@@ -27,9 +28,10 @@ class DetailScreenReducer @Inject constructor(
 
 
     class Factory @Inject constructor() {
-        fun create(movieId: Long?): DetailScreenReducer {
-            checkNotNull(movieId) { "movieId must not be null" }
-            val initialState = DetailScreenState.initialState(movieId)
+        fun create(route: DetailRoute?): DetailScreenReducer {
+            checkNotNull(route) { "route must not be null" }
+            checkNotNull(route.movieId) { "movieId must not be null" }
+            val initialState = DetailScreenState.initialState(route.movieId)
             return DetailScreenReducer(initialState)
         }
     }

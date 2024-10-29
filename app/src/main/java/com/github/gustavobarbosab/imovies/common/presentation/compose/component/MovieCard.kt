@@ -69,11 +69,7 @@ private fun MovieCardContent(
     error: ImageVector = Icons.Filled.Info
 ) {
     Box(
-        modifier.clickable(
-            interactionSource = null,
-            indication = rememberRipple(color = MaterialTheme.colorScheme.primary),
-            onClick = { onClick() }
-        ),
+        modifier.clickable(onClick = { onClick() }),
         contentAlignment = Alignment.Center
     ) {
         val childModifier = Modifier

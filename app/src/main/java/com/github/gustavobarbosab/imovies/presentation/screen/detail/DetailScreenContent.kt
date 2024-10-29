@@ -1,18 +1,21 @@
 package com.github.gustavobarbosab.imovies.presentation.screen.detail
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -27,7 +30,7 @@ import com.github.gustavobarbosab.imovies.R
 import com.github.gustavobarbosab.imovies.common.presentation.UiState
 import com.github.gustavobarbosab.imovies.common.presentation.compose.component.AppToolbar
 import com.github.gustavobarbosab.imovies.common.presentation.compose.component.MovieCard
-import com.github.gustavobarbosab.imovies.common.presentation.compose.extension.shimmerEffect
+import com.github.gustavobarbosab.imovies.common.presentation.compose.component.SkeletonItem
 import com.github.gustavobarbosab.imovies.presentation.theme.Error
 import com.github.gustavobarbosab.imovies.presentation.theme.IMoviesTheme
 import com.github.gustavobarbosab.imovies.presentation.theme.LeftToolbarIcon
@@ -39,54 +42,63 @@ fun DetailScreenContent(
     onBackPressed: () -> Unit,
     onRetryClicked: () -> Unit
 ) {
-    Column {
-        AppToolbar(
-            title = stringResource(R.string.detail_toolbar_title),
-            leftIcon = Icons.LeftToolbarIcon,
-            onBackClick = onBackPressed
-        )
-        when (val uiState = screenState.uiState) {
-            is UiState.Loading -> DetailScreenSkeleton()
-
-            is UiState.Success -> DetailScreenSuccess(
-                posterPath = uiState.data.backdropPath,
-                title = uiState.data.title,
-                overview = uiState.data.overview
+    Scaffold(
+        modifier = Modifier.fillMaxSize(),
+        topBar = {
+            AppToolbar(
+                title = stringResource(R.string.detail_toolbar_title),
+                leftIcon = Icons.LeftToolbarIcon,
+                onBackClick = onBackPressed
             )
+        }
+    ) { innerPadding ->
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding)
+        ) {
+            when (val uiState = screenState.uiState) {
+                is UiState.Loading -> DetailScreenSkeleton()
 
-            is UiState.Failure -> DetailScreenFailure(
-                onTryAgain = onRetryClicked,
-                message = stringResource(R.string.detail_load_data_failure)
-            )
+                is UiState.Success -> DetailScreenSuccess(
+                    posterPath = uiState.data.backdropPath,
+                    title = uiState.data.title,
+                    overview = uiState.data.overview
+                )
+
+                is UiState.Failure -> DetailScreenFailure(
+                    onTryAgain = onRetryClicked,
+                    message = stringResource(R.string.detail_load_data_failure)
+                )
+            }
         }
     }
 }
 
 @Composable
 private fun DetailScreenSkeleton() {
-    Column(Modifier.padding(MaterialTheme.spacing.medium)) {
-        Spacer(
+    Column(
+        Modifier
+            .padding(MaterialTheme.spacing.medium)
+            .fillMaxSize(),
+        verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)
+    ) {
+        SkeletonItem(
             modifier = Modifier
-                .defaultMinSize(minHeight = 200.dp)
+                .height(200.dp)
                 .fillMaxWidth()
-                .clip(MaterialTheme.shapes.medium)
-                .shimmerEffect()
         )
 
-        Spacer(
+        SkeletonItem(
             modifier = Modifier
-                .defaultMinSize(minHeight = 30.dp)
+                .padding(top = MaterialTheme.spacing.medium)
+                .height(30.dp)
                 .fillMaxWidth()
-                .clip(MaterialTheme.shapes.medium)
-                .shimmerEffect()
         )
-
-        Spacer(
+        SkeletonItem(
             modifier = Modifier
-                .defaultMinSize(minHeight = 70.dp)
+                .height(70.dp)
                 .fillMaxWidth()
-                .clip(MaterialTheme.shapes.medium)
-                .shimmerEffect()
         )
     }
 }
@@ -104,8 +116,8 @@ private fun DetailScreenSuccess(
     ) {
         MovieCard(
             modifier = Modifier
-                .fillMaxWidth()
-                .defaultMinSize(minHeight = 200.dp),
+                .defaultMinSize(minHeight = 200.dp)
+                .fillMaxWidth(),
             shape = null,
             imagePath = posterPath,
         )
@@ -125,41 +137,39 @@ private fun DetailScreenSuccess(
 }
 
 @Composable
-private fun DetailScreenFailure(
+private fun BoxScope.DetailScreenFailure(
     message: String,
     onTryAgain: () -> Unit,
 ) {
-    Box(Modifier.fillMaxSize()) {
-        Surface(
-            Modifier
-                .padding(MaterialTheme.spacing.medium)
-                .clip(MaterialTheme.shapes.medium)
-                .fillMaxWidth()
-                .align(Alignment.Center),
+    Surface(
+        Modifier
+            .padding(MaterialTheme.spacing.medium)
+            .clip(MaterialTheme.shapes.medium)
+            .fillMaxWidth()
+            .align(Alignment.Center),
+    ) {
+        Column(
+            Modifier.padding(MaterialTheme.spacing.medium),
+            verticalArrangement = Arrangement.spacedBy(
+                MaterialTheme.spacing.medium,
+                Alignment.CenterVertically
+            ),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Column(
-                Modifier.padding(MaterialTheme.spacing.medium),
-                verticalArrangement = Arrangement.spacedBy(
-                    MaterialTheme.spacing.medium,
-                    Alignment.CenterVertically
-                ),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Icon(
-                    imageVector = Icons.Error,
-                    contentDescription = "Back",
-                    modifier = Modifier.size(48.dp),
-                    tint = MaterialTheme.colorScheme.onSurface
-                )
+            Icon(
+                imageVector = Icons.Error,
+                contentDescription = "Back",
+                modifier = Modifier.size(48.dp),
+                tint = MaterialTheme.colorScheme.onSurface
+            )
 
-                Text(
-                    text = message,
-                    textAlign = TextAlign.Center,
-                )
+            Text(
+                text = message,
+                textAlign = TextAlign.Center,
+            )
 
-                OutlinedButton(onTryAgain) {
-                    Text("Try again")
-                }
+            OutlinedButton(onTryAgain) {
+                Text("Try again")
             }
         }
     }
@@ -169,10 +179,19 @@ private fun DetailScreenFailure(
 @Composable
 fun DetailScreenContentPreview() {
     IMoviesTheme {
-        DetailScreenSuccess(
-            posterPath = "",
-            title = "Title",
-            overview = "Overview"
-        )
+//        DetailScreenSuccess(
+//            posterPath = "",
+//            title = "Title",
+//            overview = "Overview"
+//        )
+
+//        Box(Modifier.fillMaxSize()) {
+//            DetailScreenFailure(
+//                message = "Error",
+//                onTryAgain = {}
+//            )
+//        }
+
+        DetailScreenSkeleton()
     }
 }

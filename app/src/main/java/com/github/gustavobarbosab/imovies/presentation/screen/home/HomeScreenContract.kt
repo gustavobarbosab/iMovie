@@ -75,7 +75,7 @@ sealed class HomeActionResult {
 
 sealed class HomeSideEffect {
     // Pre
-    data class NavigateToMovieDetail(val movie: HomeMovieModel) : HomeSideEffect()
+    data class NavigateToMovieDetail(val movieId: Long) : HomeSideEffect()
 
     // Post
     data class LoadMovieFailure(val sectionType: HomeMovieSectionType) : HomeSideEffect()

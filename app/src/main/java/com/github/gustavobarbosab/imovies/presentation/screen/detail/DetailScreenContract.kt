@@ -36,3 +36,7 @@ sealed class DetailScreenActionResult {
     data class Success(val model: DetailScreenModel) : DetailScreenActionResult()
     data object Failure : DetailScreenActionResult()
 }
+
+sealed class DetailScreenSideEffect {
+    data object GoBack : DetailScreenSideEffect()
+}

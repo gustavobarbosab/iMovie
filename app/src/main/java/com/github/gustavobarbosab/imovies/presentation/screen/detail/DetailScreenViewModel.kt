@@ -2,6 +2,7 @@ package com.github.gustavobarbosab.imovies.presentation.screen.detail
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.toRoute
 import com.github.gustavobarbosab.imovies.core.presentation.arch.CoreViewModel
 import com.github.gustavobarbosab.imovies.core.presentation.arch.HandledByProcessor
 import com.github.gustavobarbosab.imovies.domain.movies.detail.GetMovieDetailUseCase
@@ -14,12 +15,13 @@ import javax.inject.Inject
 class DetailScreenViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     reducerFactory: DetailScreenReducer.Factory,
+    processor: DetailScreenSideEffectProcessor,
     private val mapper: DetailScreenMapper,
     private val getMovieDetailUseCase: GetMovieDetailUseCase
-) : CoreViewModel<DetailScreenState, DetailScreenIntent, DetailScreenActionResult, Nothing>(
-    reducerFactory.create(savedStateHandle["DETAIL_MOVIE_ID"])
+) : CoreViewModel<DetailScreenState, DetailScreenIntent, DetailScreenActionResult, DetailScreenSideEffect>(
+    reducer = reducerFactory.create(savedStateHandle.toRoute<DetailRoute>()),
+    processor = processor
 ) {
-
     override fun handleIntent(
         intent: DetailScreenIntent,
         currentState: DetailScreenState
