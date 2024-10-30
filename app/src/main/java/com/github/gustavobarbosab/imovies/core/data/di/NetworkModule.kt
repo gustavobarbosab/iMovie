@@ -1,5 +1,6 @@
 package com.github.gustavobarbosab.imovies.core.data.di
 
+import com.github.gustavobarbosab.imovies.BuildConfig
 import com.github.gustavobarbosab.imovies.core.data.network.adapter.ServiceResponseCallAdapterFactory
 import com.github.gustavobarbosab.imovies.core.data.network.interceptor.ApiKeyInterceptor
 import dagger.Module
@@ -20,7 +21,7 @@ class NetworkModule {
     @Singleton
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("https://api.themoviedb.org/3/") // TODO add the base url from the local properties
+            .baseUrl(BuildConfig.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(ServiceResponseCallAdapterFactory.create())
             .client(okHttpClient)
@@ -43,13 +44,10 @@ class NetworkModule {
     @Provides
     @Singleton
     fun provideLoggingInterceptor() = HttpLoggingInterceptor().apply {
-        // TODO change it...
-        // Because of the new kotlin version the BuildConfig is not available anymore
-//        level = if (BuildConfig.DEBUG) {
-//            HttpLoggingInterceptor.Level.BODY
-//        } else {
-//            HttpLoggingInterceptor.Level.NONE
-//        }
-        level = HttpLoggingInterceptor.Level.BODY
+        level = if (BuildConfig.DEBUG) {
+            HttpLoggingInterceptor.Level.BODY
+        } else {
+            HttpLoggingInterceptor.Level.NONE
+        }
     }
 }
