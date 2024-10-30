@@ -1,19 +1,5 @@
 # 🎥 iMovie
 
-## 📖 Table of Contents
-
-- [Overview](#overview)
-- [Components](#components)
-- [Architecture](#architecture)
-- [Project Structure](#project-structure)
-- [Setup Instructions](#setup-instructions)
-- [References](#some-references)
-- [Contribuition](#become-a-contributor)
-
----
-
-## 🎯 Overview
-
 This project demonstrates an implementation of the [**Model-View-Intent (MVI)**](https://medium.com/swlh/mvi-architecture-with-android-fcde123e3c4a) architecture and follows [**Clean Architecture**](https://fernandocejas.com/2018/05/07/architecting-android-reloaded/) principles to separate concerns between different layers. It highlights my skills in structured code organization, tests, and modern Android libraries.
 
 https://github.com/user-attachments/assets/b6613375-44c5-4ca7-b2ee-568c40f6c366
@@ -121,7 +107,7 @@ This project setup is simple, and you can follow these steps:
 
 Example of the local.properties file:
 ```local.properties
-  tmdb.api.key="our-key-here"
+  tmdb.api.key="your-key-here"
 ```
 
 ## 📖 Some References:
