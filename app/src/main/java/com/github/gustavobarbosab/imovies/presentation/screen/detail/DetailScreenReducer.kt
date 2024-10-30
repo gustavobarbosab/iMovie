@@ -2,7 +2,7 @@ package com.github.gustavobarbosab.imovies.presentation.screen.detail
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.toRoute
-import com.github.gustavobarbosab.imovies.common.presentation.UiState
+import com.github.gustavobarbosab.imovies.common.ui.UiState
 import com.github.gustavobarbosab.imovies.core.presentation.arch.Reducer
 import javax.inject.Inject
 

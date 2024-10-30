@@ -1,6 +1,5 @@
 package com.github.gustavobarbosab.imovies.presentation.screen.home.components
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
@@ -18,12 +17,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import com.github.gustavobarbosab.imovies.R
-import com.github.gustavobarbosab.imovies.common.presentation.UiStateList
-import com.github.gustavobarbosab.imovies.common.presentation.compose.RecurrentTaskLaunchEffect
-import com.github.gustavobarbosab.imovies.common.presentation.compose.component.FeedbackContainer
-import com.github.gustavobarbosab.imovies.common.presentation.compose.component.MovieCard
-import com.github.gustavobarbosab.imovies.common.presentation.compose.component.MovieCardDefaults
-import com.github.gustavobarbosab.imovies.common.presentation.compose.extension.shimmerEffect
+import com.github.gustavobarbosab.imovies.common.ui.UiStateList
+import com.github.gustavobarbosab.imovies.common.ui.compose.RecurrentTaskLaunchEffect
+import com.github.gustavobarbosab.imovies.common.ui.compose.component.FeedbackContainer
+import com.github.gustavobarbosab.imovies.common.ui.compose.component.MovieCard
+import com.github.gustavobarbosab.imovies.common.ui.compose.component.MovieCardDefaults
+import com.github.gustavobarbosab.imovies.common.ui.compose.extension.shimmerEffect
 import com.github.gustavobarbosab.imovies.presentation.screen.home.model.HomeMovieModel
 import com.github.gustavobarbosab.imovies.presentation.theme.spacing
 

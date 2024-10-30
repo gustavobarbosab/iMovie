@@ -1,7 +1,7 @@
 package com.github.gustavobarbosab.imovies.presentation.screen.detail
 
 import androidx.compose.runtime.Immutable
-import com.github.gustavobarbosab.imovies.common.presentation.UiState
+import com.github.gustavobarbosab.imovies.common.ui.UiState
 import com.github.gustavobarbosab.imovies.presentation.screen.detail.model.DetailScreenModel
 
 /**

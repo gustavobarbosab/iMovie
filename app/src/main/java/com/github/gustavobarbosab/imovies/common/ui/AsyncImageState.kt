@@ -1,4 +1,4 @@
-package com.github.gustavobarbosab.imovies.common.presentation
+package com.github.gustavobarbosab.imovies.common.ui
 
 import coil3.compose.AsyncImagePainter
 

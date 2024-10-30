@@ -1,4 +1,4 @@
-package com.github.gustavobarbosab.imovies.common.presentation.compose.component
+package com.github.gustavobarbosab.imovies.common.ui.compose.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CornerBasedShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
-import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -30,8 +29,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import coil3.compose.rememberAsyncImagePainter
-import com.github.gustavobarbosab.imovies.common.presentation.AsyncImageState
-import com.github.gustavobarbosab.imovies.common.presentation.toAsyncState
+import com.github.gustavobarbosab.imovies.common.ui.AsyncImageState
+import com.github.gustavobarbosab.imovies.common.ui.toAsyncState
 import com.github.gustavobarbosab.imovies.presentation.theme.Error
 import com.github.gustavobarbosab.imovies.presentation.theme.IMoviesTheme
 import com.github.gustavobarbosab.imovies.presentation.theme.Spacing

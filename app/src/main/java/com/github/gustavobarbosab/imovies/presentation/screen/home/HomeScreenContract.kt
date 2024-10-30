@@ -3,7 +3,7 @@ package com.github.gustavobarbosab.imovies.presentation.screen.home
 import androidx.annotation.StringRes
 import androidx.compose.runtime.Immutable
 import com.github.gustavobarbosab.imovies.R
-import com.github.gustavobarbosab.imovies.common.presentation.UiStateList
+import com.github.gustavobarbosab.imovies.common.ui.UiStateList
 import com.github.gustavobarbosab.imovies.presentation.screen.home.model.HomeMovieModel
 import com.github.gustavobarbosab.imovies.presentation.screen.home.model.HomeMovieSectionType
 

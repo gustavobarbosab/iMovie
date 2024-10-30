@@ -1,4 +1,4 @@
-package com.github.gustavobarbosab.imovies.common.presentation.compose.extension
+package com.github.gustavobarbosab.imovies.common.ui.compose.extension
 
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable
@@ -16,8 +16,6 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.unit.IntSize
-import com.github.gustavobarbosab.imovies.presentation.theme.Grey20
-import com.github.gustavobarbosab.imovies.presentation.theme.Grey50
 
 fun Modifier.shimmerEffect(): Modifier = composed {
     var size by remember {

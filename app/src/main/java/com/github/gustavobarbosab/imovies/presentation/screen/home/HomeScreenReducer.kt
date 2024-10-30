@@ -1,6 +1,6 @@
 package com.github.gustavobarbosab.imovies.presentation.screen.home
 
-import com.github.gustavobarbosab.imovies.common.presentation.UiStateList
+import com.github.gustavobarbosab.imovies.common.ui.UiStateList
 import com.github.gustavobarbosab.imovies.core.presentation.arch.Reducer
 import com.github.gustavobarbosab.imovies.presentation.screen.home.HomeActionResult.SectionUpdate
 import com.github.gustavobarbosab.imovies.presentation.screen.home.model.HomeMovieSectionType

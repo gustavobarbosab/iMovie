@@ -1,4 +1,4 @@
-package com.github.gustavobarbosab.imovies.common.presentation.compose.component
+package com.github.gustavobarbosab.imovies.common.ui.compose.component
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

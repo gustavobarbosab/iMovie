@@ -1,4 +1,4 @@
-package com.github.gustavobarbosab.imovies.common.presentation
+package com.github.gustavobarbosab.imovies.common.ui
 
 sealed interface UiState<out T> {
     data class Success<T>(val data: T) : UiState<T>

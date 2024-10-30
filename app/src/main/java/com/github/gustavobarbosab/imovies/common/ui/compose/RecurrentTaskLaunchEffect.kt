@@ -1,4 +1,4 @@
-package com.github.gustavobarbosab.imovies.common.presentation.compose
+package com.github.gustavobarbosab.imovies.common.ui.compose
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect

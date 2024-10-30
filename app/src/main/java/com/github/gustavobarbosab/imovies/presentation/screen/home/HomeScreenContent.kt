@@ -12,10 +12,10 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.github.gustavobarbosab.imovies.common.presentation.UiStateList
-import com.github.gustavobarbosab.imovies.common.presentation.compose.component.AppLogo
-import com.github.gustavobarbosab.imovies.common.presentation.compose.component.AppToolbar
-import com.github.gustavobarbosab.imovies.common.presentation.compose.component.MovieCardDefaults
+import com.github.gustavobarbosab.imovies.common.ui.UiStateList
+import com.github.gustavobarbosab.imovies.common.ui.compose.component.AppLogo
+import com.github.gustavobarbosab.imovies.common.ui.compose.component.AppToolbar
+import com.github.gustavobarbosab.imovies.common.ui.compose.component.MovieCardDefaults
 import com.github.gustavobarbosab.imovies.presentation.screen.home.components.MovieSection
 import com.github.gustavobarbosab.imovies.presentation.screen.home.components.TopBannerSection
 import com.github.gustavobarbosab.imovies.presentation.screen.home.model.HomeMovieModel

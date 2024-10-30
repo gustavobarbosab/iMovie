@@ -24,10 +24,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.gustavobarbosab.imovies.R
-import com.github.gustavobarbosab.imovies.common.presentation.UiStateList
-import com.github.gustavobarbosab.imovies.common.presentation.compose.component.FeedbackContainer
-import com.github.gustavobarbosab.imovies.common.presentation.compose.component.MovieCard
-import com.github.gustavobarbosab.imovies.common.presentation.compose.component.SkeletonItem
+import com.github.gustavobarbosab.imovies.common.ui.UiStateList
+import com.github.gustavobarbosab.imovies.common.ui.compose.component.FeedbackContainer
+import com.github.gustavobarbosab.imovies.common.ui.compose.component.MovieCard
+import com.github.gustavobarbosab.imovies.common.ui.compose.component.SkeletonItem
 import com.github.gustavobarbosab.imovies.presentation.screen.home.HomeScreenState
 import com.github.gustavobarbosab.imovies.presentation.screen.home.model.HomeMovieModel
 import com.github.gustavobarbosab.imovies.presentation.screen.home.model.HomeMovieSectionType
