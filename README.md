@@ -119,6 +119,12 @@ Example of the local.properties file:
 - [Clean Architecture - Uncle Bob](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
 - [SOLID](https://blog.cleancoder.com/uncle-bob/2020/10/18/Solid-Relevance.html)
 
+## 🏆 Other good projects:
+- [android-compose-playground](https://github.com/gustavobarbosab/android-compose-playground) - A modular project with composite builds, using strategies for sharing rules based on clean architecture principles.
+- [gubank](https://github.com/gustavobarbosab/gubank) - I’m planning to start a channel to teach a bit about Android. In this repo, I run unit and instrumented tests to show how things work in real scenarios.
+- [netscan](https://github.com/gustavobarbosab/netscan) - A library I built from scratch with tools for scanning computer networks.
+- [movies](https://github.com/gustavobarbosab/movies) - An old project from three years ago, where I explored some features and applied clean architecture and modularization concepts.
+
 ## 😄 Become a contributor
 
 Do you wish to be part of this project? Open a pull request with your contribution.
