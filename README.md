@@ -36,10 +36,6 @@ This project uses **Clean Architecture** with **MVI** (Model-View-Intent) patter
 
 <img height="500" alt="image" src="https://github.com/user-attachments/assets/69e8c015-d2a6-4585-bbcd-e70002b43666">
 
-- **Presentation Layer**: Uses `ViewModel`, `State`, `SideEffect`, `Result`, and `Intent` classes to manage UI-related data and side effects.
-- **Domain Layer**: This layer contains the business logic, including `UseCases` for specific operations and `Repository Interfaces` to abstract data sources.
-- **Data Layer**: Manages data sources, including API and database. It includes implementations of repository interfaces defined in the Domain layer.
-
 ---
 
 ### 📺 Presentation Layer:
