@@ -25,6 +25,8 @@ In this project, we use some of the best libraries to create an Android project.
 - [ ] Modularization
 - [ ] Composite build
 - [ ] UI Tests
+- [ ] Detekt
+- [ ] Ktlint
 
 --- 
 
