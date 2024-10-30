@@ -4,7 +4,6 @@
 
 - [Overview](#overview)
 - [Architecture](#architecture)
-- [Features](#features)
 - [Dependencies](#dependencies)
 - [Project Structure](#project-structure)
 - [Setup Instructions](#setup-instructions)
@@ -14,6 +13,8 @@
 ## Overview
 
 This project demonstrates an implementation of the [**Model-View-Intent (MVI)**](https://medium.com/swlh/mvi-architecture-with-android-fcde123e3c4a) architecture and follows [**Clean Architecture**](https://fernandocejas.com/2018/05/07/architecting-android-reloaded/) principles to separate concerns between different layers. It highlights my skills in structured code organization, tests, and modern Android libraries.
+
+https://github.com/user-attachments/assets/b6613375-44c5-4ca7-b2ee-568c40f6c366
 
 ---
 
