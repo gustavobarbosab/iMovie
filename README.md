@@ -23,7 +23,8 @@ In this project, we use some of the best libraries to create an Android project.
 - [X] MVI - Model-View-Intent
 - [X] Dark and Light themes
 - [ ] Modularization
-- [ ] UI Tests:
+- [ ] Composite build
+- [ ] UI Tests
 
 --- 
 
