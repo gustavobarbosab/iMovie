@@ -1,16 +1,18 @@
 # 🎥 iMovie
 
-## Table of Contents
+## 📖 Table of Contents
 
 - [Overview](#overview)
+- [Components](#components)
 - [Architecture](#architecture)
-- [Dependencies](#dependencies)
 - [Project Structure](#project-structure)
 - [Setup Instructions](#setup-instructions)
+- [References](#some-references)
+- [Contribuition](#become-a-contributor)
 
 ---
 
-## Overview
+## 🎯 Overview
 
 This project demonstrates an implementation of the [**Model-View-Intent (MVI)**](https://medium.com/swlh/mvi-architecture-with-android-fcde123e3c4a) architecture and follows [**Clean Architecture**](https://fernandocejas.com/2018/05/07/architecting-android-reloaded/) principles to separate concerns between different layers. It highlights my skills in structured code organization, tests, and modern Android libraries.
 
@@ -18,7 +20,28 @@ https://github.com/user-attachments/assets/b6613375-44c5-4ca7-b2ee-568c40f6c366
 
 ---
 
-## Architecture
+## 💡 Components
+
+In this project, we use some of the best libraries to create an Android project.
+
+- [X] Compose
+- [X] Material 3
+- [X] Navigation
+- [X] Hilt
+- [X] Coil
+- [X] Coroutines
+- [X] Retrofit
+- [X] Gson
+- [X] Hamcrest
+- [X] Mockk
+- [X] MVI - Model-View-Intent
+- [X] Dark and Light themes
+- [ ] Modularization
+- [ ] UI Tests:
+
+--- 
+
+## 📐 Architecture
 
 This project uses **Clean Architecture** with **MVI** (Model-View-Intent) pattern to separate concerns, scalability, and testability. Here’s an outline of each layer:
 
@@ -30,7 +53,7 @@ This project uses **Clean Architecture** with **MVI** (Model-View-Intent) patter
 
 ---
 
-### Presentation Layer:
+### 📺 Presentation Layer:
 <img height="500" alt="image" src="https://github.com/user-attachments/assets/444d97f7-fd63-406a-a76d-263f8202d843">
 
 Let's dive into each component of this layer:
@@ -42,7 +65,7 @@ Let's dive into each component of this layer:
 
 ---
 
-### Data Layer:
+### 💾 Data Layer:
 The data layer handles data sources and retrieval, whether from APIs, local databases, or other sources. Its primary purpose is to provide data to the domain layer in a standardized format.
 This layer contains the following components:
 - Repositories: Repositories are the main components of the data layer, providing a clean API for data access and managing data sources (network, database, cache).
@@ -51,7 +74,7 @@ This layer contains the following components:
 
 ---
 
-### Domain Layer:
+### 📚 Domain Layer:
 The domain layer focuses on the business logic and is independent of frameworks. It defines how the app operates and interacts with data, which multiple presentation layers can use.
 - Use Cases (or Interactors): Encapsulate a specific business action or logic (e.g., fetching a movie detail or saving a record). Use cases pull data from the repository and process it according to business rules.
 - Domain Entities: Represent core business entities, passed between layers and kept independent of specific data formats.
@@ -59,7 +82,7 @@ The domain layer focuses on the business logic and is independent of frameworks.
 
 ---
 
-### Dependency between the layers
+### ➿ Dependency between the layers
 
 This image shows the dependency between the layers, following Uncle Bob's explanation in [Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html).
 | IMovie | Clean Architecture |
@@ -68,24 +91,7 @@ This image shows the dependency between the layers, following Uncle Bob's explan
 
 ---
 
-## Dependencies
-
-In this project, we use some of the best libraries to create an Android project. The list is following:
-
-- Compose: ensuring consistent versions of Compose dependencies.
-- Material 3: Provides Material Design 3 components in Compose for styling.
-- Navigation: Manage the navigation between composable screens.
-- Hilt: Provides dependency injection support.
-- Coil: An image-loading library with Compose support optimized for Android.
-- Coroutines: Provides tools to handle asynchronous programming in a simple, structured way.
-- Retrofit: A type-safe HTTP client for making network requests.
-- Gson: A converter for Retrofit to parse JSON using Gson.
-- Hamcrest: Provides matchers for assertions, enhancing the readability of tests.
-- Mockk: A mocking library for Kotlin, useful for testing by simulating dependencies.
-
----
-
-## Project structure
+## 🔨Project structure
 
 The project structure is divided into the following packages, as explained before.
 
@@ -104,19 +110,30 @@ Some explanations about the packages that will be modules in the future:
 
 ---
 
-## Setup Instructions
+## 💻 Setup Instructions
 
 This project setup is simple, and you can follow these steps:
 - Clone the project
-- Access or create an account on [TMDB](https://www.themoviedb.org/](https://developer.themoviedb.org)
+- Access or create an account on [TMDB](https://developer.themoviedb.org)
 - Copy your API Key Auth on [TMDB Developer Auth](https://developer.themoviedb.org/reference/intro/authentication)
 - Paste the API Key on your `local.properties` as the parameter `tmdb.api.key`.
 - Run the project =D
 
+Example of the local.properties file:
 ```local.properties
-  tmdb.api.key=your-key-here
+  tmdb.api.key="our-key-here"
 ```
 
+## 📖 Some References:
+
+- [Model-View-Intent (MVI)](https://medium.com/swlh/mvi-architecture-with-android-fcde123e3c4a)
+- [Clean Architecture - Fernando Cejas](https://fernandocejas.com/2018/05/07/architecting-android-reloaded/)
+- [Clean Architecture - Uncle Bob](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
+- [SOLID](https://blog.cleancoder.com/uncle-bob/2020/10/18/Solid-Relevance.html)
+
+## 😄 Become a contributor
+
+Do you wish to be part of this project? Open a pull request with your contribution.
 
 
 
