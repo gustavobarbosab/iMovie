@@ -11,6 +11,7 @@ import androidx.compose.ui.test.onChild
 import androidx.compose.ui.test.onChildren
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performScrollToIndex
 import com.github.gustavobarbosab.imovies.presentation.screen.home.model.HomeMovieSectionType
 
 class MovieSectionRobot(
@@ -25,6 +26,11 @@ class MovieSectionRobot(
             .onChildren()
             .filterToOne(hasAnyDescendant(hasTestTag("RetryButton")))
             .onChild()
+
+    private val onLazyRow
+        get() = onMovieSection
+            .onChildren()
+            .filterToOne(hasTestTag("MoviesList"))
 
     private val onFeedbackButton
         get() = onFeedbackContainer
@@ -54,6 +60,17 @@ class MovieSectionRobot(
     fun clickOnFeedbackButton() {
         onFeedbackButton
             .assertHasClickAction()
+            .performClick()
+    }
+
+    fun scrollToMovie(position: Int) {
+        onLazyRow.performScrollToIndex(position)
+    }
+
+    fun clickOnMovie(name: String) = apply {
+        onLazyRow
+            .onChildren()
+            .filterToOne(hasTestTag(name))
             .performClick()
     }
 }

@@ -1,5 +1,7 @@
 package com.github.gustavobarbosab.imovies.presentation.screen.home
 
+import androidx.compose.ui.test.junit4.ComposeContentTestRule
+import androidx.compose.ui.test.junit4.ComposeTestRule
 import androidx.compose.ui.test.junit4.createComposeRule
 import com.github.gustavobarbosab.imovies.R
 import com.github.gustavobarbosab.imovies.common.ui.UiStateList
@@ -24,6 +26,63 @@ class HomeScreenTest {
     private val topBannerRobot = TopBannerRobot(composeTestRule)
     private val movieSectionRobot = MovieSectionRobot(composeTestRule, HomeMovieSectionType.POPULAR)
 
+    private fun ComposeContentTestRule.setHomeScreenContent(state: HomeScreenState) {
+        setContent {
+            IMoviesTheme {
+                HomeScreenContent(
+                    screenState = state,
+                    onRetryLoadSection = onRetryLoadSection,
+                    onRetryLoadTopBanner = onRetryLoadTopBanner,
+                    onMovieClicked = onMovieClicked
+                )
+            }
+        }
+    }
+
+    @Test
+    fun whenLoadMoviesSuccessfully_ShouldShowTheMoviesAndAcceptClick() {
+        val mockedMovies = mutableListOf<HomeMovieModel>()
+        repeat(10) { position ->
+            mockedMovies.add(
+                HomeMovieModel(
+                    id = position.toLong(),
+                    title = "Movie $position",
+                    backdropPath = "https://image.tmdb.org/t/p/w1280/3V4kLQg0kSqPLctI5ziYWabAZYF.jpg",
+                    posterPath = "https://image.tmdb.org/t/p/w500/aosm8NMQ3UyoBVpSxyimorCQykC.jpg"
+                )
+            )
+        }
+
+        val state = HomeScreenState.initialState().copy(
+            topBannerMovies = UiStateList.Success(mockedMovies),
+            movieSectionMap = mapOf(
+                HomeMovieSectionType.POPULAR to HomeScreenState.MovieSectionState(
+                    HomeMovieSectionType.POPULAR,
+                    title = R.string.home_popular_section_title,
+                    uiState = UiStateList.Success(mockedMovies)
+                ),
+            )
+        )
+
+        composeTestRule.setHomeScreenContent(state)
+
+        topBannerRobot {
+            assertMovieTitle("Movie 0")
+            clickOnMovie()
+        }
+
+        movieSectionRobot {
+            assertSectionTitle("Popular")
+            scrollToMovie(5)
+            clickOnMovie("Movie 5")
+        }
+
+        verify {
+            onMovieClicked(mockedMovies.first())
+            onMovieClicked(mockedMovies[5])
+        }
+    }
+
     @Test
     fun whenThereIsAnErrorToLoadTheMovies_ShouldShowErrorState() {
         val state = HomeScreenState.initialState().copy(
@@ -37,22 +96,7 @@ class HomeScreenTest {
             )
         )
 
-        composeTestRule.setContent {
-            IMoviesTheme {
-                HomeScreenContent(
-                    screenState = state,
-                    onRetryLoadSection = {
-                        onRetryLoadSection(it)
-                    },
-                    onRetryLoadTopBanner = {
-                        onRetryLoadTopBanner()
-                    },
-                    onMovieClicked = {
-                        onMovieClicked(it)
-                    }
-                )
-            }
-        }
+        composeTestRule.setHomeScreenContent(state)
 
         topBannerRobot {
             assertFeedbackMessage("There was an error on loading the movies now playing.")

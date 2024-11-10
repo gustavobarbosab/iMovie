@@ -76,6 +76,7 @@ fun MovieSection(
             )
 
             LazyRow(
+                modifier = Modifier.testTag("MoviesList"),
                 contentPadding = PaddingValues(start = MaterialTheme.spacing.small),
                 horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)
             ) {
@@ -104,7 +105,8 @@ private fun LazyListScope.MovieListItems(
         MovieCard(
             modifier = Modifier
                 .clip(MaterialTheme.shapes.medium)
-                .sizeIn(minHeight = MOVIE_CARD_HEIGHT, minWidth = MOVIE_CARD_WIDTH),
+                .sizeIn(minHeight = MOVIE_CARD_HEIGHT, minWidth = MOVIE_CARD_WIDTH)
+                .testTag(movie.title),
             imagePath = movie.posterPath,
             onClick = { onMovieClicked(movie) }
         )
