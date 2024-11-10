@@ -19,6 +19,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -59,7 +60,11 @@ fun MovieSection(
             bottomEnd = ZeroCornerSize
         ),
     ) {
-        Column(Modifier.padding(MaterialTheme.spacing.medium)) {
+        Column(
+            Modifier
+                .padding(MaterialTheme.spacing.medium)
+                .testTag(sectionState.sectionType.name)
+        ) {
             Text(
                 text = stringResource(sectionState.title),
                 style = MaterialTheme.typography.titleLarge,

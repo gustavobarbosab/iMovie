@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import com.github.gustavobarbosab.imovies.R
 import com.github.gustavobarbosab.imovies.common.ui.UiStateList
@@ -34,7 +35,9 @@ fun TopBannerSection(
     onRetry: () -> Unit,
     onMovieClicked: (HomeMovieModel) -> Unit
 ) {
-    Box(modifier) {
+    Box(
+        modifier.testTag("TopBannerSection")
+    ) {
         when (sectionState) {
             UiStateList.Loading -> TopBannerLoading(Modifier.matchParentSize())
 

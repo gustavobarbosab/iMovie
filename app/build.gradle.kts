@@ -1,3 +1,4 @@
+import com.android.build.gradle.internal.scope.ProjectInfo.Companion.getBaseName
 import java.util.Properties
 
 plugins {
@@ -23,7 +24,7 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.github.gustavobarbosab.imovies.settings.IMovieTestRunner"
 
         buildConfigField("String", "BASE_URL", "\"https://api.themoviedb.org/3/\"")
         buildConfigField("String", "API_KEY", tmdbKey)
@@ -48,6 +49,13 @@ android {
     buildFeatures {
         compose = true
         buildConfig = true
+    }
+
+    packaging {
+        resources {
+            excludes += "/META-INF/LICENSE.md"
+            excludes += "/META-INF/LICENSE-notice.md"
+        }
     }
 }
 
@@ -86,15 +94,25 @@ dependencies {
     implementation(libs.coil.network)
     implementation(libs.coil.svg)
 
-    // Test
+    // Unit Test
     testImplementation(libs.junit)
     testImplementation(libs.hamcrest)
     testImplementation(libs.mockk)
     testImplementation(libs.coroutine.test)
+
+    // Android Test
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(libs.androidx.test.core)
+    androidTestImplementation(libs.androidx.test.truth)
+    androidTestImplementation(libs.androidx.test.runner)
+    androidTestUtil(libs.androidx.test.orchestrator)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
+    androidTestImplementation(libs.hilt.test)
+    androidTestImplementation(libs.hilt.compose)
+    androidTestImplementation(libs.mockk.android.test)
+    kspAndroidTest(libs.hilt.compiler)
 }
 
 fun readProperties(
