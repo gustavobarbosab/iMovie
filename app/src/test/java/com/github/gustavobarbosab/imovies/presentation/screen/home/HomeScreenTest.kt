@@ -86,7 +86,7 @@ class HomeScreenTest {
             clickOnMovie(name = "Movie 9")
         }
 
-        // TODO: I'm not verifying these methods, because there is an issue in Robolectric
+        // TODO: I'm not verifying these methods, because there is an issue on Robolectric
         // which is failing the test when I try to verify if the method was called.
 //        verify {
 //            onMovieClicked(mockedMovies[0])
@@ -124,7 +124,7 @@ class HomeScreenTest {
             clickOnFeedbackButton()
         }
 
-        // TODO: I'm not verifying these methods, because there is an issue in Robolectric
+        // TODO: I'm not verifying these methods, because there is an issue on Robolectric
         // which is failing the test when I try to verify if the method was called.
 //        verify {
 //            onRetryLoadTopBanner()
