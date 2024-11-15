@@ -1,13 +1,13 @@
 [versions]
 agp = "8.7.2"
 kotlin = "2.0.21"
-coreKtx = "1.13.1"
+coreKtx = "1.15.0"
 junit = "4.13.2"
-junitVersion = "1.1.5"
-espressoCore = "3.5.1"
+junitVersion = "1.2.1"
+espressoCore = "3.6.1"
 lifecycleRuntimeKtx = "2.8.6"
 activityCompose = "1.9.3"
-composeBom = "2024.10.01"
+composeBom = "2024.11.00"
 hilt = "2.51.1"
 retrofit = "2.11.0"
 coil = "3.0.0-rc01"
@@ -49,6 +49,7 @@ coroutine-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", ver
 viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version = "2.8.6" }
 navigation-compose = { module = "androidx.navigation:navigation-compose", version = "2.8.0" }
 kotlin-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version = "1.7.3" }
+robolectric = { module = "org.robolectric:robolectric", version = "4.13" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

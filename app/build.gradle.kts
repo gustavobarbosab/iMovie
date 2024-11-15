@@ -15,7 +15,7 @@ val tmdbKey = readProperties()["tmdb.api.key"].toString()
 
 android {
     namespace = "com.github.gustavobarbosab.imovies"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.github.gustavobarbosab.imovies"
@@ -49,6 +49,13 @@ android {
     buildFeatures {
         compose = true
         buildConfig = true
+    }
+
+    testOptions {
+        unitTests {
+            isIncludeAndroidResources = true
+            isReturnDefaultValues = true
+        }
     }
 
     packaging {
@@ -99,6 +106,9 @@ dependencies {
     testImplementation(libs.hamcrest)
     testImplementation(libs.mockk)
     testImplementation(libs.coroutine.test)
+    testImplementation(libs.robolectric)
+    testImplementation(libs.androidx.test.core)
+    testImplementation(libs.androidx.ui.test.junit4)
 
     // Android Test
     androidTestImplementation(libs.androidx.junit)
