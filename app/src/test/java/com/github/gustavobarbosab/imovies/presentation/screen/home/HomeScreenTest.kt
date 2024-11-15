@@ -2,7 +2,6 @@ package com.github.gustavobarbosab.imovies.presentation.screen.home
 
 import androidx.compose.ui.test.junit4.ComposeContentTestRule
 import androidx.compose.ui.test.junit4.createComposeRule
-import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.github.gustavobarbosab.imovies.R
 import com.github.gustavobarbosab.imovies.TestApplication
 import com.github.gustavobarbosab.imovies.common.ui.UiStateList
@@ -15,9 +14,10 @@ import io.mockk.mockk
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
 
-@RunWith(AndroidJUnit4::class)
+@RunWith(RobolectricTestRunner::class)
 @Config(
     application = TestApplication::class,
     sdk = [32],
@@ -86,7 +86,7 @@ class HomeScreenTest {
             clickOnMovie(name = "Movie 9")
         }
 
-        // TODO: I'm not verifying these methods, because there is an issue on Robolectric
+        // TODO: I'm not verifying these methods, because there is an issue
         // which is failing the test when I try to verify if the method was called.
 //        verify {
 //            onMovieClicked(mockedMovies[0])
@@ -124,7 +124,7 @@ class HomeScreenTest {
             clickOnFeedbackButton()
         }
 
-        // TODO: I'm not verifying these methods, because there is an issue on Robolectric
+        // TODO: I'm not verifying these methods, because there is
         // which is failing the test when I try to verify if the method was called.
 //        verify {
 //            onRetryLoadTopBanner()
