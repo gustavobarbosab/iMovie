@@ -15,7 +15,7 @@ import org.junit.Rule
 import org.junit.Test
 
 /**
- * It will be implemented as a integration test soon, for now it's more a unit test.
+ * It will be implemented as an integration test soon, for now it's more a unit test.
  */
 class HomeScreenTest {
 
