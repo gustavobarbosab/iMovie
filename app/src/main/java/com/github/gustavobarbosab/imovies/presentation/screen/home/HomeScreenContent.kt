@@ -11,8 +11,12 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
+import com.github.gustavobarbosab.imovies.R
 import com.github.gustavobarbosab.imovies.common.ui.UiStateList
 import com.github.gustavobarbosab.imovies.common.ui.compose.component.AppLogo
 import com.github.gustavobarbosab.imovies.common.ui.compose.component.AppToolbar
@@ -31,6 +35,7 @@ fun HomeScreenContent(
     onRetryLoadTopBanner: () -> Unit,
     onMovieClicked: (HomeMovieModel) -> Unit
 ) {
+    val context = LocalContext.current
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
@@ -44,7 +49,12 @@ fun HomeScreenContent(
                 .fillMaxSize()
                 .padding(innerPadding)
         ) {
-            LazyColumn {
+            LazyColumn(
+                Modifier.semantics {
+                    contentDescription =
+                        context.getString(R.string.home_sections_content_description)
+                }
+            ) {
                 item(key = "header") {
                     TopBannerSection(
                         Modifier

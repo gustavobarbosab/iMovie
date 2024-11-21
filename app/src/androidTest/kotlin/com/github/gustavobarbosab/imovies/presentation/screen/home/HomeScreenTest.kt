@@ -76,58 +76,44 @@ class HomeScreenTest {
 
         // THEN
         homeRobot {
+            val firstMovieTitle = "Terrifier 3"
+
             onTopBanner {
-                val terrifierMovieName = "Terrifier 3"
-                waitUntilMovieLoad(movieTitle = terrifierMovieName, timeoutMillis = 2000)
-                assertTopBannerMovieTitle(movieTitle = terrifierMovieName)
-                clickOnTopBannerMovie(movieTitle = terrifierMovieName)
+                waitUntilMovieLoad(movieTitle = firstMovieTitle, timeoutMillis = 2000)
+                assertTopBannerMovieTitle(movieTitle = firstMovieTitle)
+                clickOnTopBannerMovie(movieTitle = firstMovieTitle)
             }
 
             onMovieSection(HomeMovieSectionType.POPULAR) {
-                val theSubstanceMovieName = "The Substance"
-                assertTitle("Popular")
-                waitUntilLoadMovie(movieTitle = theSubstanceMovieName)
-                scrollToMovie(movieTitle = theSubstanceMovieName)
-                clickOnMovie(movieTitle = theSubstanceMovieName)
+                val substanceMovieTitle = "The Substance"
+                scrollToSection()
+                assertSectionTitle(sectionTitle = "Popular")
+                waitUntilLoadMovie(movieTitle = firstMovieTitle)
+                scrollToMovie(movieTitle = substanceMovieTitle)
+                clickOnMovie(movieTitle = substanceMovieTitle)
             }
 
-            verify(exactly = 2) {
+            onMovieSection(HomeMovieSectionType.TOP_RATED) {
+                val gladiatorMovieTitle = "Gladiator II"
+                scrollToSection()
+                assertSectionTitle(sectionTitle = "Top Rated")
+                waitUntilLoadMovie(movieTitle = firstMovieTitle)
+                scrollToMovie(movieTitle = gladiatorMovieTitle)
+                clickOnMovie(movieTitle = gladiatorMovieTitle)
+            }
+
+            onMovieSection(HomeMovieSectionType.UPCOMING) {
+                val redOneMovieTitle = "Red One"
+                scrollToSection()
+                assertSectionTitle(sectionTitle = "Upcoming")
+                waitUntilLoadMovie(movieTitle = firstMovieTitle)
+                scrollToMovie(movieTitle = redOneMovieTitle)
+                clickOnMovie(movieTitle = redOneMovieTitle)
+            }
+
+            verify(exactly = 4) {
                 navController.navigate(any<DetailRoute>())
             }
         }
     }
-
-//    @Test
-//    fun whenThereIsAnErrorToLoadTheMovies_ShouldShowErrorState() {
-//        val state = HomeScreenState.initialState().copy(
-//            topBannerMovies = UiStateList.Failure("Error"),
-//            movieSectionMap = mapOf(
-//                HomeMovieSectionType.POPULAR to HomeScreenState.MovieSectionState(
-//                    HomeMovieSectionType.POPULAR,
-//                    title = R.string.home_popular_section_title,
-//                    uiState = UiStateList.Failure("Error")
-//                ),
-//            )
-//        )
-//
-//        composeTestRule.when (state)
-//
-//        topBannerRobot {
-//            assertFeedbackMessage("There was an error on loading the movies now playing.")
-//            assertFeedbackButtonText("Try again")
-//            clickOnFeedbackButton()
-//        }
-//
-//        movieSectionRobot {
-//            assertSectionTitle("Popular")
-//            assertFeedbackMessage("There was an error, try again.")
-//            assertFeedbackButtonText("Try again")
-//            clickOnFeedbackButton()
-//        }
-//
-//        verify {
-//            onRetryLoadTopBanner()
-//            onRetryLoadSection(HomeMovieSectionType.POPULAR)
-//        }
-//    }
 }

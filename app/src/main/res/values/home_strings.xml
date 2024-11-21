@@ -13,4 +13,5 @@
     <string name="home_section_top_banner_movie_content_description">Movie %1$s on the top banner section</string>
     <string name="home_section_scrollable_top_banner_content_description">Top banner horizontal pager</string>
     <string name="home_section_top_banner_movie_card_content_description">Movie %1$s on top banner</string>
+    <string name="home_sections_content_description">Home sections</string>
 </resources>

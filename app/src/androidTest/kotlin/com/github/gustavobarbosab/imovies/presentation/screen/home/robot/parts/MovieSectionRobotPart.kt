@@ -17,9 +17,10 @@ private typealias SectionMovieName = String
 @OptIn(ExperimentalTestApi::class)
 interface MovieSectionRobotPart {
 
-    fun assertTitle(expectedText: String)
+    fun scrollToSection()
+    fun assertSectionTitle(sectionTitle: String)
     fun assertFeedbackMessage(expectedText: String)
-    fun assertFeedbackButtonText(text: String)
+    fun assertFeedbackButtonText(expectedText: String)
     fun clickOnFeedbackButton()
     fun waitUntilLoadMovie(movieTitle: String, timeoutMillis: Long = 2000)
     fun clickOnMovie(movieTitle: String)
@@ -32,6 +33,10 @@ interface MovieSectionRobotPart {
     ) : MovieSectionRobotPart {
 
         // region Node Matcher
+        private val parentLazyRowNodeMatcher = hasContentDescription(
+            testContext.getString(R.string.home_sections_content_description)
+        )
+
         private val sectionTitleNodeMatcher = hasContentDescription(
             testContext.getString(
                 R.string.home_movie_section_title_content_description,
@@ -40,6 +45,13 @@ interface MovieSectionRobotPart {
         )
 
         private val lazyRowNodeMatcher = hasContentDescription(
+            testContext.getString(
+                R.string.home_movie_section_list_content_description,
+                sectionType.title
+            )
+        )
+
+        private val sectionLazyRow = hasContentDescription(
             testContext.getString(
                 R.string.home_movie_section_list_content_description,
                 sectionType.title
@@ -65,10 +77,16 @@ interface MovieSectionRobotPart {
 
         operator fun invoke(block: MovieSectionRobotPart.() -> Unit) = block()
 
-        override fun assertTitle(expectedText: String) {
+        override fun scrollToSection() {
+            composeTest
+                .onNode(parentLazyRowNodeMatcher)
+                .performScrollToNode(sectionLazyRow)
+        }
+
+        override fun assertSectionTitle(sectionTitle: String) {
             composeTest
                 .onNode(sectionTitleNodeMatcher)
-                .assertTextEquals(expectedText)
+                .assertTextEquals(sectionTitle)
         }
 
         override fun waitUntilLoadMovie(movieTitle: String, timeoutMillis: Long) {
@@ -95,8 +113,8 @@ interface MovieSectionRobotPart {
             feedbackContainerRobotPart.assertFeedbackMessage(expectedText)
         }
 
-        override fun assertFeedbackButtonText(text: String) {
-            feedbackContainerRobotPart.assertFeedbackButtonText(text)
+        override fun assertFeedbackButtonText(expectedText: String) {
+            feedbackContainerRobotPart.assertFeedbackButtonText(expectedText)
         }
 
         override fun clickOnFeedbackButton() {
