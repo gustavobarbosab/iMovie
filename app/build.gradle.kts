@@ -83,9 +83,9 @@ dependencies {
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.viewmodel.compose)
-    implementation(libs.androidx.ui)
-    implementation(libs.androidx.ui.graphics)
-    implementation(libs.androidx.ui.tooling.preview)
+    implementation(libs.androidx.compose.ui)
+    implementation(libs.androidx.compose.graphics)
+    implementation(libs.androidx.compose.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(libs.navigation.compose)
 
@@ -94,8 +94,8 @@ dependencies {
     implementation(libs.androidx.navigation.testing)
 
     // Debug
-    debugImplementation(libs.androidx.ui.tooling)
-    debugImplementation(libs.androidx.ui.test.manifest)
+    debugImplementation(libs.androidx.compose.tooling)
+    debugImplementation(libs.androidx.compose.test.manifest)
 
     // Network
     implementation(libs.retrofit)
@@ -119,7 +119,8 @@ dependencies {
     testImplementation(libs.coroutine.test)
     testImplementation(libs.robolectric)
     testImplementation(libs.androidx.test.core)
-    testImplementation(libs.androidx.ui.test.junit4)
+    testImplementation(libs.androidx.compose.test.junit4)
+    testImplementation(project(":app:sharedtest"))
 
     // Android Test
     androidTestImplementation(libs.androidx.junit)
@@ -129,12 +130,13 @@ dependencies {
     androidTestImplementation(libs.androidx.test.runner)
     androidTestUtil(libs.androidx.test.orchestrator)
     androidTestImplementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation(libs.androidx.ui.test.junit4)
+    androidTestImplementation(libs.androidx.compose.test.junit4)
     androidTestImplementation(libs.hilt.test)
     androidTestImplementation(libs.hilt.compose)
-    androidTestImplementation(libs.mockk.android.test)
     kspAndroidTest(libs.hilt.compiler)
+    androidTestImplementation(libs.mockk.android.test)
     androidTestImplementation(libs.mockwebserver)
+    androidTestImplementation(project(":app:sharedtest"))
 }
 
 fun readProperties(
