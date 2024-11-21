@@ -31,10 +31,9 @@ android {
 dependencies {
     implementation(project(":app"))
     implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
+    implementation(libs.androidx.material3)
     implementation(libs.junit)
-    implementation(libs.ext.junit)
+    implementation(libs.androidx.junit)
     implementation(libs.androidx.espresso.core)
     implementation(libs.androidx.compose.test.junit4)
     implementation(libs.hilt.test)

@@ -21,5 +21,7 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "iMovies"
-include(":app")
- 
+include(
+    ":app",
+    ":app:sharedtest"
+)
