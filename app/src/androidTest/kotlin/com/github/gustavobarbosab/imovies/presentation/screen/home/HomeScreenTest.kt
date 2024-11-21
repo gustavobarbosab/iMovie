@@ -116,4 +116,51 @@ class HomeScreenTest {
             }
         }
     }
+
+    @Test
+    fun whenThereIsAnErrorToLoadTheMovies_ShouldShowErrorState() {
+        // GIVEN
+        mockHomeServer {
+            popularMoviesFailure()
+            topRatedMoviesFailure()
+            nowPlayingMoviesFailure()
+            upcomingMoviesFailure()
+        }
+
+        // WHEN
+        startTest()
+
+        // THEN
+        homeRobot {
+            onTopBanner {
+                assertFeedbackMessage("There was an error on loading the movies now playing.")
+                assertFeedbackButtonText("Try again")
+                clickOnFeedbackButton()
+            }
+
+            onMovieSection(HomeMovieSectionType.POPULAR) {
+                assertSectionTitle("Popular")
+                scrollToSection()
+                assertFeedbackMessage("There was an error, try again.")
+                assertFeedbackButtonText("Try again")
+                clickOnFeedbackButton()
+            }
+
+            onMovieSection(HomeMovieSectionType.TOP_RATED) {
+                assertSectionTitle("Top Rated")
+                scrollToSection()
+                assertFeedbackMessage("There was an error, try again.")
+                assertFeedbackButtonText("Try again")
+                clickOnFeedbackButton()
+            }
+
+            onMovieSection(HomeMovieSectionType.UPCOMING) {
+                assertSectionTitle("Upcoming")
+                scrollToSection()
+                assertFeedbackMessage("There was an error, try again.")
+                assertFeedbackButtonText("Try again")
+                clickOnFeedbackButton()
+            }
+        }
+    }
 }

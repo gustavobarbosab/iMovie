@@ -16,24 +16,16 @@ class FeedbackContainerRobotPart(
     testContext: Context,
     parentContainerNodeMatcher: SemanticsMatcher
 ) {
-
-    private val feedbackContainerNodeMatcher = hasContentDescription(
-        testContext.getString(R.string.home_movie_section_error_content_description)
-    )
-
     private val feedbackIconNodeMatcher =
         hasAnyAncestor(parentContainerNodeMatcher) and
-                hasParent(feedbackContainerNodeMatcher) and
                 hasContentDescription(testContext.getString(R.string.feedback_container_icon_content_description))
 
     private val feedbackMessageNodeMatcher =
         hasAnyAncestor(parentContainerNodeMatcher) and
-                hasParent(feedbackContainerNodeMatcher) and
                 hasContentDescription(testContext.getString(R.string.feedback_container_message_content_description))
 
     private val feedbackButtonNodeMatcher =
         hasAnyAncestor(parentContainerNodeMatcher) and
-                hasParent(feedbackContainerNodeMatcher) and
                 hasContentDescription(testContext.getString(R.string.feedback_container_button_content_description))
 
     fun assertFeedbackMessage(expectedText: String) {
