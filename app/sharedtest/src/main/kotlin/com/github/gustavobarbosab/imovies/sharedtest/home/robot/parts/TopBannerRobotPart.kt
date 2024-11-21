@@ -1,4 +1,4 @@
-package com.github.gustavobarbosab.imovies.presentation.screen.home.robot.parts
+package com.github.gustavobarbosab.imovies.sharedtest.home.robot.parts
 
 import android.content.Context
 import androidx.compose.ui.test.ExperimentalTestApi
@@ -8,7 +8,7 @@ import androidx.compose.ui.test.hasContentDescription
 import androidx.compose.ui.test.junit4.ComposeTestRule
 import androidx.compose.ui.test.performClick
 import com.github.gustavobarbosab.imovies.R
-import com.github.gustavobarbosab.imovies.common.FeedbackContainerRobotPart
+import com.github.gustavobarbosab.imovies.sharedtest.common.robot.FeedbackContainerRobotPart
 
 private typealias TopBannerMovieName = String
 
@@ -77,5 +77,4 @@ interface TopBannerRobotPart {
                 .performClick()
         }
     }
-
 }

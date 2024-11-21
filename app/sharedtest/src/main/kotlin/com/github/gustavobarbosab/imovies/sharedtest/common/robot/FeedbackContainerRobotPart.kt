@@ -1,4 +1,4 @@
-package com.github.gustavobarbosab.imovies.common
+package com.github.gustavobarbosab.imovies.sharedtest.common.robot
 
 import android.content.Context
 import androidx.compose.ui.test.SemanticsMatcher

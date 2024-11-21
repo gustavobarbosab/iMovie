@@ -1,10 +1,10 @@
-package com.github.gustavobarbosab.imovies.presentation.screen.home.robot
+package com.github.gustavobarbosab.imovies.sharedtest.home.robot
 
 import android.content.Context
 import androidx.compose.ui.test.junit4.ComposeTestRule
 import com.github.gustavobarbosab.imovies.presentation.screen.home.model.HomeMovieSectionType
-import com.github.gustavobarbosab.imovies.presentation.screen.home.robot.parts.MovieSectionRobotPart
-import com.github.gustavobarbosab.imovies.presentation.screen.home.robot.parts.TopBannerRobotPart
+import com.github.gustavobarbosab.imovies.sharedtest.home.robot.parts.MovieSectionRobotPart
+import com.github.gustavobarbosab.imovies.sharedtest.home.robot.parts.TopBannerRobotPart
 
 class HomeRobot(
     private val composeTestRule: ComposeTestRule,
