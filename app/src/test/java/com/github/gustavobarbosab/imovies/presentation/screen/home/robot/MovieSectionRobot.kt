@@ -19,7 +19,7 @@ class MovieSectionRobot(
     private val sectionType: HomeMovieSectionType
 ) {
     private val onMovieSection
-        get() = composeTest.onNodeWithTag(sectionType.name)
+        get() = composeTest.onNodeWithTag(sectionType.title)
 
     private val onFeedbackContainer
         get() = onMovieSection

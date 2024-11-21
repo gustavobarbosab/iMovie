@@ -19,8 +19,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -46,12 +49,11 @@ fun MovieSection(
     onRetry: () -> Unit,
     onMovieClicked: (HomeMovieModel) -> Unit
 ) {
-    when (sectionState.uiState) {
+    if (sectionState.uiState is UiStateList.EmptyList) {
         // To simplify the implementation we are not handling these states
-        is UiStateList.EmptyList -> return
-
-        else -> Unit
+        return
     }
+    val context = LocalContext.current
 
     Surface(
         modifier = modifier,
@@ -63,9 +65,15 @@ fun MovieSection(
         Column(
             Modifier
                 .padding(MaterialTheme.spacing.medium)
-                .testTag(sectionState.sectionType.name)
+                .testTag(sectionState.sectionType.title)
         ) {
             Text(
+                modifier = Modifier.semantics {
+                    contentDescription = context.getString(
+                        R.string.home_movie_section_title_content_description,
+                        sectionState.sectionType.title
+                    )
+                },
                 text = stringResource(sectionState.title),
                 style = MaterialTheme.typography.titleLarge,
                 fontWeight = FontWeight.Bold,
@@ -74,9 +82,13 @@ fun MovieSection(
                 modifier = Modifier
                     .height(MaterialTheme.spacing.medium)
             )
-
             LazyRow(
-                modifier = Modifier.testTag("MoviesList"),
+                modifier = Modifier.semantics {
+                    contentDescription = context.getString(
+                        R.string.home_movie_section_list_content_description,
+                        sectionState.sectionType.title
+                    )
+                },
                 contentPadding = PaddingValues(start = MaterialTheme.spacing.small),
                 horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)
             ) {
@@ -84,11 +96,20 @@ fun MovieSection(
                     UiStateList.Loading -> SkeletonItems()
 
                     is UiStateList.Success -> MovieListItems(
+                        sectionType = sectionState.sectionType,
                         movies = uiState.data,
                         onMovieClicked = onMovieClicked
                     )
 
-                    is UiStateList.Failure -> ErrorItem(onRetry)
+                    is UiStateList.Failure -> ErrorItem(
+                        Modifier.semantics {
+                            contentDescription = context.getString(
+                                R.string.home_movie_section_error_content_description,
+                                sectionState.sectionType.title
+                            )
+                        },
+                        onRetry
+                    )
 
                     else -> Unit
                 }
@@ -98,15 +119,23 @@ fun MovieSection(
 }
 
 private fun LazyListScope.MovieListItems(
+    sectionType: HomeMovieSectionType,
     movies: List<HomeMovieModel>,
     onMovieClicked: (HomeMovieModel) -> Unit
 ) {
     items(items = movies, key = { movie -> movie.id }) { movie ->
+        val context = LocalContext.current
         MovieCard(
             modifier = Modifier
                 .clip(MaterialTheme.shapes.medium)
                 .sizeIn(minHeight = MOVIE_CARD_HEIGHT, minWidth = MOVIE_CARD_WIDTH)
-                .testTag(movie.title),
+                .semantics {
+                    contentDescription = context.getString(
+                        R.string.home_movie_card_content_description,
+                        movie.title,
+                        sectionType.title
+                    )
+                },
             imagePath = movie.posterPath,
             onClick = { onMovieClicked(movie) }
         )
@@ -124,11 +153,17 @@ private fun LazyListScope.SkeletonItems() {
     }
 }
 
-private fun LazyListScope.ErrorItem(onRetry: () -> Unit) {
+private fun LazyListScope.ErrorItem(
+    modifier: Modifier = Modifier,
+    onRetry: () -> Unit
+) {
     item("error") {
         FeedbackContainer(
-            modifier = Modifier
+            modifier = modifier
                 .padding(MaterialTheme.spacing.medium)
+                .semantics {
+                    contentDescription = "Movie Section Error"
+                }
                 .fillMaxWidth(),
             onRetry = onRetry,
             message = stringResource(R.string.home_section_failure)

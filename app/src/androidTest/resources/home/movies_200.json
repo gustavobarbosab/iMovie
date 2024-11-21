@@ -1,0 +1,213 @@
+{
+  "dates": {
+    "maximum": "2024-12-11",
+    "minimum": "2024-11-20"
+  },
+  "page": 1,
+  "results": [
+    {
+      "adult": false,
+      "backdrop_path": "/18TSJF1WLA4CkymvVUcKDBwUJ9F.jpg",
+      "genre_ids": [
+        27,
+        53,
+        9648
+      ],
+      "id": 1034541,
+      "original_language": "en",
+      "original_title": "Terrifier 3",
+      "overview": "Five years after surviving Art the Clown's Halloween massacre, Sienna and Jonathan are still struggling to rebuild their shattered lives. As the holiday season approaches, they try to embrace the Christmas spirit and leave the horrors of the past behind. But just when they think they're safe, Art returns, determined to turn their holiday cheer into a new nightmare. The festive season quickly unravels as Art unleashes his twisted brand of terror, proving that no holiday is safe.",
+      "popularity": 2614.762,
+      "poster_path": "/l1175hgL5DoXnqeZQCcU3eZIdhX.jpg",
+      "release_date": "2024-10-09",
+      "title": "Terrifier 3",
+      "video": false,
+      "vote_average": 6.9,
+      "vote_count": 925
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/7h6TqPB3ESmjuVbxCxAeB1c9OB1.jpg",
+      "genre_ids": [
+        18,
+        27,
+        878
+      ],
+      "id": 933260,
+      "original_language": "en",
+      "original_title": "The Substance",
+      "overview": "A fading celebrity decides to use a black market drug, a cell-replicating substance that temporarily creates a younger, better version of herself.",
+      "popularity": 1529.207,
+      "poster_path": "/lqoMzCcZYEFK729d6qzt349fB4o.jpg",
+      "release_date": "2024-09-07",
+      "title": "The Substance",
+      "video": false,
+      "vote_average": 7.303,
+      "vote_count": 1870
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/8mjYwWT50GkRrrRdyHzJorfEfcl.jpg",
+      "genre_ids": [
+        28,
+        12
+      ],
+      "id": 558449,
+      "original_language": "en",
+      "original_title": "Gladiator II",
+      "overview": "Years after witnessing the death of the revered hero Maximus at the hands of his uncle, Lucius is forced to enter the Colosseum after his home is conquered by the tyrannical Emperors who now lead Rome with an iron fist. With rage in his heart and the future of the Empire at stake, Lucius must look to his past to find strength and honor to return the glory of Rome to its people.",
+      "popularity": 1673.817,
+      "poster_path": "/2cxhvwyEwRlysAmRH4iodkvo0z5.jpg",
+      "release_date": "2024-11-13",
+      "title": "Gladiator II",
+      "video": false,
+      "vote_average": 7.0,
+      "vote_count": 114
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/rOmUuQEZfPXglwFs5ELLLUDKodL.jpg",
+      "genre_ids": [
+        28,
+        35,
+        14
+      ],
+      "id": 845781,
+      "original_language": "en",
+      "original_title": "Red One",
+      "overview": "After Santa Claus (codename: Red One) is kidnapped, the North Pole's Head of Security must team up with the world's most infamous bounty hunter in a globe-trotting, action-packed mission to save Christmas.",
+      "popularity": 1072.811,
+      "poster_path": "/cdqLnri3NEGcmfnqwk2TSIYtddg.jpg",
+      "release_date": "2024-10-31",
+      "title": "Red One",
+      "video": false,
+      "vote_average": 6.7,
+      "vote_count": 90
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/llIXQAndg5kB6SWlp6ouUdO7Zxd.jpg",
+      "genre_ids": [
+        28,
+        12,
+        18,
+        36,
+        10749,
+        53
+      ],
+      "id": 1084736,
+      "original_language": "fr",
+      "original_title": "Le Comte de Monte-Cristo",
+      "overview": "Edmond Dantes becomes the target of a sinister plot and is arrested on his wedding day for a crime he did not commit. After 14 years in the island prison of Château d’If, he manages a daring escape. Now rich beyond his dreams, he assumes the identity of the Count of Monte-Cristo and exacts his revenge on the three men who betrayed him.",
+      "popularity": 892.403,
+      "poster_path": "/zw4kV7npGtaqvUxvJE9IdqdFsNc.jpg",
+      "release_date": "2024-06-28",
+      "title": "The Count of Monte-Cristo",
+      "video": false,
+      "vote_average": 8.3,
+      "vote_count": 809
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/begseNUKhZcc05Bc1UggaX5GeES.jpg",
+      "genre_ids": [
+        28,
+        53,
+        80
+      ],
+      "id": 976734,
+      "original_language": "en",
+      "original_title": "Canary Black",
+      "overview": "Top level CIA agent Avery Graves is blackmailed by terrorists into betraying her own country to save her kidnapped husband. Cut off from her team, she turns to her underworld contacts to survive and help locate the coveted intelligence that the kidnappers want.",
+      "popularity": 621.459,
+      "poster_path": "/hhiR6uUbTYYvKoACkdAIQPS5c6f.jpg",
+      "release_date": "2024-10-10",
+      "title": "Canary Black",
+      "video": false,
+      "vote_average": 6.3,
+      "vote_count": 226
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/1FBHAQnq7Bs3djBmaNkfdVbnCUE.jpg",
+      "genre_ids": [
+        28,
+        53
+      ],
+      "id": 1124641,
+      "original_language": "en",
+      "original_title": "Classified",
+      "overview": "Operating alone in the field for more than 20 years, a CIA hitman uses the \"Help Wanted\" section of the newspapers to get his orders from the Agency. His long-lost daughter, now a UK MI6 analyst, tracks him down to deliver shocking news: his CIA boss has been dead for years and the division long since shut down. Together, they set out to discover whose orders he's been executing.",
+      "popularity": 616.798,
+      "poster_path": "/3k8jv1kSAAc0rCfFGtWDDQL4dfK.jpg",
+      "release_date": "2024-09-19",
+      "title": "Classified",
+      "video": false,
+      "vote_average": 5.3,
+      "vote_count": 41
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/ljNVBysYnPCwLqP3HXL7T1thZxu.jpg",
+      "genre_ids": [
+        18,
+        14,
+        10749
+      ],
+      "id": 402431,
+      "original_language": "en",
+      "original_title": "Wicked",
+      "overview": "Elphaba, an ostracized but defiant girl born with green skin, and Glinda, a privileged aristocrat born popular, become extremely unlikely friends in the magical Land of Oz. As the two girls struggle with their opposing personalities, their friendship is tested as both begin to fulfill their destinies as Glinda the Good and The Wicked Witch of the West.",
+      "popularity": 417.746,
+      "poster_path": "/c5Tqxeo1UpBvnAc3csUm7j3hlQl.jpg",
+      "release_date": "2024-11-20",
+      "title": "Wicked",
+      "video": false,
+      "vote_average": 7.3,
+      "vote_count": 10
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/Asg2UUwipAdE87MxtJy7SQo08XI.jpg",
+      "genre_ids": [
+        28,
+        14,
+        27
+      ],
+      "id": 957452,
+      "original_language": "en",
+      "original_title": "The Crow",
+      "overview": "Soulmates Eric and Shelly are brutally murdered when the demons of her dark past catch up with them. Given the chance to save his true love by sacrificing himself, Eric sets out to seek merciless revenge on their killers, traversing the worlds of the living and the dead to put the wrong things right.",
+      "popularity": 396.043,
+      "poster_path": "/58QT4cPJ2u2TqWZkterDq9q4yxQ.jpg",
+      "release_date": "2024-08-21",
+      "title": "The Crow",
+      "video": false,
+      "vote_average": 5.9,
+      "vote_count": 743
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/hd1TvTUGjkoYoqvXYfSBpI5Ri9B.jpg",
+      "genre_ids": [
+        16,
+        28,
+        12,
+        878
+      ],
+      "id": 1159311,
+      "original_language": "ja",
+      "original_title": "僕のヒーローアカデミア THE MOVIE ユアネクスト",
+      "overview": "In a society devastated by the effects of an all-out war between heroes and villains, a mysterious giant fortress suddenly appears, engulfing towns and people one after another. Then, a man reminiscent of All Might, the 'symbol of peace', stands in front of Izuku and his friends...",
+      "popularity": 368.386,
+      "poster_path": "/8rdB1wkheEMMqcY8qLAKjCMPcnZ.jpg",
+      "release_date": "2024-08-02",
+      "title": "My Hero Academia: You're Next",
+      "video": false,
+      "vote_average": 6.9,
+      "vote_count": 50
+    }
+  ],
+  "total_pages": 53,
+  "total_results": 1056
+}

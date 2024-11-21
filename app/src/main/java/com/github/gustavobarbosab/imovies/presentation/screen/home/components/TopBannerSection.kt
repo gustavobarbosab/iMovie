@@ -15,8 +15,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import com.github.gustavobarbosab.imovies.R
 import com.github.gustavobarbosab.imovies.common.ui.UiStateList
 import com.github.gustavobarbosab.imovies.common.ui.compose.RecurrentTaskLaunchEffect
@@ -35,14 +38,19 @@ fun TopBannerSection(
     onRetry: () -> Unit,
     onMovieClicked: (HomeMovieModel) -> Unit
 ) {
+    val context = LocalContext.current
     Box(
-        modifier.testTag("TopBannerSection")
+        modifier.semantics {
+            contentDescription =
+                context.getString(R.string.home_section_top_banner_content_description)
+        }
     ) {
         when (sectionState) {
             UiStateList.Loading -> TopBannerLoading(Modifier.matchParentSize())
 
             is UiStateList.Success -> AutoScrollableMoviesPager(
-                Modifier.matchParentSize(),
+                Modifier
+                    .matchParentSize(),
                 sectionState.data,
                 pagerSize = pagerSize,
                 onMovieClicked = onMovieClicked
@@ -67,6 +75,7 @@ fun AutoScrollableMoviesPager(
     onMovieClicked: (HomeMovieModel) -> Unit
 ) {
     val pagerState = rememberPagerState(pageCount = { pagerSize })
+    val context = LocalContext.current
 
     RecurrentTaskLaunchEffect(pagerState, delayInMillis = 2000) {
         val nextPage = (pagerState.currentPage + 1) % pagerSize
@@ -74,7 +83,10 @@ fun AutoScrollableMoviesPager(
     }
 
     HorizontalPager(
-        modifier = modifier,
+        modifier = modifier.semantics {
+            contentDescription =
+                context.getString(R.string.home_section_scrollable_top_banner_content_description)
+        },
         state = pagerState
     ) { page ->
         val movie = movies[page]
@@ -82,7 +94,13 @@ fun AutoScrollableMoviesPager(
             MovieCard(
                 modifier = Modifier
                     .fillMaxSize()
-                    .aspectRatio(MaterialTheme.spacing.MovieCardDefaults.backDropRatio),
+                    .aspectRatio(MaterialTheme.spacing.MovieCardDefaults.backDropRatio)
+                    .semantics {
+                        contentDescription = context.getString(
+                            R.string.home_section_top_banner_movie_content_description,
+                            movie.title,
+                        )
+                    },
                 imagePath = movie.backdropPath,
                 onClick = { onMovieClicked(movie) }
             )
@@ -97,7 +115,13 @@ fun AutoScrollableMoviesPager(
                         .padding(
                             horizontal = MaterialTheme.spacing.medium,
                             vertical = MaterialTheme.spacing.small,
-                        ),
+                        )
+                        .semantics {
+                            contentDescription = context.getString(
+                                R.string.home_section_top_banner_movie_card_content_description,
+                                movie.title
+                            )
+                        },
                     text = movie.title,
                     style = MaterialTheme.typography.titleLarge,
                 )

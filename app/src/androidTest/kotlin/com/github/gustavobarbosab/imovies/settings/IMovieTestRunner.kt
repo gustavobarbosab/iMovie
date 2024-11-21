@@ -7,7 +7,9 @@ import dagger.hilt.android.testing.HiltTestApplication
 
 class IMovieTestRunner : AndroidJUnitRunner() {
 
-    override fun newApplication(cl: ClassLoader?, name: String?, context: Context?): Application {
-        return super.newApplication(cl, HiltTestApplication::class.java.name, context)
-    }
+    override fun newApplication(
+        cl: ClassLoader?,
+        name: String?,
+        context: Context?
+    ): Application = super.newApplication(cl, HiltTestApplication::class.java.name, context)
 }

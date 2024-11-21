@@ -11,7 +11,22 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Named
 import javax.inject.Singleton
+
+@Module
+@InstallIn(SingletonComponent::class)
+class NetworkParamsModule {
+
+    @Provides
+    @Singleton
+    @Named(BASE_URL)
+    fun provideBaseUrl() = BuildConfig.BASE_URL
+
+    companion object {
+        const val BASE_URL = "BASE_URL"
+    }
+}
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -19,9 +34,12 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
+    fun provideRetrofit(
+        okHttpClient: OkHttpClient,
+        @Named(NetworkParamsModule.BASE_URL) baseUrl: String
+    ): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(BuildConfig.BASE_URL)
+            .baseUrl(baseUrl)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(ServiceResponseCallAdapterFactory.create())
             .client(okHttpClient)

@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">iMovies</string>
+    <string name="feedback_container_icon_content_description">Feedback icon</string>
+    <string name="feedback_container_button_content_description">Feedback button</string>
+    <string name="feedback_container_message_content_description">Feedback message</string>
 </resources>

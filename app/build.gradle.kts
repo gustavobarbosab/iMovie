@@ -20,7 +20,7 @@ android {
     defaultConfig {
         applicationId = "com.github.gustavobarbosab.imovies"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -39,13 +39,16 @@ android {
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
     buildFeatures {
         compose = true
         buildConfig = true
@@ -55,6 +58,13 @@ android {
         unitTests {
             isIncludeAndroidResources = true
             isReturnDefaultValues = true
+        }
+    }
+
+    sourceSets {
+        getByName("androidTest") {
+            java.srcDir("src/androidTest/kotlin")
+            manifest.srcFile("src/androidTest/AndroidManifest.xml")
         }
     }
 
@@ -81,6 +91,7 @@ dependencies {
 
     // Kotlin
     implementation(libs.kotlin.serialization)
+    implementation(libs.androidx.navigation.testing)
 
     // Debug
     debugImplementation(libs.androidx.ui.tooling)
@@ -123,6 +134,7 @@ dependencies {
     androidTestImplementation(libs.hilt.compose)
     androidTestImplementation(libs.mockk.android.test)
     kspAndroidTest(libs.hilt.compiler)
+    androidTestImplementation(libs.mockwebserver)
 }
 
 fun readProperties(
