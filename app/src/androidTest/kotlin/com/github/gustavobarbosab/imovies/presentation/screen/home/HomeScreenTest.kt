@@ -136,24 +136,24 @@ class HomeScreenTest {
             }
 
             onMovieSection(HomeMovieSectionType.POPULAR) {
-                assertSectionTitle("Popular")
                 scrollToSection()
+                assertSectionTitle("Popular")
                 assertFeedbackMessage("There was an error, try again.")
                 assertFeedbackButtonText("Try again")
                 clickOnFeedbackButton()
             }
 
             onMovieSection(HomeMovieSectionType.TOP_RATED) {
-                assertSectionTitle("Top Rated")
                 scrollToSection()
+                assertSectionTitle("Top Rated")
                 assertFeedbackMessage("There was an error, try again.")
                 assertFeedbackButtonText("Try again")
                 clickOnFeedbackButton()
             }
 
             onMovieSection(HomeMovieSectionType.UPCOMING) {
-                assertSectionTitle("Upcoming")
                 scrollToSection()
+                assertSectionTitle("Upcoming")
                 assertFeedbackMessage("There was an error, try again.")
                 assertFeedbackButtonText("Try again")
                 clickOnFeedbackButton()
