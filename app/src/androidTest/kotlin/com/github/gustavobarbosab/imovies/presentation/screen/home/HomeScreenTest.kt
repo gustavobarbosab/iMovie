@@ -9,9 +9,9 @@ import com.github.gustavobarbosab.imovies.HiltTestActivity
 import com.github.gustavobarbosab.imovies.core.data.di.NetworkParamsModule
 import com.github.gustavobarbosab.imovies.presentation.screen.detail.DetailRoute
 import com.github.gustavobarbosab.imovies.presentation.screen.home.model.HomeMovieSectionType
-import com.github.gustavobarbosab.imovies.presentation.screen.home.robot.HomeRobot
 import com.github.gustavobarbosab.imovies.presentation.screen.home.server.HomeMockServer
 import com.github.gustavobarbosab.imovies.presentation.theme.IMoviesTheme
+import com.github.gustavobarbosab.imovies.sharedtest.home.robot.HomeRobot
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
@@ -37,10 +37,7 @@ class HomeScreenTest {
     private val navController = mockk<NavController>(relaxed = true)
     private val mockHomeServer = HomeMockServer()
     private val testContext = InstrumentationRegistry.getInstrumentation().targetContext
-    private val homeRobot = HomeRobot(
-        composeTestRule,
-        testContext
-    )
+    private val homeRobot = HomeRobot(composeTestRule, testContext)
 
     private fun startTest() {
         val viewModel by composeTestRule.activity.viewModels<HomeScreenViewModel>()

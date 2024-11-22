@@ -1,4 +1,4 @@
-package com.github.gustavobarbosab.imovies.sharedtest
+package com.github.gustavobarbosab.imovies
 
 import androidx.activity.ComponentActivity
 import dagger.hilt.android.AndroidEntryPoint

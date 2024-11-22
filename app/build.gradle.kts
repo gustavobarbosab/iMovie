@@ -62,9 +62,14 @@ android {
     }
 
     sourceSets {
+        getByName("main") {
+            kotlin.srcDir("src/main/kotlin")
+        }
         getByName("androidTest") {
-            java.srcDir("src/androidTest/kotlin")
-            manifest.srcFile("src/androidTest/AndroidManifest.xml")
+            kotlin.srcDir("src/androidTest/kotlin")
+        }
+        getByName("test") {
+            kotlin.srcDir("src/test/kotlin")
         }
     }
 

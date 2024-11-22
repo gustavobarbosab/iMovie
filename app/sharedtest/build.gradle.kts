@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.github.gustavobarbosab.imovies.sharedtest"
+    namespace = "com.github.gustavobarbosab.imovies.test"
     compileSdk = 35
 
     defaultConfig {
