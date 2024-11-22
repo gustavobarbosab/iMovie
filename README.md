@@ -22,9 +22,22 @@ In this project, we use some of the best libraries to create an Android project.
 - [X] Mockk
 - [X] MVI - Model-View-Intent
 - [X] Dark and Light themes
+- [X] Instrumented tests
+  - [X] MockWebServer
+  - [X] Compose
+  - [X] Robot Pattern
+  - [X] Hilt
+  - [X] Espresso
+  - [X] Mockk
+  - [X] Shared tests module
+- [X] Unit tests
+  - [X] Robolectric
+  - [X] Compose
+  - [X] Mockk
+  - [X] Robot Pattern
+  - [X] Shared tests
 - [ ] Modularization
 - [ ] Composite build
-- [ ] UI Tests
 - [ ] Detekt
 - [ ] Ktlint
 
